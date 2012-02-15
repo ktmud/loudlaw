@@ -10,7 +10,7 @@
 
 ## 技术实现····
 
-node.js + express + couchdb + couchdb-lucene + nginx proxy + seajs + less
+node.js + express + couchdb + couchdb-lucene + nginx proxy + seajs + less + responsive design
 
 有没有很 fashion !
 
