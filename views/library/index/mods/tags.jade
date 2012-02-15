@@ -1,0 +1,25 @@
+.submod
+  .hd
+    h2.h-leading
+      span 全文搜索
+  .bd
+    form.sform(action="/search")
+      p
+        label(for="inp-q") 关键字：
+        input.text(id="inp-q", name="q", size="20")
+        button.btn-submit.btn-submit-weak(type="submit")
+          span.i 搜索
+.hr-inset3
+.submod
+  .hd
+    h2.h-leading
+      span 按标签
+        sub.more
+          a(href="/tags") 所有&raquo;
+  .bd
+    div.tags
+      each tag, i in data
+        if tag && tag._id
+          a(href="/tag-#{tag._id}")
+            s
+            #{tag.name || tag._id}

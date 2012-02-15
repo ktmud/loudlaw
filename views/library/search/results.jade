@@ -1,0 +1,14 @@
+if data && data.total
+  ol.search-results
+    each item in data.list
+      - fields = item.fields
+      - cur_score = Math.round(item.score * 4)
+      - if (cur_score > 10) cur_score = 10
+      li(class='score-' + cur_score)
+        a(href='/article/' + encodeURIComponent(fields.sid) + '?q=' + (data.keyword || keyword)) #{fields.title}
+  include ../../utils/pager.jade
+  if locals.pager
+    .hr-inset2
+    mixin pager()
+else
+  p.noresult 找不到相关结果。

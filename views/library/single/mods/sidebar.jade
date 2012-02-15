@@ -1,0 +1,40 @@
+.mod.toolkit-box.user-actions
+  include ../../../_blocks/share_simple
+  if locals.userActions && userActions.length
+    span.pipe
+    each action in userActions
+      a(class='btn-act ' + (action.class ? 'btn-act-' + action.class : ''),
+        id='wk-act-#{action.name}',
+        href=(action.url === '' ? baseUrl : (baseUrl + '/' + action.name)),
+        title=action.desc,
+        data-param=action.params
+      )
+        span.i #{action.text}
+if !operation
+  #toolkit.mod.toolkit-box.insetbox
+    .toggler
+    a.fn-fontsize.btn-act.btn-act-flat(href="#00", title="普通字号", data-size="1")
+      span.i A
+    a.fn-fontsize.btn-act.btn-act-flat(href="#00", title="更大字号", data-size="1.1")
+      span.i A+
+    a.fn-fontsize.btn-act.btn-act-flat(href="#00", title="超大字号", data-size="1.2")
+      span.i A++
+    span.pipe
+    a.fn-fontfamily.btn-act.btn-act-flat(href="#00", title="使用无衬线字体")
+      span.i 平
+    span.pipe
+    a.btn-act.btn-act-flat(title="打印本页", href="javascript:print()")
+      span.i 打印
+    a.btn-act.btn-act-flat(href="#{baseUrl}.md")
+      span.i 另存
+  if data.tags
+    div#tags
+  .hr-inset2
+  p.mod
+    if (data.cate)
+      a(href='/cate-#{data.cate}') &laquo;&nbsp;同类法律法规 
+if referrer.indexOf('#{SITE_ROOT}/adm') > -1
+  p.mod
+    a(href=referrer) &laquo;&nbsp;返回管理页面
+include ./comment.jade
+include ./flag.jade

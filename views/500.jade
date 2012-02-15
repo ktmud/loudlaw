@@ -1,0 +1,29 @@
+style
+  pre {
+  }
+  pre.stack {
+    background: #000; color: green; padding: 15px 20px 12px; font-family: 'courier new', consolas, simsun;
+    border-radius: 4px;
+  }
+- var msg = msg && msg.msg || '我们的程序好像遇到一点问题'
+- var timestamp = central.utils.timestamp()
+- var dev_mode = (global.central.conf.env == 'development')
+#main-body.fwrap
+  div.box-notice
+    form(action="/misc/email/500", method='post')
+      h2 500 服务器错误 
+      p
+        很抱歉，#{msg}
+      p
+        您可以在此输入有关错误的详细信息: 
+      p
+        textarea.text(name="comments", autofocus, tabindex="1", cols="40", rows="5") 出错前的操作：
+      p
+        input(type="hidden", name="_csrf", value=ck)
+        input(type="hidden", name="subject", value=msg)
+        input(type="hidden", name="onesalt", value=onesalt)
+        input(type="hidden", name="timestamp", value=timestamp)
+        button#btn-go.btn-submit(type="submit", tabindex="2")
+          span.i 点此通知管理员
+      if dev_mode || (locals.user && locals.user.isAdmin)
+        pre.stack #{err}

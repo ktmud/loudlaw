@@ -1,0 +1,73 @@
+@import "public/css/_vars";
+
+#get-in, .aside, #footer-1, .header-border, a[href="#00"], .copyright {
+  display: none !important;
+}
+body, .fwrap {
+  min-width: 10em;
+}
+#header {
+  border-bottom: 1px solid #ccc !important;
+  .box-shadow(none);
+  .fwrap {
+    padding: 5px 10px;
+  }
+}
+#logo {
+  a { 
+    text-indent: 0;
+    text-align: center;
+    border: none !important;
+    color: #666 !important;
+    width: auto;
+    font-size: 26px;
+  }
+}
+.article {
+  color: #000;
+  margin-left: 0;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  .box-shadow(none);
+
+  h1 {
+    position: static;
+    text-align: center;
+    background: none;
+    color: #000;
+    overflow: visible;
+    font-size: 1.4em;
+    line-height: 1.4em;
+    text-shadow: none;
+  }
+  h2, h3, dt {
+    color: #333;
+  }
+}
+.article-body {
+  color: #000;
+  text-shadow: none;
+  padding: 40px 10px 0 10px;
+}
+.article-body p {
+  text-indent: 2em;
+}
+.article-body dd p {
+  text-indent: 1em;
+}
+.article-body p a:after {
+  content: " ("attr(href)") ";
+}
+
+#footer {
+  height: auto;
+}
+#footer-2 {
+  position: static;
+}
+#footer-2 .left:after {
+  content: " (http://www.dakanfa.com)";
+}
+#footer-2 .fwrap {
+  padding: 20px 0;
+}

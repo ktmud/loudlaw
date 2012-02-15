@@ -1,0 +1,6 @@
+div.tags.box-info
+  each tag in tags
+    if tag && tag._id
+      a(href="/tag-#{tag._id}")
+        s
+        #{tag.name || tag._id}

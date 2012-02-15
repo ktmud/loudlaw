@@ -1,0 +1,210 @@
+
+.article {
+  padding: 20px 0;
+  position: relative;
+  z-index: 10;
+  min-height: 300px;
+  background: @bg-main;
+}
+.article-body {
+  font-family: @serif; 
+  text-shadow: 0 1px 1px rgba(0,0,0,0.7);
+
+  .h-leading {
+    font-family: @sans-serif;
+  }
+
+  h2, h3, h4 {
+    font-family: @kai;
+    a {
+      border-bottom: 1px dashed #666;
+      &:hover {
+        text-decoration: none;
+        border-bottom-style: solid;
+      }
+    }
+  }
+  ol,
+  ul {
+    margin-bottom: 1em;
+    margin-left: 1em;
+  }
+  li {
+    padding-bottom: 0.4em;
+  }
+  p {
+    text-align: justify;
+  }
+  font {
+    font-size: inherit;
+  }
+  dt {
+    font: 600 1.15em '方正楷体繁体', '方正楷体简体', '楷体', Kai, Hei;
+    margin: 1.2em 0 0.7em;
+  }
+  dd {
+    margin: 0.4em 0 1.2em 1.15em;
+  }
+}
+.aside {
+  font-size: 90%;
+  width: 240px;
+  position: absolute;
+  z-index: 0;
+  padding: 30px 0;
+  top: 0;
+  left: 10px;
+  height: 100%;
+  zoom: 1;
+}
+
+.main-content {
+  max-width: 1192px;
+  padding: 0;
+  position: relative;
+  top: 4px;
+  z-index: 1;
+  border: 4px solid #2b2c2f;
+  margin-top: -3px;
+  border-top: 0;
+  border-color: rgba(0,0,0,0.08);
+
+  .article, .supple {
+    background: #2c2c2f;
+    padding: 30px 20px 50px;
+  }
+}
+ 
+ /*---页头-- */
+.header-border {
+  position: absolute;
+  z-index: 11;
+  height: 0;
+  width: 100%;
+  border-top: @header-border-top-height solid rgba(0,0,0,0.1);
+}
+.header-border-bottom {
+  margin-top:  -3px;
+  height: 2px;
+  border-top: 1px dashed rgba(255,255,255,0.2);
+  border-bottom: 3px solid rgba(0,0,0,0.15);
+}
+
+#header {
+  .fwrap { 
+    position: relative;
+    padding: 15px 20px 12px;
+  }
+  .btn-act {
+    .box-shadow(0 0 3px rgba(0,0,0,0.1));
+    &:hover {
+      .box-shadow(~'0 0 4px rgba(0,0,0,0.3) !important');
+    }
+    .i {
+      padding: 0 0.3em 1px;
+      _padding: 1px 0.3em 0;
+    }
+  }
+  p {
+    margin: 0;
+  }
+  .pipe {
+    border-style: solid;
+    border-width: 0 1px;
+    height: 1.6em;
+    width: 0;
+    display: inline-block;
+    margin-right: 1em;
+    margin-left: 0.6em;
+    vertical-align: middle;
+  }
+  
+  position: relative;
+  z-index: 11;
+
+  border-bottom: 1px solid;
+  .box-shadow(0 1px 6px rgba(0,0,0,0.6));
+}
+#logo {
+  display: inline;
+  margin: 0;
+  margin-left: -10px;
+  a {
+    display: inline-block;
+    margin-right: 10px;
+    width: 158px;
+    height: 38px;
+    font: 600 30px/38px '微软雅黑';
+    background: url(../img/logo-tiny.png) no-repeat 50% 60%;
+    _background-image: url(../img/logo-tiny-ie6.png);
+    border: 1px solid;
+    text-indent: -999em;
+    .rc(2px);
+  }
+}
+#header #sublogo {
+  display: inline;
+  vertical-align: text-bottom;
+  font: 400 120%/1 '微软雅黑', '黑体', sans-serif;
+  letter-spacing: 0.1em;
+  text-align: center;
+
+  a {
+    display: inline-block;
+    padding-bottom: 4px;
+  }
+  a:hover {
+    text-decoration: none;
+    border-bottom: 2px solid;
+    padding-bottom: 2px;
+  }
+}
+#get-in {
+  font-size: 13px;
+  position: absolute;
+  right: 20px;
+  top: 19px;
+  a {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+}
+
+#footer {
+  text-align: right;
+  position: relative;
+  clear: both;
+  font-size: 85%;
+  line-height: 16px;
+  height: 99px;
+  z-index: 10;
+}
+#footer p {
+  display: inline;
+  margin: 0;
+}
+#footer p.left {
+  float: left;
+  text-align: left;
+}
+
+#footer-1 {
+  padding: 13px 20px 60px;
+  height: 24px;
+  background: #484546;
+  border: 1px solid #272727;
+}
+
+#footer-2 {
+  font: 200 13px verdana, Helvetica, arial, simsun;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  color: #ababab;
+  background: rgb(60,60,60);
+  background: rgba(60,60,60,0.6);
+  filter: alpha(opacity=50);
+}
+

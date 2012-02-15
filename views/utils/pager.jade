@@ -1,0 +1,12 @@
+mixin pager(opt)
+  - opt = opt || {}
+  - pager = opt.pager || locals.pager
+  .pager
+    if pager.total > pager.perpage
+      p
+        !{pager.prevLink('&laquo; 上一页')}
+        !{pager.nav()}
+        !{pager.nextLink('下一页 &raquo;')}
+    if pager.total_page && pager.total_page > 2
+      .count
+        共 #{pager.total} 项，当前列出第 #{pager.offset} 至第 #{pager.offend} 项

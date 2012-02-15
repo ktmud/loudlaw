@@ -1,0 +1,9 @@
+form#find-articles.filter-form
+  p
+    label(for="inp-type") 类型:
+    select(id="inp-type", name="type")
+      option(value="law") 人大法律 
+      option(value="law") 地方法规 
+      option(value="itpt") 司法解释
+    label(for="inp-q") 关键字:
+    input.camo(id="inp-q", name="q", value="")

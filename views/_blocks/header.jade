@@ -1,0 +1,31 @@
+.header-border
+#header
+  .fwrap
+    p#logo 
+      a(href='/', title='回到首页') 
+       strong #{SITE_NAME}
+    if locals.sublogo
+      p#sublogo
+        !{sublogo}
+    #get-in(class=locals.user ? 'onboard' : null)
+      if locals.user
+        p
+          if locals.headerMenu && headerMenu.length
+            each item in headerMenu
+              a(class=item.class,
+                id='wk-act-#{item.name}',
+                href=(SITE_ROOT + '/' + (item.url || item.name)),
+                title=item.desc,
+                data-param=item.params
+              )
+                span.i #{item.text}
+            span.pipe
+          a(href='#{user.url}', title="你的个人主页") #{user.uname || user._id}的账号
+          a(href='/logout') 退出
+      else
+        span.pipe
+        a.btn-act(href='/login')
+          span.i 登录 
+        a.btn-act(href='/register')
+          span.i 注册
+.header-border.header-border-bottom

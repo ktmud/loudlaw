@@ -1,0 +1,30 @@
+title = '标签: ' + title + ' - 法律文库 | ' + SITE_NAME
+#main-body.fwrap
+  .article
+    h1 标签: #{data.title}
+    .article-body
+      if data.list.length
+        ol
+          each item in data.list
+            li
+              a(
+              href='/article/#{encodeURIComponent(item.sid)}'
+              title='#{item.title}'
+              ) #{item.title}
+      else
+        .box-notice.abscenter
+           p 暂时还没有相关文章。
+      include ../../utils/pager.jade
+      if locals.pager
+        mixin pager()
+  .aside
+    if locals.viewInfo && locals.viewInfo.desc
+      div#tag-info.box-info
+        p
+          #{viewInfo.desc}
+        if viewInfo.ref
+          p.boxft
+            a(href=viewInfo.ref, target='_blank') 更多
+      .hr-inset2
+    p
+      a(href='/tags') &laquo;&nbsp;所有标签

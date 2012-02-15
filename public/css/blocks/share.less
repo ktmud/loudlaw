@@ -1,0 +1,52 @@
+/*---分享-- */
+.share {
+  color: gray;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #505050;
+
+  iframe, ul, h4, li {
+    display: inline;
+    vertical-align: bottom;
+    margin-left: 2px;
+  }
+  iframe {
+    vertical-align: text-bottom;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+
+    &:hover {
+      opacity: 1;
+      filter: '';
+    }
+  }
+
+  h4 {
+    font: 200 13px verdana, arial;
+  }
+}
+@ico-pos-x-start: -160px;
+@ico-pos-x-gap: 22px;
+.ico {
+  margin-right: 4px;
+  background: url(../img/sprite-main.png) no-repeat @ico-pos-x-start 0;
+  text-indent: -999em;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  font-size: 0;
+  vertical-align: text-bottom;
+}
+.ico-tencent {
+  background-position: @ico-pos-x-start - @ico-pos-x-gap 0;
+}
+.ico-douban {
+  background-position: @ico-pos-x-start - 2 * @ico-pos-x-gap - 1 0;
+}
+.ico-renren {
+  background-position: @ico-pos-x-start - 3 * @ico-pos-x-gap 0;
+}
+.ico-bright .ico, a.ico:hover {
+  background-position-y: -21px;
+}
+

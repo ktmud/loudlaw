@@ -1,0 +1,40 @@
+- js = null
+- actionPrefix = { edit: '编辑: ', comment: '评论: ', flag: '报告错误: '  }
+- title = (actionPrefix[operation] || '') + title
+include ../../_blocks/flush_head
+if operation == 'edit'
+  style
+    td { vertical-align: top; }
+    .btns td { padding-top: 1em; }
+    p.tip { font-size: 13px; }
+    #btn-preview,
+    #btn-tomd {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      top: 0;
+    }
+    #btn-tomd {
+      right: 10px;
+      top: 42px;
+    }
+    p.meta {
+      font-size: 14px;
+    }
+    .meta {
+      padding: 10px 0 0;
+      margin-top: 0;
+    }
+    .btns {
+      margin-bottom: 20px;
+    }
+    .btns .btn-submit, .btns .btn-act { 
+      vertical-align: bottom;
+      margin-right: 10px;
+    }
+    .msg {
+      margin-bottom: 10px;
+    }
+#main-body.fwrap
+  #article.article
+  #sidebar.aside.aside-left

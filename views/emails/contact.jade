@@ -1,0 +1,9 @@
+html
+  body(style="color: #000; background: #fff;")
+    h1(style="font-size: 1.5em; background: #f0f0f0; padding: 0.3em; margin: 0.4em 0 0.6em;") 联系请求 from #{userId || '匿名用户'}
+    pre(style="background: #f3f3f3; padding: 15px 20px 12px; line-height: 1.6; font-family: 'courier new', consolas, tahoma, simsun, monospace; border-radius: 4px;")
+      | 用户: #{userId || '匿名'}
+      | IP地址: #{ip || '未知'}
+      | 时间: #{timestamp}
+      | 描述信息：
+      |   #{comments}

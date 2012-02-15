@@ -1,0 +1,11 @@
+.aside
+  #adm-menu.mod
+    ul.hori-nav
+      each item in adminMenu 
+        li(class=(item.name == currentAction[0] ? 'on' : ''))
+          a(
+            id='wk-act-#{item.name}',
+            href=(SITE_ROOT + '/' + (item.url || item.name)),
+            title=item.desc,
+            data-param=item.params
+          ) #{item.text}

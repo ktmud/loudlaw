@@ -1,0 +1,18 @@
+- js = null
+include ../../_blocks/flush_head
+style
+  .article-body { padding-top: 10px; }
+  .tags { font-size: 0.8em; }
+#main-body.fwrap
+  .article-body
+    include mods/views.jade
+    .mod
+      mixin list_views({ data: types, hd: '按类型', viewName: 'type' })
+    .mod
+      mixin list_views({ data: cates, hd: '按分类', viewName: 'cate' })
+    .mod.parentmod.clearfix#mod-tags
+    .hr-inset2
+    .mod.mod-wide.mod-1of2#mod-hot-law
+    .mod.mod-wide.mod-1of2#mod-latest-law
+    .mod.mod-wide.mod-1of2#mod-hot-itpt
+    .mod.mod-wide.mod-1of2#mod-latest-itpt

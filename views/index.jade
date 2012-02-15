@@ -1,0 +1,44 @@
+.header-border
+#header
+  .fwrap
+    h1#logo 
+      s#logo-l┗
+      strong #{SITE_NAME}
+      s#logo-r ┓
+    #intro 
+      h2#slogan 让法律因互联网而有趣 
+      #guide
+        table
+          tr
+            td
+              a#guide-lib.btn-guide.btn-guide-red(href='#{LIBRARY_ROOT}', title='法律法规大全 完美查阅体验')
+                span.i
+                  s
+                  进入『大声看法』法律文库 &raquo;
+      include _blocks/share
+.header-border.header-border-bottom
+#main-body.fwrap 
+    #gallery
+      unless typeof galleryImages == 'undefined'
+        - galleryImages.forEach(function(src) { 
+        img(src='#{ASSETS_ROOT}#{src}')
+        - })
+    .article
+      h2#hooray.h-realbold
+        img(src='#{ASSETS_ROOT}/img/heading-hooray.png', alt='『大声看法』 iPhone 应用即将上线！')
+      p#download
+        a
+          img(src='#{ASSETS_ROOT}/img/sprite-main.png', alt='即将开放下载，敬请期待')
+      #ohyeah
+        h2#for-normans.h-leading
+          span 面向普通人
+        ul
+          li 大量真实案例，实用而有趣的身边法律
+          li 想打官司无从下手？互助问答专家坐镇！
+          li 围观法制热点事件，影响中国法治进程
+        h2#for-normans.h-leading
+          span 面向专业人士
+        ul
+          li 海量法律法规数据库，方便快速随手查
+          li 专业讨论社区，发表观点可同步到微博
+          li 加入金牌大状计划，用您的专业吸引更多客户

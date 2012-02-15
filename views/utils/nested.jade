@@ -1,0 +1,14 @@
+mixin nested(list)
+  items = list.items
+  len = items.length
+  each item, i in items
+    - cls = (i == 0) ? 'first ' : ''
+    - if (i == len) cls += 'last '
+    - if (list.m_odd && i % 2) cls += 'even'
+    li(class=cls)
+      if item.href
+        a(href=item.href) #{item.text}
+      else
+        span #{item.text}
+      if item.sublist
+        mixin nested(item.sublist)

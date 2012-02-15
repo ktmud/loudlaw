@@ -1,0 +1,51 @@
+.skin-color-set(@header-bg-color) {
+  #header {
+    background: @header-bg-color;
+    border-bottom-color: lighten(@header-bg-color, 4%);
+    .btn-act {
+      .btn-flat-props(lighten(@header-bg-color, 10%));
+      border-color: darken(@header-bg-color, 5%);
+
+      &:hover {
+        border-color: darken(@header-bg-color, 7%);
+      }
+    }
+    .pipe {
+      border-left-color: lighten(@header-bg-color, 4%);
+      border-right-color: darken(@header-bg-color, 4%);
+    }
+    p {
+      color: lighten(desaturate(@header-bg-color, 70%), 30%);
+      a {
+        color: lighten(desaturate(@header-bg-color, 70%), 40%);
+      }
+    }
+  }
+  #logo {
+    a {
+      background-color: darken(@header-bg-color, 5%);
+      border: 1px solid darken(@header-bg-color, 8%);
+      &:hover {
+        background-color: darken(@header-bg-color, 2%);
+        border-color: darken(@header-bg-color, 6%);
+      }
+    }
+  }
+  #sublogo {
+    a:hover {
+      border-bottom-color: lighten(desaturate(@header-bg-color, 70%), 30%);
+    }
+  }
+  #get-in {
+    color: lighten(desaturate(@header-bg-color, 70%), 30%);
+    a {
+      color: lighten(desaturate(@header-bg-color, 70%), 40%);
+    }
+  }
+  .pager .pagi-cur {
+    color: #bbb;
+    border-color: darken(desaturate(@header-bg-color, 95%), 4%);
+    background-color: darken(desaturate(@header-bg-color, 92%), 1%);
+  }
+
+}

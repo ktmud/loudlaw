@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /set-password
+Disallow: /forget-password
+Disallow: /admin
+Disallow: */flag$
+Disallow: */edit$

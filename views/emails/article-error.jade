@@ -1,0 +1,33 @@
+html
+  body(style="color: #000; background: #fff;")
+    h1(style="font-size: 1.5em; background: #f0f0f0; padding: 0.3em; margin: 0.4em 0 0.6em;") 文章有误: #{article_title}
+    table
+      tr
+        th(align='right', valign='top') 
+          用户:
+        td(valign='top')
+          #{userId || '匿名'}
+      tr
+        th(align='right', valign='top') 
+          \IP地址: 
+        td(valign='top')
+          #{ip || '未知'}
+      tr
+        th(align='right', valign='top') 
+          报告时间: 
+        td(valign='top')
+          #{timestamp}
+      tr
+        th(align='right', valign='top') 
+          错误详细:
+        td(valign='top')
+          pre
+            #{detail}
+      tr
+        th(align='right', valign='top') 
+          文章页面：
+        td(valign='top')
+          if (locals.pre)
+            a(href=pre, target='_blank') #{pre}
+          else
+            未知

@@ -1,0 +1,98 @@
+- disabled = (statusCode == 403)
+if disabled
+  .box-notice.box-floating
+      h2 403 没有权限 
+      p 不好意思，法律这东西，不是你想编就能编
+      p 要获得权限，请前往了解<a href="/contribute">如何贡献</a>
+      p.boxft
+        a(href=carnonical) &laquo; 离开
+
+form#wk-edit-form(method='post')
+  h1
+    input.camo(
+      disabled=disabled, 
+      name='title',
+      id='inp-title',
+      size='65',
+      tabindex='1',
+      value=data.title
+    )
+  .article-body
+    if msg
+      <div class="msg msg-#{msg.type}">
+      p #{msg.msg}
+      </div>
+    textarea.camo(
+      disabled=disabled, 
+      id='inp-content',
+      name='content',
+      cols='90',
+      rows=Math.max(5, data.is_md ? data.content.split('\n').length * 1.1 : Math.floor(data.content.length / 100)),
+      autofocus=true,
+      tabindex='1'
+    )
+      !{data.content}
+    p.meta
+      label(for='inp-slug') 网址： /article/
+      input.camo(
+        disabled=disabled, 
+        name='slug',
+        id='inp-slug',
+        size='40',
+        tabindex='1',
+        value=data.sid
+      )
+      input(
+        disabled=disabled, 
+        type='checkbox',
+        name='hang',
+        checked,
+        id='inp-hang',
+        tabindex='1',
+        value='1'
+      )
+      label#label-inp-hang(for='inp-hang') 保持老网址可用
+      &nbsp;&nbsp;&nbsp;&nbsp; 
+      label(for='inp-cate') 分类：
+      input.camo(
+        disabled=disabled, 
+        name='cate',
+        id='inp-cate',
+        size='8',
+        tabindex='1',
+        value=data.cate
+      )
+    p.meta
+      - tags_str = data.tags || []
+      - if (typeof tags_str == 'string') tags_str = tags_str.ssplit()
+      - if (add_tag) tags_str.push(add_tag)
+      - tags_str = tags_str.join(', ')
+      label(for='inp-tags') 标签：
+      input.camo(
+        disabled=disabled, 
+        name='tags',
+        id='inp-tags',
+        size='30',
+        tabindex='1',
+        value=tags_str
+      )
+      a.btn-act.rc-1(href='/tags/add')
+        span.i +
+    .btns
+        input(type='hidden', name='_csrf', value=ck)
+        button.btn-submit(disabled=disabled, type='submit')
+          span.i 提交修改 
+        a#btn-cancel.btn-act.btn-act-gray(href='.')
+          span.i 取消
+        button.btn-act.btn-act-red(disabled=disabled, type='submit', name='delete', value='1')
+          span.i 删除
+        if doc.is_md
+          input(type='hidden', name='is_md', value='1')
+          button#btn-tomd.btn-act(type='submit', disabled=disabled, name='tohtml', value='1', title='转化为HTML')
+            span.i &lt;HTML
+        else
+          input(type='hidden', name='is_md', value='0')
+          button#btn-tomd.btn-act(type='submit', disabled=disabled, name='tomd', value='1', title='转化为markdown')
+            span.i &gt;MD
+        //a#btn-preview.btn-act.btn-act-orange(href='preview')
+        //span.i 预览

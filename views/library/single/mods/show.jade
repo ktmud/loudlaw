@@ -1,0 +1,6 @@
+h1(title=title, id="00") #{doc.title}
+#article-content.article-body
+  - content_html = doc.content_html
+  if locals.keyword
+    content_html = highlight(content_html, keyword);
+  !{content_html}

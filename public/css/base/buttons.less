@@ -1,0 +1,56 @@
+.btn-submit {
+  .btn();
+
+  .i {
+    letter-spacing: 0.2em;
+    font-size: 1.5em;
+    line-height: 1.9em;
+    padding: 0 0.6em 0 0.8em;
+  }
+  .btn-normal-props();
+}
+/* action button */
+.btn-act {
+  .btn(2px);
+  margin-right: 5px;
+  line-height: 1.3;
+  font-family: tahoma, sans-serif;
+
+  .i {
+    padding: 0 0.2em 0.05em;
+    min-width: 1em;
+    letter-spacing: 0;
+  }
+
+  .btn-flat-props();
+}
+.btn-act-red {
+  .btn-flat-props(#b62903);
+}
+.btn-act-yellow {
+  .btn-flat-props(#bb8000);
+}
+.btn-act-light {
+  .btn-flat-props(#0075a6);
+}
+.btn-act-orange {
+  .btn-flat-props(#bd4600, 3%);
+}
+.btn-act-gray {
+  .btn-flat-props(#4f4f4f);
+}
+.btn-act-flat {
+  .btn-flat-props(#424a4f, 2%, 11%);
+}
+.btn-act-flat2 {
+  .btn-flat-props(#555, 2%, 11%);
+}
+button.btn-act .i {
+  .rc(0);
+}
+.rc-1 {
+  .rc(1em);
+  .i {
+    .rc(1em);
+  }
+}

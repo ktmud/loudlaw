@@ -1,0 +1,34 @@
+{
+  "name": "idufa",
+  "version": "0.2.0",
+  "homepage": "http:/www.dakanfa.com",
+  "description": "The website Chinese people to learn laws.",
+  "private": true,
+  "contributors": [
+    "ktmud <jyyjcc@gmail.com> (http://ktmud.com)"
+  ],
+  "dependencies": {
+    "express": ">= 2.5.1",
+    "uglify-js": ">= 1.0",
+    "compress-buffer": ">= 0.1.0",
+    "passport": ">= 0.1.3",
+    "passport-twitter": ">= 0.1.0",
+    "bcrypt": ">= 0.4.0",
+    "less": ">= 0.0.1",
+    "jade": ">= 0.2.0",
+    "discount": ">= 0.1.0",
+    "cradle": ">= 0.0.1",
+    "underscore": ">= 1.2.0",
+    "mocha": ">= 0.0.8",
+    "backbone": ">= 0.5.3",
+    "nodemailer": ">= 0.0.1",
+    "colors": ">= 0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "subdomain": "fa",
+  "scripts": {
+    "start": "node cluster.js"
+  }
+}

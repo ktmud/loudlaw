@@ -1,0 +1,34 @@
+if operation == 'comment'
+  if locals.comments
+    include ./comments
+  form#form-comment.mod(
+    method='post'
+  )
+    h2.h-label 发表意见
+    div.clearfix
+      p 
+        label.placeholder(for='name')
+          span.required *名号
+        input.text(tabindex='1', name='name', id='name', required,
+        data-required="请让别人知道怎么称呼您",
+        size='12', value=locals.name) 
+      p 
+        label.placeholder(for='email')
+          span.required *Email
+        input.text(tabindex='1', email='email', id='email', type='email',
+        data-required="请让我们知道如何联系你",
+        size='12', required, value=locals.email) 
+    div
+      label.placeholder(for='url') http://
+      input.text(tabindex='1', url='url', id='url', value=locals.url, size='32', title='您的网址') 
+    
+    div
+      label.placeholder(for='comment') 你的看法
+      textarea.text(tabindex='1', comment='comment',
+        data-required="请告知您的观点", required,
+        id='comment', value=locals.comment, cols='30', rows='5') 
+    div.btns
+      input(type='hidden', name='_csrf', value=ck)
+      button.btn-submit(type='submit', tabindex='1')
+        span.i 说吧
+    

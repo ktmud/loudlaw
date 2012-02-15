@@ -1,0 +1,21 @@
+.article-body
+  if data.list.length
+    include mods/filter
+    .hr-inset
+    table
+      each item in data.list
+        tr
+          td
+            input(type="checkbox", name="id", value="item._id")
+          td
+            a(
+            href="/library/article/#{encodeURIComponent(item.sid)}/edit",
+            title="#{item.title}"
+            ) #{item.title}
+  else
+    .box-notice.abscenter
+        p 暂时还没有相关文章。
+  include ../../utils/pager.jade
+  if locals.pager
+    .hr-inset
+    mixin pager()

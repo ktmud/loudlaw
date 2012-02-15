@@ -1,0 +1,31 @@
+if operation == 'flag'
+  if locals.flag_msg
+    if flag_msg == 'ok'
+      .msg.msg-ok
+        p 感谢您的报告。[
+          a(href='.') ｘ
+          ]
+    else
+      .msg.msg-error
+        p !{flag_msg}
+  else
+    form#form-flag.mod(
+      method='post'
+    )
+      h2.h-label 报告错误
+      div
+        label.placeholder(for='detail') 有关错误的详细说明
+        textarea.text(tabindex='1', name='detail', id='detail',
+        autofocus=true,
+        data-required="请输入有关错误的详细说明",
+        cols='30', rows='5') 
+      if msg
+        <div class="msg msg-#{msg.type}">
+        p !{msg.msg}
+        </div>
+      div.btns
+        input(type='hidden', name='_csrf', value=ck)
+        input(type='hidden', name='onesalt', value=onesalt)
+        input(type='hidden', name='last_report', value=flag_detail)
+        button.btn-submit(type='submit', tabindex='1')
+          span.i 提交

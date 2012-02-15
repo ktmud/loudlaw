@@ -1,0 +1,14 @@
+mixin list_views(opt)
+  data = opt.data
+  hd = opt.hd
+  viewName = opt.viewName
+  .hd
+    h2.h-leading
+      span #{hd}
+  .bd
+    ul.list-2col
+      each key in Object.keys(data).sort()
+        - name = data[key]
+        if name
+          li
+            a(href='/#{viewName}-#{key}') #{name}

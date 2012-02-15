@@ -1,0 +1,39 @@
+meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+title= title
+link(rel='stylesheet', href='#{ASSETS_ROOT}/css/base.css')
+link(rel='stylesheet', href='#{ASSETS_ROOT}/css/print.css', media='print')
+if locals.css 
+  - css = (css instanceof Array) ? css : [css];
+  - css.forEach(function(item){
+    link(rel='stylesheet', href='#{ASSETS_ROOT}/css/#{item}.css')
+  - })
+unless locals.nojs 
+  script
+    ;(function(m, o, d, u, l, a, r) {
+      if(m[d]) return;
+      function f(n, t) { return function() { r.push(n, arguments); return t; } }
+      m[d] = a = { args: (r = []), config: f(0, a), use: f(1, a) };
+      m.define = f(2);
+      u = o.createElement('script');
+      u.id = d + 'node';
+      u.src = '#{ASSETS_ROOT}/js/sea.js';
+      l = o.getElementsByTagName('head')[0];
+      l.insertBefore(u, l.firstChild);
+    })(window, document, 'seajs');
+if DEBUG
+  script
+    window._DEV_ = true;
+if locals.pipefy_js
+  script
+    !{pipefy_js}
+if locals.js
+  - var js_mods = (js instanceof Array) ? js : [js];
+  - js_mods = JSON.stringify(js_mods);
+  script
+    seajs.use(!{js_mods}, window.seajs_onload);
+if locals.GA_ID
+  script
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', '#{GA_ID}']);_gaq.push(['_trackPageview']);
+    (function(){ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
+if locals.carnonical
+  link(rel='carnonical', href='#{carnonical}')

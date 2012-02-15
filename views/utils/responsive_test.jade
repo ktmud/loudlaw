@@ -1,0 +1,11 @@
+!!!
+html
+head
+<style>body { margin: 20px; font-family: sans-serif; overflow-x: scroll; }.wrapper { width: 6000px; }.frame { float: left; }h2 { margin: 0 0 5px 0; }iframe { margin: 0 20px 20px 0; border: 1px solid #666; }</style>
+body
+- sizes = [ [240, 320, 'mobile'], [320, 480, 'mobile'], [480, 640, 'small tablet'], [768, 1024, 'tablet - portrait'], [1024, 768, 'tablet - landscape'], [1200, 800, 'desktop'], ];
+.wrapper
+  each item in sizes
+    .frame
+      h2 #{item[0]}<span> x #{item[1]}</span> <small>(#{item[2]})</small>
+      <iframe src="#{url}" width="#{item[0]}" height="#{item[1]}"></iframe>

@@ -1,0 +1,190 @@
+@import "public/css/_vars";
+
+
+html {
+  background: @bg-main;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+html, body, ul, ol, li, h1, h2, h3, button {
+  margin: 0;
+  padding: 0;
+}
+ul, ol, li {
+  list-style: none;
+}
+p {
+  margin: 0.4em 0 0.8em;
+}
+body {
+  font: 100%/1.62 @sans-serif; 
+  color: #838180;
+}
+input, textarea {
+  margin: 0 0.4em 0 0;
+}
+h1, h2, h3, h4 {
+  color: #e6e6e6;
+}
+.h-label {
+  color: #bbb;
+  font-weight: 400;
+  line-height: 1;
+  padding-left: 0.36em;
+  padding-bottom: 0.28em;
+  margin: 0.4em 0 0.7em;
+  border-left: 0.24em solid #666;
+  border-bottom: 1px dotted #444;
+  text-shadow: 0 2px 1px #222;
+}
+h1 {
+  font-size: 1.8em;
+}
+h2 {
+  font-size: 1.6em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+strong {
+  color: #bbb;
+}
+a {
+  color: @link-color;
+  text-decoration: none;
+  &:hover {
+    color: @link-color-hover;
+    text-decoration: underline;
+  }
+}
+
+.content ul li {
+  list-style: circle inside;
+}
+
+@import "public/css/base/form";
+@import "public/css/base/buttons";
+@import "public/css/base/utility";
+
+@import "public/css/components/boxes";
+@import "public/css/components/msg";
+@import "public/css/components/pager";
+
+@import "public/css/layout/default";
+
+@import "public/css/blocks/share";
+@import "public/css/blocks/tags";
+
+@import "public/css/skin/base";
+
+.skin-color-set(@header-blue);
+
+.red {
+  .skin-color-set(@header-red);
+}
+
+.hori-nav {
+  li {
+    /*margin-left: 10px;*/
+    margin-bottom: -1px;
+    border: 1px solid #272727;
+    border-right: 0;
+    .rc(2px 0 0 2px);
+  }
+  li.on {
+    border-color: #222;
+    /*margin-left: -10px;*/
+    position: relative;
+    a {
+      color: #ccc;
+      border: solid #333;
+      border-width: 1px 0 0 1px;
+      margin-right: -1px;
+      .rc(2px 0 0 2px);
+    }
+  }
+  a {
+    color: #777;
+    text-shadow: 0 1px 1px #111;
+    padding: 0 0.6em;
+    display: block;
+    line-height: 2em;
+    &:hover {
+      background: rgba(0,0,0,0.01);
+      text-decoration: none;
+    }
+  }
+}
+
+.h-center {
+  text-align: center;
+  margin: 1em 0;
+  background: rgba(0,0,0,0.1);
+}
+.h-leading {
+  font: 200 18px/1 @sans-serif; 
+  margin: 2em 0;
+  position: relative;
+  border-bottom: 1px solid #3f3f3f;
+
+  span {
+    position: absolute;
+    top: -0.5em;
+    padding: 0 0.5em;
+    background: @bg-main;
+    border-left: 5px solid #939190;
+  }
+}
+
+.mod .ft {
+  margin: 10px 0;
+  font-size: 0.9em;
+}
+
+.article-body {
+  .mod {
+    display: inline-block;
+    max-width: 350px;
+    min-width: 200px;
+    margin-right: 3%;
+    margin-bottom: 20px;
+    vertical-align: top;
+    *display: inline;
+    *zoom: 1;
+  }
+  .mod-wide {
+    max-width: 500px;
+  }
+  .mod-1of2 {
+    width: 47%;
+  }
+}
+sub.more {
+  font-size: 0.6em;
+  font-family: @sans-serif;
+  vertical-align: bottom;
+  margin-left: 0.5em;
+}
+
+.fwrap p.noresult {
+  font-size: 1.1em;
+  text-indent: 10%;
+  margin: 2em 1em;
+}
+
+.list-2col {
+  li {
+    width: 50%;
+    display: inline-block;
+  }
+}
+.aside .mod {
+  margin-bottom: 1.5em;
+}
+
+@import "public/css/media-queries";
+@import "public/css/ie.less";

@@ -1,0 +1,14 @@
+.hd
+  h2.h-leading
+    span #{hd}
+.bd
+  if data && data.length
+    ol.popular-articles
+      each item in data
+        li
+          a(
+          href='/article/#{encodeURIComponent(item.sid)}',
+          title='#{item.title}'
+          ) #{trunc(item.title, 28)}
+  else
+      p.noresult 暂无数据

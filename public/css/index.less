@@ -1,0 +1,255 @@
+@import "public/css/_vars";
+
+/* guide button */
+.btn-guide-props(@color-base: #006a5f, @spos: 0) {
+  color: desaturate(lighten(@color-base, 30%), 80%);
+  border-color: darken(@color-base, 90%);
+
+  &:hover {
+    color: desaturate(lighten(@color-base, 40%), 80%);
+  }
+
+  .i {
+    border-color: lighten(@color-base, 8%) lighten(@color-base, 4%) lighten(@color-base, 2%);
+    .darken-grad(@color-base);
+  }
+  &:hover span {
+    border-color: lighten(@color-base, 6%);
+    .darken-grad(@color-base, 3%);
+    .box-shadow(0 0 5px darken(@color-base, 20%));
+  }
+  &:active span {
+    border-color: lighten(@color-base, 3%);
+    .box-shadow(0 0 5px darken(@color-base, 10%));
+    .darken-grad(darken(saturate(@color-base, 10%), 2%), -2%);
+  }
+
+  s {
+    background-position: @spos 4px;
+  }
+  &:hover s{
+    background-position: @spos -20px;
+  }
+}
+
+.btn-guide {
+  .btn();
+  .rc(3px);
+
+  .i {
+    .rc(2px);
+    letter-spacing: 3px;
+    font-size: 20px;
+    line-height: 40px;
+    padding: 0 10px;
+    .text-shadow();
+    .box-shadow();
+  }
+
+  s {
+    background: url(../img/sprite-main.png) no-repeat 0 4px;
+    display: inline-block;
+    width: 20px;
+    height: 24px;
+    margin-right: 10px;
+    margin-top: 6px;
+    float: left;
+  }
+
+  .btn-guide-props();
+}
+
+/* guide button */
+.btn-guide-green {
+  .btn-guide-props(#197400, -22px);
+}
+.btn-guide-yellow {
+  .btn-guide-props(#a15000, -42px);
+}
+
+.btn-guide-red {
+  .btn-guide-props(#821f00, -62px);
+}
+
+@header-height: 480px;
+
+.header-border-bottom {
+  border-top: 0;
+  border-bottom: 10px solid rgba(0,0,0,0.1);
+}
+
+#header {
+  background: #414141;
+  height: @header-height;
+  border-bottom: 1px solid #767676;
+  .box-shadow(0 2px 6px rgba(0,0,0,0.6));
+}
+
+#header .fwrap {
+  position: relative;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: url(../img/bg-heading.jpg) no-repeat 95% 0;
+}
+#logo {
+  position: absolute;
+  right: 100px;
+  top: 140px;
+  font: 600 60px/100px '黑体', verdana;
+  height: 100px;
+  width: 380px;
+  color: #ccc;
+  background: #0a6082 url(../img/logo-thin-ie6.png) no-repeat 50% 50%;
+  border: solid 1px #0077a3;
+  .box-shadow(0 1px 5px #092c3b);
+  .rc(6px);
+  .transition(all 0.3s linear);
+
+  strong {
+    color: #fff;
+    display: none;
+  }
+
+  &:hover {
+    width: 456px;
+    height: 120px;
+    top: 130px;
+    right: 62px; 
+    background-color: rgba(0,112,161, 0.6);
+    .box-shadow(0 1px 5px rgba(5,30,80,0.6));
+    #logo-l {
+      left: -60px;
+      bottom: -70px;
+    }
+    #logo-r {
+      right: -70px;
+      top: -60px;
+    }
+  }
+}
+
+#logo-l, #logo-r {
+  display: block;
+  text-decoration: none;
+  position: absolute;
+  background: transparent;
+  font: 200 60px '方正兰亭大黑简体', '方正兰亭大黑_GB18030', '方正兰亭大黑_GBK', '黑体', Helvetica, verdana, arial, sans-serif;
+}
+
+#logo-l {
+  left: -80px;
+  bottom: -90px;
+}
+#logo-r {
+  right: -90px;
+  top: -80px;
+}
+
+#intro {
+  height: @header-height - 60px;
+  width: 45%;
+  border-right: 2px dashed #383838;
+}
+
+#header .share {
+  position: absolute;
+  width: 41%;
+  top: 30px;
+}
+
+#slogan {
+  font-size: 34px;
+  color: #ccc;
+  letter-spacing: 2px;
+  line-height: 240px;
+  margin-top: 35px;
+  text-align: center;
+  font-weight: 200;
+}
+
+#guide {
+  margin-right: 30px;
+  padding: 5px;
+  background: #3a2c24 url(../img/bg-guide.jpg);
+  .rc(4px);
+  .box-shadow(0 1px 2px #262626);
+
+
+  table {
+    width: 100%;
+    border: 1px dashed #7d7774;
+    padding: 10px 5px;
+  }
+
+  td {
+    padding: 5px;
+    text-align: center;
+  }
+}
+
+#main-body {
+  overflow: hidden;
+  *zoom: 1;
+  text-align: right;
+
+  div {
+    vertical-align: top;
+    text-align: left;
+    *display: inline;
+    *zoom: 1;
+  }
+
+  .article {
+    display: inline-block;
+    width: 55%;
+    margin: 40px 0;
+  }
+}
+
+#hooray {
+  text-align: center;
+}
+
+#download {
+  text-align: center;
+  margin: 50px auto;
+
+  a {
+    display: inline-block;
+    height: 60px;
+    width: 250px;
+    overflow: hidden;
+  }
+  img {
+    margin-top: -50px;
+  }
+}
+
+#ohyeah {
+  margin: 5em auto 2em 20px;
+
+  ul {
+    margin-left: 3em;
+    margin-bottom: 5em;
+  }
+  li {
+    list-style: hebrew outside;
+    font: 100 16px/1.6 Georgia, Times New Roman, Simsun;
+    margin-bottom: 0.6em;
+  }
+}
+
+#gallery {
+  display: inline-block;
+  float: left;
+  margin: 50px 0 50px 20px;
+}
+
+.ie6 .btn-guide .i {
+  padding-left: 1.2em;
+  padding-right: 1em;
+}
+.ie6 .btn-guide s {
+  display: none;
+}

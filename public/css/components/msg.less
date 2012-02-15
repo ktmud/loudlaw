@@ -1,0 +1,31 @@
+.msg {
+  overflow: hidden;
+  font: 14px/1.5 "Lucida Grande", Helvetica, Arial, STHeiti, "Microsoft YaHei", "微软雅黑", sans-serif;
+  zoom: 1;
+}
+.msg p {
+  float: left;
+  padding: 0.4em 0.8em;
+  margin: 0;
+}
+span.msg {
+  display: inline-block;
+  padding: 0.3em 0.5em;
+  margin: 0.5em;
+}
+.msg p, span.msg {
+  border: 1px solid #666;
+  background: #333;
+  .rc(3px);
+}
+/* default is msg-error */
+.msg- p, .error p,
+span.msg-, span.error {
+  color: #a99;
+  border-color: #610;
+  background: #6f2a29;
+}
+.msg-ok p, span.msg-ok {
+  border-color: #303330;
+  background: #393939;
+}

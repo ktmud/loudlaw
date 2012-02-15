@@ -1,0 +1,22 @@
+heading = '搜索' + (locals.keyword ? ': ' + keyword : '')
+js = null
+title = heading + ' - 法律文库 | ' + SITE_NAME
+include ../../_blocks/flush_head
+#main-body.fwrap
+  .article
+    h1 #{heading}
+    .article-body
+      if locals.keyword
+        include sform
+        #results
+          p.noresult 搜索进行中...
+      else
+        include form
+  .aside
+    h2.h-label 搜索小贴士
+    .box-info
+      ol
+        li 1. 默认按关联程度排序，特别相关的会被高亮显示
+        li 2. 可以使用 “title: 关键字” 式指定只查找标题
+        li 3. 可以使用 AND 标示符和引号帮助筛选结果
+include ../../_blocks/footer

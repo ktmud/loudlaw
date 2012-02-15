@@ -1,0 +1,9 @@
+div.abscenter.box-notice
+  div(class=locals.type)
+    !{words}
+  if locals.showBack
+    p.boxft
+      a(href=(locals.pre || 'javascript:history.go(-1);')) &laquo; 返回 
+  if locals.showToHome
+    p.boxft
+      a(href='/') &laquo; 回首页

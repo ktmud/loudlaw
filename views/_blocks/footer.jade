@@ -1,0 +1,39 @@
+helloLinks = [ { 'href': '/about', 'title': '关于我们', 'text': '关于' }, { 'href': '/contact', 'title': '联系我们', 'text': '联系' }, { 'href': '/contribute', 'title': '加入网站的建设中来!', 'text': '贡献' } ]
+#footer
+  #footer-1.fwrap
+    p#find-us.ico-bright.left
+        找到我们: 
+        a.ico(
+          target='_blank'
+          href='http://weibo.com/loudlaw'
+          title='新浪微博'
+        ) 新浪微博 
+        a.ico.ico-tencent(
+          target='_blank'
+          href=''
+          title='腾讯微博'
+        ) 腾讯微博 
+        a.ico.ico-renren(
+          target='_blank'
+          href=''
+          title='人人网主页'
+        ) 人人网 
+        a.ico.ico-douban(
+          target='_blank'
+          href=''
+          title='豆瓣小站'
+        ) 豆瓣 
+    p#hello-links
+      last_index = helloLinks.length - 1
+      each link, i in helloLinks
+        a(
+        href='#{link.href}',
+        title='#{link.title}',
+        target=link.target
+        ) #{link.text}
+        if (i != last_index)
+          span.pipe &nbsp;&nbsp;|&nbsp;&nbsp;
+  #footer-2
+    .fwrap
+      p.left 『#{SITE_NAME}』以互联网的方式热爱法律
+      p.copyright Copyright ©<a href="http://yjc.me/" target="_blank">Jianchao Yang</a> 2011

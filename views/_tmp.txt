@@ -1,0 +1,16 @@
+            //td
+              //a#guide-debate.btn-guide.btn-guide-yellow(href='/debate', title='法治热点 专家解答 全民评议')
+                //span.i
+                  //s
+                  //法理大声说 
+          //tr
+            //td
+              //a#guide-101.btn-guide.btn-guide-cyan(href='/law-101', title='轻松踏入法律之门')
+                //span.i
+                  //s
+                  //法律之门
+            //td
+              //a#guide-qna.btn-guide.btn-guide-green(href='/qna', title='免费获得在线法律援助')
+                //span.i
+                  //s
+                  //法律问答台 

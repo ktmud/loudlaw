@@ -1,0 +1,117 @@
+- act = locals.data ?  '修改' : '新加'
+- isNew = locals.data ? false : true
+- name_focus = true
+- id_focus = ll_exception.indexOf('tag id') > -1
+- data = locals.data || {}
+#main-body.fwrap
+  .article
+    h1 #{act}标签#{isNew ? '' : ': ' + data.name}
+    .article-body
+      if msg
+      form#tag-edit-form(method='post')
+        if data.deleted
+          input(type='hidden', name='_csrf', value=ck)
+          input(type='hidden', name='_id', value=data._id)
+          p 此标签已被删除，
+            button.btn-act(type='submit', name='restore', value='1')
+              span.i 点此恢复
+        else
+          table.form-table
+            tr
+              th
+                label(for='name') 标签:
+              td
+                p
+                  input.text(tabindex='1', name='name', id='inp-name',
+                  autofocus=name_focus,
+                  autocomplete='off',
+                  title='用于展示给用户',
+                  value=data.name)
+                  span.tip 标签文本
+                  if ll_exception.indexOf('tag name') > -1
+                    <span class="msg msg-#{msg.type}">#{msg.msg}</span>
+            tr
+              th
+                label(for='inp-id') 简写:
+              td
+                p
+                  if !isNew
+                    input(type='hidden', name='_id', value=data._id) 
+                  input(tabindex='1', name='_id', id='inp-id',
+                  autofocus=id_focus,
+                  autocomplete='off',
+                  size=(isNew ? false : 24),
+                  disabled=!isNew,
+                  class=(isNew ? 'text' : 'camo'),
+                  title='会被用于url',
+                  value=data._id)
+                  span.tip 用于网页地址中，不可修改
+                  if ll_exception.indexOf('tag id') > -1
+                    <span class="msg msg-#{msg.type}">#{msg.msg}</span>
+            tr
+              th
+                label(for='desc') 简介:
+              td
+                textarea.text(tabindex='1', name='desc', id='inp-desc',
+                rows='4', cols='30') #{data.desc}
+            tr
+              th
+                label(for='inp-ref') 链接:
+              td
+                p
+                  input.camo(tabindex='1', name='ref', id='inp-ref',
+                  title='',
+                  size='43',
+                  value=data.ref) 
+                  &nbsp;
+                  span.tip 显示在标签简介下方
+            tr
+              th
+                label(for='inp-related') 相关标签:
+              td
+                p
+                  input.camo(tabindex='1', name='related', id='inp-related',
+                  title='',
+                  size='30',
+                  value=data.related) 
+                  &nbsp;
+                  span.tip 输入标签简写，以英文逗号分割
+            tr
+              th
+                label(for='inp-for') 可用应用:
+              td
+                p
+                  input.camo(tabindex='1', name='for', id='inp-for',
+                  title='',
+                  size='30',
+                  value=(data.for || locals.subsite)) 
+                  &nbsp;
+                  span.tip 哪些应用可以使用此标签
+            tr
+              td
+              td
+                input(type='hidden', name='_csrf', value=ck)
+                input(type='hidden', name='_rev', value=data._rev)
+                input(type='hidden', name='pre', value=referrer)
+                button.btn-submit(type='submit')
+                  span.i 确认提交
+                &nbsp;
+                button.btn-act.btn-act-red(type='submit', name='delete', value='1')
+                  span.i 删除
+  .aside
+    p
+      a(href='/library/tags') &laquo;&nbsp;返回标签索引页
+if isNew
+  script
+    seajs.use(['lib/jquery', 'lib/pinyin'], function($, toPinyin) {
+      var inp_id = $('#inp-id');
+      var reg_badchar = /[^\\w]+/g;
+      $('#inp-name').blur(function(e) {
+        if (!inp_id.val() || !inp_id._mm) {
+          inp_id.val(toPinyin(this.value, '').replace(reg_badchar, '-').toLowerCase());
+        }
+      });
+      inp_id.one('input', function() {
+        inp_id._mm = true;
+      });
+    });

@@ -1,0 +1,69 @@
+style
+  h1 { position: absolute; top: -97px; width: 100%; font-size: 2.2em;
+  text-align: center; padding: 30px 0 0; margin: 0; }
+  .heading-lead { background: rgba(255,255,255,0.4); }
+  #register { font-size: 15px; width: 620px; margin: 20px auto 50px; }
+  input.text { width: 12em; margin-right: 20px; }
+  fieldset { border: 0; padding: 20px 0; }
+  #register p span { float: left; }
+  fieldset h2 { text-indent: -1em; font-weight: 400; }
+  button { margin-right: 15px; }
+  .order-num { color: #666; font-weight: 200; margin-right: 5px; }
+  .supple h2 { font-size: 14px; }
+.main-content.fwrap
+  //h1 //span.heading-lead //加入#{SITE_NAME} //span.heading-lead
+  //, action=(locals.ssl_form && 'https://www.idufa.com/register')
+  .article.clearfix
+    form#register(method='post')
+      fieldset
+        h2 
+          span.order-num 1.
+          提供必要信息
+        uid_focus = ll_exception.indexOf('uid') != -1
+        email_focus = ll_exception.indexOf('email') != -1
+        p
+          span
+            label.placeholder(for='uid', style=(uid && 'dipslay:none')) 用户名
+            input.text(autocomplete='off', tabindex='1', name='uid', id='uid',
+            autofocus=true,
+            title='登录时使用的用户名, 也会用于别人查看您信息时的网址中',
+            value=uid) 
+          span
+            label.placeholder(for='email', style=(email && 'display:none')) 邮箱
+            input.text(autocomplete='off', tabindex='1', name='email', id='email',
+            autofocus=email_focus,
+            title='我们会通过电子邮件联系您',
+            value=email) 
+      .hr-inset
+      fieldset
+        h2
+          span.order-num 2.
+          设置登录密码
+        password_focus = ll_exception.indexOf('password') != -1
+        p
+          span
+            label.placeholder(for='password') 密码
+            input.text(tabindex='1', type='password', name='password', id='password', autofocus=password_focus) 
+          span
+            label.placeholder(for='password2') 重复密码以确认 
+            input.text(tabindex='1', type='password', name='password2', id='password2') 
+      if locals.msg
+        div(class='msg ' + (msg.type || 'error'))
+          p #{msg.msg}
+            if ll_exception == 'uid exists'
+              &nbsp;/&nbsp;请 <a href="/login?uid=#{uid}">尝试登录</a> 或 <a href="/activate?uid=#{uid}">点此激活</a>
+      p
+        input(tabindex='1', type='checkbox', name='tos', id='tos', checked, disabled) 
+        label(for='tos') 你打算同意将来出现的任何用户协议
+      p.btns
+        input(type='hidden', name='_csrf', value=ck);
+        button.btn-submit(tabindex='1', type='submit')
+          span.i 完成注册 
+        a.low(tabindex='1', href='/login') 返回登录
+  .hr-dotted
+  .supple
+    h2 或使用其他网站账号加入
+  script
+    seajs.use('account', function(mod) {
+      mod.init('register');
+    });

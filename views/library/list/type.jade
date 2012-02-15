@@ -1,0 +1,21 @@
+title = title + ' - 法律文库'
+#main-body.fwrap
+  .article
+    h1 #{data.title}
+    .article-body
+      if data.list.length
+        ol
+          each item in data.list
+            li
+              a(
+              href='/article/#{encodeURIComponent(item.sid)}',
+              title='#{item.title}'
+              ) #{item.title}
+      else
+        .box-notice.abscenter
+           p 暂时还没有相关文章。
+      include ../../utils/pager.jade
+      if locals.pager
+        mixin pager()
+  .aside
+    a(href='/') &laquo;&nbsp;返回首页

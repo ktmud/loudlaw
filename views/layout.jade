@@ -1,0 +1,13 @@
+!!!
+//if IE 8
+  <html class="ie ie8">
+//if IE 7
+  <html class="ie ieold ie7">
+//if lt IE 7
+  <html class="ie ieold ie6">
+include _blocks/head 
+body(class=locals.bodyClass, id=locals.bodyId)
+  include _blocks/header 
+  != body
+  include _blocks/footer 
+</html>

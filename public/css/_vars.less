@@ -1,0 +1,167 @@
+@link-color: #ccc;
+@link-color-hover: #eee;
+
+@header-blue: #004066;
+@header-red: #6e0008;
+
+@header-height: 65px;
+@header-border-top-height: 5px;
+
+@sans-serif: "Trebuchet MS", "Lucida Grande", Helvetica, Arial, STHeiti, "Microsoft YaHei", "微软雅黑", "黑体", sans-serif;
+@kai: '方正楷体繁体', '方正楷体简体', '楷体', Kai, Hei;
+@serif: Calibri, Constantia, Cambria, Georgia, simsun, serif;
+
+@bg-main: #313133 url(../img/bg-main.png);
+
+.rc (@radius: 3px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+.box-shadow (@args: 0 1px 3px rgba(0,0,0,0.5)) {
+  -moz-box-shadow: @args;
+  -webkit-box-shadow: @args;
+  box-shadow: @args;
+}
+.text-shadow (@args: 0 1px 2px rgba(0,0,0,0.5)) {
+  text-shadow: @args;
+}
+.transition (@args: all 0.4s ease-out) {
+  -webkit-transition: @args;
+  -moz-transition: @args;
+  -o-transition: @args;
+  transition: @args;
+}
+
+.ff-button-fix() {
+  @-moz-document url-prefix(http://) {
+      button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner {
+          padding: 0 !important;
+          border: 0 none !important;
+      }
+  }
+}
+
+.grad(@color-start, @color-end, @fallback-color, @start-point: top) {
+  @filter-str: ~`"progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='@{color-start}', EndColorStr='@{color-end}')"`;
+
+  background-color: @fallback-color;
+  background-image: -webkit-linear-gradient(@start-point, @color-start, @color-end); 
+  background-image:    -moz-linear-gradient(@start-point, @color-start, @color-end); 
+  background-image:     -ms-linear-gradient(@start-point, @color-start, @color-end); 
+  background-image:      -o-linear-gradient(@start-point, @color-start, @color-end); 
+  background-image:         linear-gradient(@start-point, @color-start, @color-end);
+  filter: @filter-str;
+}
+
+.darken-grad(@color-start: #fff, @darken-ratio: 5%, @start-point: top) {
+  /* 垂直渐变 */
+
+  @color-middle: saturate(darken(@color-start, @darken-ratio), @darken-ratio * 1.8);
+  @color-end: lighten(@color-middle, 1%);
+  @fallback-color: darken(@color-start, @darken-ratio / 2);
+
+  @filter-str: ~`"progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='@{color-start}', EndColorStr='@{color-end}')"`;
+
+  background-color: @fallback-color;
+  background-image: -webkit-linear-gradient(@start-point, @color-start, @color-middle, @color-end); 
+  background-image:    -moz-linear-gradient(@start-point, @color-start, @color-middle, @color-end); 
+  background-image:     -ms-linear-gradient(@start-point, @color-start, @color-middle, @color-end); 
+  background-image:      -o-linear-gradient(@start-point, @color-start, @color-middle, @color-end); 
+  background-image:         linear-gradient(@start-point, @color-start, @color-middle, @color-end);
+  filter: @filter-str;
+}
+
+.flat-grad(@color-start: #fff, @darken-ratio: 5%, @start-point: top) {
+  /* 垂直渐变 */
+
+  @color-end: darken(saturate(@color-start, @darken-ratio * 0.7), @darken-ratio);
+  @fallback-color: darken(@color-start, @darken-ratio / 2);
+
+  .grad(@color-start, @color-end, @start-point);
+}
+
+.btn-normal-props(@color-base: #0075a6) {
+  color: lighten(desaturate(@color-base, 20%), 60%);
+  border-color: darken(@color-base, 22%);
+  text-shadow: 0 1px 1px darken(@color-base, 60%);
+  .box-shadow(0 0 0 #000);
+
+  &:hover {
+    border-color: darken(@color-base, 15%);
+    color: lighten(desaturate(@color-base, 30%), 68%);
+    .box-shadow(0 0 4px lighten(@color-base, 8%));
+  }
+  &:focus, &:active {
+    outline: 0;
+    color: lighten(desaturate(@color-base, 20%), 70%);
+    .box-shadow(0 0 5px darken(@color-base, 5%));
+  }
+  .i {
+    color: lighten(desaturate(@color-base, 20%), 60%);
+    border-color: lighten(@color-base, 5%) lighten(@color-base, 1%) darken(@color-base, 1%);
+    .darken-grad(@color-base, 6%);
+  }
+  &:hover .i {
+    border-color: lighten(@color-base, 5%);
+    .darken-grad(@color-base, 5%);
+  }
+  &:active .i {
+    border-color: lighten(@color-base, 3%);
+    .darken-grad(darken(saturate(@color-base, 10%), 2%), -2%);
+  }
+}
+
+.btn-flat-props(@color-base: #2c667b, @grad-ratio: 5%, @border-darken: 15%) {
+  color: lighten(desaturate(@color-base, 20%), 50%);
+  border-color: darken(desaturate(@color-base, 40%), @border-darken);
+  text-shadow: 0 1px 1px darken(@color-base, 30%);
+
+  &:focus {
+    outline: 0;
+    color: lighten(desaturate(@color-base, 20%), 70%);
+    .box-shadow(0 0 5px darken(@color-base, 5%));
+  }
+
+  &:hover {
+    color: lighten(desaturate(@color-base, 30%), 68%);
+    border-color: darken(desaturate(@color-base, 40%), @border-darken * 0.9);
+    .box-shadow(0 0 5px darken(@color-base, 10%));
+  }
+  .i {
+    color: lighten(desaturate(@color-base, 20%), 53%);
+    border-color: lighten(@color-base, 0.8%) lighten(@color-base, 0.3%) darken(@color-base, 2%);
+    .flat-grad(@color-base, @grad-ratio);
+  }
+  &:hover .i {
+    border-color: lighten(@color-base, 0.8%);
+    .flat-grad(@color-base, @grad-ratio - 3%);
+  }
+  &:active .i {
+    border-color: lighten(@color-base, 3%);
+    .flat-grad(darken(saturate(@color-base, 10%), 2%), -2%);
+  }
+}
+
+.btn (@rc: 4px) {
+  .rc(@rc);
+  .transition();
+
+  display: inline-block;
+  padding: 0;
+  white-space: nowrap;
+  border: 1px solid;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .i {
+    .rc(@rc - 1px);
+    display: inline-block;
+    border: 1px solid;
+    .transition(~"box-shadow,border-color,color .3s ease-in-out");
+  }
+}
