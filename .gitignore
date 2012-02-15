@@ -6,3 +6,5 @@ stable_cache
 *.bak
 .DS_Store
 conf/*
+public/*.html
+public/*.txt
