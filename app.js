@@ -8,20 +8,6 @@ var fs = require('fs');
 
 jade.doctypes.default = '<!DOCTYPE html>';
 
-//var prettydate = require('prettydate');
-//prettydate.addLocale('zh-CN', {
-//a: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-//A: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-//b: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-//B: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-//c: '%a %d %b %Y %T %Z',
-//p: ['AM', 'PM'],
-//P: ['am', 'pm'],
-//r: '%I:%M:%S %p',
-//x: '%d/%m/%y',
-//X: '%T'
-//});
-
 var central = require(__dirname + '/lib/central.js');
 // register global
 global.central = central;
@@ -170,7 +156,6 @@ exports.boot = function() {
   bootServer('www', conf.port);
 };
 
-// allow normal node loading if appropriate
 if (!module.parent) {
 //setTimeout(function() {
   exports.boot();
