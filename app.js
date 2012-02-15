@@ -31,8 +31,6 @@ tmp.forEach(function(item) {
   central.datasets[item.replace('.js', '')] = require(__dirname + '/datasets/' + item);
 });
 
-// for passport
-
 // boot application
 function bootApp(app, mdls, next) {
   if (typeof mdls == 'function') {
@@ -140,7 +138,6 @@ exports.boot = function() {
         port = arg[1];
       }
       bootServer(hostname, port, app);
-      // add helpers for domain name getting
       hosts[hostname.toUpperCase() + '_ROOT'] = hostname + '.' + rootDomain + ':' + port;
     });
   }
@@ -149,6 +146,7 @@ exports.boot = function() {
   for (var hostname in central.servers) {
     var server = central.servers[hostname];
     var fn = server.after;
+    // add helpers for server hosts
     server.helpers(hosts);
     fn && fn(server, app);
   }
