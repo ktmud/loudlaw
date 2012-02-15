@@ -18,7 +18,6 @@ module.exports = {
   site_name: '大声看法',
   // assets file's root, for static file CDN.
   assets_root: 'http://a.idufa.com',
-  ga_id: 'UA-25623106-1',
   admin_email: '"大声看法官方" <man@dakanfa.com>',
   sender_email: '"大声看法" <support@dakanfa.com>',
   site_root: 'http://www.dakanfa.com',
