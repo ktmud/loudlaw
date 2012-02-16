@@ -135,12 +135,14 @@ exports.boot = function() {
     servers.forEach(function(arg) {
       var port;
       var hostname = arg;
+      var isProxied;
       if (arg instanceof Array) {
         hostname = arg[0];
         port = arg[1];
+        isProxied = arg[2];
       }
       bootServer(hostname, port, app);
-      hosts[hostname.toUpperCase() + '_ROOT'] = 'http://' + hostname + '.' + rootDomain + ':' + port;
+      hosts[hostname.toUpperCase() + '_ROOT'] = 'http://' + hostname + '.' + rootDomain + (isProxied ? '' : ':' + port);
     });
   }
 
