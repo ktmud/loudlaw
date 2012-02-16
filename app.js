@@ -25,6 +25,9 @@ central.cache = new Cache(conf.cache);
 var sessionStore = central.sessionStore = new FileStore(conf.sessionStore);
 central.passport = passport;
 
+// load reqbase
+central.reqbase = require(__dirname + '/lib/reqbase');
+
 // load datasets
 var tmp = fs.readdirSync(__dirname + '/datasets/');
 tmp.forEach(function(item) {
@@ -33,12 +36,7 @@ tmp.forEach(function(item) {
 });
 
 // boot application
-function bootApp(app, mdls, next) {
-  if (typeof mdls == 'function') {
-    next = mdls;
-    mdls = null;
-  }
-
+function bootApp(app, next) {
   app.set('environment', conf.NODE_ENV);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -66,7 +64,7 @@ function bootApp(app, mdls, next) {
   // reference to the app running
   central.app = app;
 
-  if (mdls) mdls.forEach(function(name) { app.addModule(name); });
+  central.reqbase.addHelpers(app);
 
   next && next(app);
 }
@@ -102,10 +100,16 @@ function bootServer(hostname, port, app, cb) {
     };
   }
 
-  bootApp(server, serverConf.modules, cb);
+  bootApp(server, cb);
 
   serverConf.before && serverConf.before(server, app);
-  server.after = serverConf.after;
+
+  var mdls = serverConf.modules;
+  if (mdls) mdls.forEach(function(name) { server.addModule(name); });
+
+  serverConf.after && serverConf.after(server, app);
+
+  server.ending = serverConf.ending;
 
   // init routes...
   if (routes) {
@@ -158,10 +162,11 @@ exports.boot = function() {
   // server boot callbacks
   for (var hostname in central.servers) {
     var server = central.servers[hostname];
-    var fn = server.after;
     // add helpers for server hosts
     server.helpers(hosts);
-    fn && fn(server, app);
+    server.ending && server.ending(server, app);
+    // for garbage collection..
+    delete server.ending;
   }
 
   bootServer('www', conf.port);

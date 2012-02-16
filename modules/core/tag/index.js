@@ -1,6 +1,9 @@
 var dataset, Pager;
 var reg_comma = /\s*,\s*/g;
 
+var dataset = central.datasets.tags;
+var Pager = central.lib.Pager;
+
 var action_cancel = {
   name: 'cancel',
   class: 'gray btn-act-x',
@@ -84,7 +87,7 @@ function update_tag(req, res, next, isNew) {
       }
       return res.redirect(req.originalUrl.replace('s/add', '-' + tag_id + '/edit'));
     } else if (doc.deleted) {
-      return res.redirect('/' + subsite + '/tags');
+      return res.redirect('/tags');
     } else {
       render_tag(res, ret, subsite);
     }
@@ -113,7 +116,7 @@ function render_tag(res, doc, subsite) {
 
 function show_tags(req, res, next) {
   var params = req.params;
-  var subsite = params[0];
+  var subsite = req.params.subsite;
   var sort = params[2] || 'default';
   var page = parseInt(params[3]) || 1;
   var perpage = parseInt(req.param('perpage')) || 500;
@@ -132,8 +135,9 @@ function show_tags(req, res, next) {
       entries.push(item);
     });
 
-    var baseUrl = '/' + subsite + '/tags';
+    var baseUrl = '/tags';
     res.ll_render(subsite + '/tags', {
+      subsite: subsite,
       action: req.params.act,
       userActions: res.userActions,
       baseUrl: baseUrl,
@@ -169,17 +173,14 @@ function add_user_action(req, res, next) {
 
 module.exports = {
   _dir: __dirname,
+  dataset: central.datasets.tags,
   init: function(central, app) {
-    dataset = module.dataset = this.dataset = central.datasets.tags;
-
-    Pager = central.lib.Pager;
-
-    var reg_lib_tags = /^\/([^\/]+)\/tags(?:(?:\/(add|manage))|(?:\/by-([^\/]+))?(?:\/p([0-9]+))?)(?:\.(json|xml|rss))?$/;
+    var reg_lib_tags = /^\/tags(?:(?:\/(add|manage))|(?:\/by-([^\/]+))?(?:\/p([0-9]+))?)(?:\.(json|xml|rss))?$/;
 
     // list all the tags
     app.all(reg_lib_tags, function(req, res, next) {
       var act = req.params.act = req.params[1];
-      var subsite = req.params.subsite = req.params[0];
+      req.params.subsite = app.hostname || '';
 
       if (add_user_action(req, res, next)) return;
 
@@ -201,7 +202,7 @@ module.exports = {
       next();
     });
 
-    app.all('/:subsite/tag-:tag/:act', function(req, res, next) {
+    app.all('/tag-:tag/:act', function(req, res, next) {
       var act = req.params.act;
       switch (act) {
       case 'edit':
@@ -215,10 +216,9 @@ module.exports = {
       }
     });
 
-    var keysplitter = central.conf.cache.keysplitter;
     // delete cache when the tag is updated
     central.on('tag-update', function(tag) {
-      central.cache.bulk_delete(['tags', 'list'].join(keysplitter));
+      central.cache.bulk_delete(['tags', 'list'].join(central.conf.cache.keysplitter));
     });
 
     app.get('/j/tag-suggest/:q', function(req, res, next) {

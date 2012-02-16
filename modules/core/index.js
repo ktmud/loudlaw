@@ -1,6 +1,6 @@
 module.exports = {
   _dir: __dirname,
   init: function(central, app) {
-    this.mount('reqbase', 'auth', 'article', 'tag', app);
+    this.mount('auth', 'article', 'tag', 'exception', app);
   }
 };

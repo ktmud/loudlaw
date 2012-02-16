@@ -1,6 +1,8 @@
 var fs = require('fs');
 
 var log = central.utils.log;
+var Cache = require(central.cwd + '/lib/Cache');
+var wrench = require('wrench');
 
 module.exports = function(central, app) {
   // manage article tags
@@ -10,12 +12,12 @@ module.exports = function(central, app) {
 
     var refferer = req.header('referrer');
     res.redirect(refferer || '/adm');
+    res.end();
 
-    fs.readdir(cache_dir, function(err, files) {
-      files.forEach(function(file) {
-        fs.unlink(cache_dir + file);
-      });
+    // remove the whole cache dir, and make a whole new cache
+    wrench.rmdirRecursive(cache_dir, function(err) {
+      if (err) throw err;
+      central.cache.clear();
     });
-    central.cache.clear(true);
   });
 };
