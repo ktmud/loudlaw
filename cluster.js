@@ -1,7 +1,9 @@
 var cluster = require('cluster');
 var app = require('./app');
 var util = require('util');
-var numCPUs = require('os').cpus().length;
+var conf = require(__dirname + '/conf/configuration.js');
+
+var numCPUs = Math.min(conf.worker, require('os').cpus().length);
 
 if (cluster.isMaster) {
   // Fork workers.

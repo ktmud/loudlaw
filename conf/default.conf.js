@@ -4,6 +4,7 @@ var util = require('util');
  * some default settings
  */
 module.exports = {
+  worker: 2,
   // the port of the root server
   port: 3000,
   smtp: {
