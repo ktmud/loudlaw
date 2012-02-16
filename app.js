@@ -70,6 +70,7 @@ function bootApp(app, mdls, next) {
   next && next(app);
 }
 
+var vhosts = [];
 // boot specific server
 function bootServer(hostname, port, app, cb) {
   var _dir = __dirname + '/servers/' + hostname;
@@ -111,14 +112,14 @@ function bootServer(hostname, port, app, cb) {
     routes(central, server, app);
   }
 
+  if ('afterBoot' in conf) {
+    conf.afterBoot(server, express);
+  }
+
   var vhost = serverConf.vhost;
   if (vhost) {
     hostname = (typeof vhost == 'string' && vhost) ? vhost : hostname;
-    app && app.use(express.vhost(hostname + '.' + rootDomain, server));
-  }
-
-  if ('afterBoot' in conf) {
-    conf.afterBoot(server, express);
+    vhosts.push([hostname, server]);
   }
 
   return server;
@@ -143,6 +144,14 @@ exports.boot = function() {
     });
   }
 
+  vhosts.forEach(function(host) {
+    var hostname = host[0];
+    var server = host[1];
+    app.use(express.vhost(hostname + '.' + rootDomain, server));
+  });
+
+  bootServer('www', conf.port);
+
   // server boot callbacks
   for (var hostname in central.servers) {
     var server = central.servers[hostname];
@@ -151,8 +160,6 @@ exports.boot = function() {
     server.helpers(hosts);
     fn && fn(server, app);
   }
-
-  bootServer('www', conf.port);
 };
 
 if (!module.parent) {

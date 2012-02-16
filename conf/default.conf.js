@@ -24,7 +24,7 @@ module.exports = {
   good_domains: '.*\.dakanfa.com|127\.0\.0\.1|localhost|.*\.localhost|.*\.loudlaw.org',
 
   // can appoint a dedicated port for a subdomain
-  servers: [['library', 2000], 'default'],
+  servers: [['library', 2000]],
 
   // whether to send gzipped content
   gzip: true,
