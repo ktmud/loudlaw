@@ -138,7 +138,7 @@ exports.boot = function() {
         port = arg[1];
       }
       bootServer(hostname, port, app);
-      hosts[hostname.toUpperCase() + '_ROOT'] = hostname + '.' + rootDomain + ':' + port;
+      hosts[hostname.toUpperCase() + '_ROOT'] = 'http://' + hostname + '.' + rootDomain + ':' + port;
     });
   }
 
