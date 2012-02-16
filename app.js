@@ -14,7 +14,7 @@ global.central = central;
 
 var conf = require(__dirname + '/conf/configuration.js');
 
-var rootDomain = conf.site_root.split(':')[0].split('://')[1] || 'localhost';
+var rootDomain = conf.site_root.split('://').slice(-1).join('').split(':')[0] || 'localhost';
 rootDomain = rootDomain.split('.').slice(1).join('.') || rootDomain;
 
 central.rootDomain = rootDomain;
