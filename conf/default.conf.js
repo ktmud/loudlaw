@@ -12,7 +12,7 @@ module.exports = {
     use_authentication: true,
     ssl: true,
     user: 'support@dakanfa.com',
-    pass: 'testmeagain1234'
+    pass: 'password here'
   },
 
   site_name: '大声看法',
