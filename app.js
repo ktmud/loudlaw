@@ -22,6 +22,7 @@ central.conf = conf;
 // database connection
 central.dbconn = conf.dbconn;
 central.cache = new Cache(conf.cache);
+central.sessionStore = new FileStore(conf.sessionStore);
 central.passport = passport;
 
 // load datasets
@@ -52,7 +53,7 @@ function bootApp(app, mdls, next) {
   app.use(express.bodyParser());
   app.use(express.session({
     secret: central.conf.salt,
-    store: new FileStore(conf.sessionStore)
+    store: sessionStore
   }));
   app.use(express.csrf());
   app.use(passport.initialize());
