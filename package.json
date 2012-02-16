@@ -34,6 +34,6 @@
   },
   "subdomain": "fa",
   "scripts": {
-    "start": "node cluster.js"
+    "start": "node app.js"
   }
 }

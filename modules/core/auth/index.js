@@ -7,7 +7,7 @@ var cwd = process.cwd();
 var app = central.app;
 var reqbase = central.reqbase;
 var u_s = central.lib._;
-var passport = central.passport;
+var passport = central.lib.passport;
 
 var SITE_NAME = central.conf.site_name;
 var SITE_ROOT = central.conf.site_root || '';

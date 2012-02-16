@@ -1,42 +1,13 @@
-var express = require('express');
 var colors = require('colors');
-var jade = require('jade');
-var passport = require('passport');
-var Cache = require(__dirname + '/lib/Cache.js');
-var FileStore = require(__dirname + '/lib/FileStore.js');
 var fs = require('fs');
-
-jade.doctypes.default = '<!DOCTYPE html>';
-
 var central = require(__dirname + '/lib/central.js');
-// register global
-global.central = central;
-
-var conf = require(__dirname + '/conf/configuration.js');
-
-var rootDomain = conf.site_root.split('://').slice(-1).join('').split(':')[0] || 'localhost';
-rootDomain = rootDomain.split('.').slice(1).join('.') || rootDomain;
-
-central.rootDomain = rootDomain;
-central.conf = conf;
-// database connection
-central.dbconn = conf.dbconn;
-central.cache = new Cache(conf.cache);
-var sessionStore = central.sessionStore = new FileStore(conf.sessionStore);
-central.passport = passport;
-
-// load reqbase
-central.reqbase = require(__dirname + '/lib/reqbase');
-
-// load datasets
-var tmp = fs.readdirSync(__dirname + '/datasets/');
-tmp.forEach(function(item) {
-  if (item[0] == '_') return;
-  central.datasets[item.replace('.js', '')] = require(__dirname + '/datasets/' + item);
-});
+var express = central.lib.express;
 
 // boot application
 function bootApp(app, next) {
+  var passport = central.lib.passport;
+  var conf = central.conf;
+
   app.set('environment', conf.NODE_ENV);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -51,8 +22,8 @@ function bootApp(app, next) {
   app.use(express.bodyParser());
   app.use(express.session({
     secret: central.conf.salt,
-    cookie: { domain: '.' + rootDomain },
-    store: sessionStore
+    cookie: { domain: '.' + central.rootDomain },
+    store: central.sessionStore
   }));
   app.use(express.csrf());
   app.use(passport.initialize());
@@ -72,6 +43,7 @@ function bootApp(app, next) {
 var vhosts = [];
 // boot specific server
 function bootServer(hostname, port, app, cb) {
+  var conf = central.conf;
   var _dir = __dirname + '/servers/' + hostname;
   var serverConf = require(_dir);
   var server = central.servers[hostname] ||
@@ -84,7 +56,7 @@ function bootServer(hostname, port, app, cb) {
 
   server._dir = _dir;
   server.hostname = hostname;
-  server.host = hostname + '.' + rootDomain + ':' + (port || conf.port);
+  server.host = hostname + '.' + central.rootDomain + ':' + (port || conf.port);
   server.port = port;
 
   // do something before boot
@@ -133,6 +105,8 @@ function bootServer(hostname, port, app, cb) {
 // initial bootstraping
 exports.boot = function() {
   var app = central.servers['www'] = express.createServer();
+  var rootDomain = central.rootDomain;
+  var conf = central.conf;
 
   var servers = conf.servers;
   var hosts = {};
