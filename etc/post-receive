@@ -7,7 +7,7 @@ siteroot=/srv/nodejs/loudlaw
 
 rm -rf $siteroot/public/css/*.css
 rm -rf $siteroot/var/cache/*
-GIT_WORK_TREE=siteroot git checkout -f
+GIT_WORK_TREE=$siteroot git checkout -f
 
 /bin/bash /srv/nodejs/deploy.sh $old_rev $new_rev & exit 0;
 
