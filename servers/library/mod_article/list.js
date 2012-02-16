@@ -1,7 +1,7 @@
 module.exports = function(central, app, dataset) {
   var self = this;
   var Pager = central.lib.Pager;
-  var dataset_tag = central.datasets.tags;
+  var dataset_tags = central.datasets.tags;
   var keynameMap = this.keynameMap;
 
   function popular_articles(limit, fn) {
