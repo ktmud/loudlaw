@@ -22,7 +22,7 @@ central.conf = conf;
 // database connection
 central.dbconn = conf.dbconn;
 central.cache = new Cache(conf.cache);
-central.sessionStore = new FileStore(conf.sessionStore);
+var sessionStore = central.sessionStore = new FileStore(conf.sessionStore);
 central.passport = passport;
 
 // load datasets
