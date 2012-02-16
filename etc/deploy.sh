@@ -1,6 +1,6 @@
 export PS4='${BASH_SOURCE}:{LINENO}: '
 
-mkdir -p /srv/logs/nodejs/
+mkdir -p /srv/nodejs/logs
 logfile="/srv/logs/nodejs/ll.log"
 
 siteroot=/srv/nodejs/loudlaw
