@@ -42,7 +42,7 @@ module.exports = {
         // data cache
         dataset.unstash(['list', 'tag', tag]);
         // html cache
-        central.cache.bulk_delete('_-tag-' + tag);
+        central.cache.bulk_delete('/tag-' + tag);
       });
     });
     central.on('article-cate-update', function(cate) {
@@ -53,7 +53,7 @@ module.exports = {
     central.on('article-update', function(sid) {
       if (!sid) return;
       // clear article html cache
-      central.cache.bulk_delete('_-article_-' + sid);
+      central.cache.bulk_delete('/article/' + sid);
     });
   }
 };

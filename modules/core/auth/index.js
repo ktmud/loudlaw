@@ -17,10 +17,15 @@ var LocalStrategy = require('./strategy.js');
 var dataset = require(cwd + '/datasets/users');
 
 var all_urls = /\/(login|register|logout|set-password|forget-password)/;
-var host_regexp = new RegExp(
-  'https?://(' + central.conf.good_domains + ')'
-);
 
+var good_domains = central.conf.good_domains || '';
+good_domains = good_domains.replace('.', '\\.').split(/\s+/);
+good_domains.forEach(function(domainName, i) {
+  good_domains[i] = '[\\w\\.]*' + domainName;
+});
+var host_regexp = new RegExp(
+  '^https?://(' + good_domains.join('|') + ')[:/]'
+);
 var CP_HOME = '/welcome-back';
 
 var passportInited = false;

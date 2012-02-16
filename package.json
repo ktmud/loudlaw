@@ -8,6 +8,7 @@
     "ktmud <jyyjcc@gmail.com> (http://ktmud.com)"
   ],
   "dependencies": {
+    "mkdirp": ">= 0.0.1",
     "express": ">= 2.5.1",
     "uglify-js": ">= 1.0",
     "compress-buffer": ">= 0.1.0",

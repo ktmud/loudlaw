@@ -21,10 +21,10 @@ module.exports = {
   admin_email: '"大声看法官方" <man@dakanfa.com>',
   sender_email: '"大声看法" <support@dakanfa.com>',
   site_root: 'http://www.dakanfa.com',
-  good_domains: '.*\.dakanfa.com|127\.0\.0\.1|localhost|.*\.localhost|.*\.loudlaw.org',
+  good_domains: 'dakanfa.com 127.0.0.1 localhost loudlaw.org idufa-test.com',
 
   // can appoint a dedicated port for a subdomain
-  servers: [['library', 2000]],
+  servers: ['library'],
 
   // whether to send gzipped content
   gzip: true,

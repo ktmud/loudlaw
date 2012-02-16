@@ -25,7 +25,7 @@ function no_cache(req) {
   var ua_str = req.header('user-agent') || '';
   var is_robot = ua_str.indexOf('ozilla') == -1;
   var uid = req.user ? (req.session.id) : (is_robot ? '_robot_' : 'anonymous');
-  if (!ret) req.cache_key = req.headers.host + '_-' + uid + '_-' + req.originalUrl.replace(reg_slash, '_-');
+  if (!ret) req.cache_key = req.headers.host + '_' + uid + req.originalUrl;
 
   return ret;
 }

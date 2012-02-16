@@ -53,6 +53,7 @@ function bootApp(app, mdls, next) {
   app.use(express.bodyParser());
   app.use(express.session({
     secret: central.conf.salt,
+    cookie: { domain: '.' + rootDomain },
     store: sessionStore
   }));
   app.use(express.csrf());
@@ -117,7 +118,7 @@ function bootServer(hostname, port, app, cb) {
   }
 
   var vhost = serverConf.vhost;
-  if (vhost) {
+  if (vhost || !port) {
     hostname = (typeof vhost == 'string' && vhost) ? vhost : hostname;
     vhosts.push([hostname, server]);
   }
@@ -142,17 +143,17 @@ exports.boot = function() {
         isProxied = arg[2];
       }
       bootServer(hostname, port, app);
-      hosts[hostname.toUpperCase() + '_ROOT'] = 'http://' + hostname + '.' + rootDomain + (isProxied ? '' : ':' + port);
+      var port_suffix = conf.isProxied ? '' : (':' + (port || conf.port));
+      hosts[hostname.toUpperCase() + '_ROOT'] = 'http://' + hostname + '.' + rootDomain + port_suffix;
     });
   }
 
   vhosts.forEach(function(host) {
     var hostname = host[0];
     var server = host[1];
+    server.log('info', 'vhosting..');
     app.use(express.vhost(hostname + '.' + rootDomain, server));
   });
-
-  bootServer('www', conf.port);
 
   // server boot callbacks
   for (var hostname in central.servers) {
@@ -162,6 +163,8 @@ exports.boot = function() {
     server.helpers(hosts);
     fn && fn(server, app);
   }
+
+  bootServer('www', conf.port);
 };
 
 if (!module.parent) {
