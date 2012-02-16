@@ -2,7 +2,7 @@
 #header
   .fwrap
     p#logo 
-      a(href='/', title='回到首页') 
+      a(href='#{SITE_ROOT}', title='回到首页') 
        strong #{SITE_NAME}
     if locals.sublogo
       p#sublogo
@@ -14,18 +14,18 @@
             each item in headerMenu
               a(class=item.class,
                 id='wk-act-#{item.name}',
-                href=(SITE_ROOT + '/' + (item.url || item.name)),
+                href='#{SITE_ROOT}/#{item.url || item.name}',
                 title=item.desc,
                 data-param=item.params
               )
                 span.i #{item.text}
             span.pipe
           a(href='#{user.url}', title="你的个人主页") #{user.uname || user._id}的账号
-          a(href='/logout') 退出
+          a(href='#{SITE_ROOT}/logout') 退出
       else
         span.pipe
-        a.btn-act(href='/login')
+        a.btn-act(href='#{SITE_ROOT}/login')
           span.i 登录 
-        a.btn-act(href='/register')
+        a.btn-act(href='#{SITE_ROOT}/register')
           span.i 注册
 .header-border.header-border-bottom
