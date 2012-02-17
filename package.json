@@ -20,6 +20,7 @@
     "jade": ">= 0.2.0",
     "discount": ">= 0.1.0",
     "cradle": ">= 0.0.1",
+    "memcached": ">= 0.0.1",
     "underscore": ">= 1.2.0",
     "mocha": ">= 0.0.8",
     "backbone": ">= 0.5.3",
@@ -34,6 +35,6 @@
   },
   "subdomain": "fa",
   "scripts": {
-    "start": "node app.js"
+    "start": "node cluster.js"
   }
 }

@@ -36,7 +36,7 @@ module.exports = {
   },
 
   sessionStore: {
-    fname: '__sessions__',
+    memcached: true,
     // save session storage to file system every 60 minutes
     sync_time: 60
   },
@@ -63,21 +63,6 @@ module.exports = {
   ga_id: '',
 
   initSets: function(app, express) {
-    /**
-     * Catch All exception handler
-     */
-    process.on('uncaughtException', function(err, next) {
-      var msg;
-      if (err instanceof Error) {
-        msg = '[err]: '.red + err + '\n' + err.stack;
-      } else {
-        msg = (err.name || err.reason || err.message);
-        app.log(err);
-      }
-      app.log('error', msg);
-      next();
-    });
-
     app.enable('view cache');
     //app.use(express.logger('tiny'));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
