@@ -55,6 +55,8 @@ module.exports = {
     all_fields: {
       index: function(doc) {
         if (doc.deleted) return null;
+        if (!doc.content) return null;
+        if (!doc.title) return null;
 
         var ret = new Document();
         var title = doc.title && doc.title.trim();
@@ -66,7 +68,7 @@ module.exports = {
         if (doc.keywords) ret.add(doc.keywords, { boost: 4 });
         if (doc.type == 'itpt' || doc.isExp) ret.add('司法解释', { boost: 5 });
         ret.add(doc.title, { boost: 3 });
-        if (doc.content.length > 20) {
+        if (doc.content && doc.content.length > 20) {
           ret.add(doc.content);
         } else {
           ret.add(doc.content, { boost: 0.6 });
