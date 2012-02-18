@@ -39,7 +39,7 @@ module.exports = function(central, app, dataset) {
 
   app.get('/', function(req, res, next) {
     res.ll_write('library/index', {
-      pipefy_js: central.lazylib.bigpipe,
+      pipefy: true,
       statusCode: 200,
       types: keynameMap['type'],
       cates: keynameMap['cate']

@@ -1,4 +1,4 @@
-var pinyin = central.lazylib.pinyin;
+var pinyin = central.istatic('/utils/pinyin.js');
 
 module.exports = {
   views: {

@@ -1,16 +1,8 @@
 meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
 title= title
-meta(id="meta-viewport", name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
+meta(id="meta-viewport", name="viewport", content="width=device-width, initial-scale=1")
 script
-  var supportsOrientationChange = "onorientationchange" in window,
-  orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-  var viewportmeta = document.getElementById('meta-viewport');
-  window.addEventListener(orientationEvent, function() {
-    viewportmeta.content = 'width=device-width, minimum-scale=1, maximum-scale=1, initial-scale=1';
-    setTimeout(function() {
-      viewportmeta.content = 'width=device-width, minimum-scale=0.5, maximum-scale=2, initial-scale=1';
-    }, 800);
-  }, false);
+  !{istatic('js/lib/iOS-Orientationchange-fix.js')}
 link(rel='stylesheet', href='#{ASSETS_ROOT}/css/base.css')
 link(rel='stylesheet', href='#{ASSETS_ROOT}/css/print.css', media='print')
 if locals.css 
@@ -20,23 +12,13 @@ if locals.css
   - })
 unless locals.nojs 
   script
-    ;(function(m, o, d, u, l, a, r) {
-      if(m[d]) return;
-      function f(n, t) { return function() { r.push(n, arguments); return t; } }
-      m[d] = a = { args: (r = []), config: f(0, a), use: f(1, a) };
-      m.define = f(2);
-      u = o.createElement('script');
-      u.id = d + 'node';
-      u.src = '#{ASSETS_ROOT}/js/sea.js';
-      l = o.getElementsByTagName('head')[0];
-      l.insertBefore(u, l.firstChild);
-    })(window, document, 'seajs');
+    !{istatic('js/seajs-mini.js')}
 if DEBUG
   script
     window._DEV_ = true;
-if locals.pipefy_js
+if locals.pipefy
   script
-    !{pipefy_js}
+    !{istatic('js/lib/bigpipe.js')}
 if locals.js
   - var js_mods = (js instanceof Array) ? js : [js];
   - js_mods = JSON.stringify(js_mods);

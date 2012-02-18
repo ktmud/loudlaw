@@ -5,7 +5,7 @@ module.exports = function(central, app, dataset) {
     var keyword = req.params.keyword || req.param('q');
     req.params.keyword = keyword;
     res.ll_write('library/search', {
-      pipefy_js: central.lazylib.bigpipe,
+      pipefy: true,
       keyword: keyword,
       statusCode: 200
     });

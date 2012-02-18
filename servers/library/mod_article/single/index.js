@@ -325,7 +325,7 @@ module.exports = function(central, app, dataset) {
     }
 
     var tmpl_data = {
-      pipefy_js: central.lazylib.bigpipe,
+      pipefy: true,
       operation: operation,
       statusCode: res.statusCode,
       carnonical: req.baseUrl,
@@ -406,6 +406,5 @@ module.exports = function(central, app, dataset) {
       pmp.onload = ['mod1.toc();'];
     }
     res.ll_write(res.tmpl, p_main, countDown);
-
   }, central.reqbase.close());
 };
