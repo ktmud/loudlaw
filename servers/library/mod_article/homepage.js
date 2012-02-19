@@ -40,6 +40,7 @@ module.exports = function(central, app, dataset) {
   app.get('/', function(req, res, next) {
     res.ll_write('library/index', {
       title: '法律文库 - 法律法规大全，在线法律图书馆 | ' + central.conf.site_name,
+      desc: '大声看法法律文库，互联网上最牛逼的法律法规大全。提供最便捷的法条检索工具。此页是首页。',
       title_suffix: '',
       pipefy: true,
       statusCode: 200,
