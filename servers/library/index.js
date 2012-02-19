@@ -14,7 +14,8 @@ module.exports = {
       css: 'library',
       bodyClass: 'page-library',
       sublogo: '<a href="/">法律文库</a>',
-      title: '法律文库 - 法律法规大全，在线法律图书馆 | ' + central.conf.site_name
+      title: '',
+      title_suffix: ' - 法律文库 | ' + central.conf.site_name
     }));
   },
   // after modules loaded

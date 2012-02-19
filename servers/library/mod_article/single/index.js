@@ -330,7 +330,7 @@ module.exports = function(central, app, dataset) {
       statusCode: res.statusCode,
       carnonical: req.baseUrl,
       baseUrl: req.baseUrl,
-      title: doc.title + ' | ' + SITE_NAME,
+      title: doc.title,
       userActions: get_user_actions(req, res),
       doc: doc,
       add_tag: res.add_tag,
