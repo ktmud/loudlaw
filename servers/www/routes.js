@@ -40,6 +40,7 @@ module.exports = function(central, app, parentApp) {
   app.get(/^\/(contribute|about|contact)$/, reqbase.cache(), function(req, res, next) {
     var pname = req.params[0];
     res.ll_render('meta/' + pname, {
+      title: titles[pname] + ' | ' + central.conf.site_name,
       onesalt: req.session.onesalt
     });
   });

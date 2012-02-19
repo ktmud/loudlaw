@@ -80,7 +80,7 @@ function bootServer(hostname, port, app, cb) {
   // give this server a dedicated port
   if (port && !cb) {
     cb = function(server) {
-      server.listen(port);
+      server.listen(port, '127.0.0.1');
       server.log('info', 'listen'.yellow + ':' + ('' + port).yellow);
     };
   }
