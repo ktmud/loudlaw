@@ -14,6 +14,7 @@ if (!module.parent) process.on('uncaughtException', function(err, next) {
 var fs = require('fs');
 var central = require(__dirname + '/lib/central.js');
 var express = central.lib.express;
+var istatic = central.lib.istatic;
 
 // boot application
 function bootApp(app, next) {
@@ -110,6 +111,8 @@ function bootServer(hostname, port, app, cb) {
     hostname = (typeof vhost == 'string' && vhost) ? vhost : hostname;
     vhosts.push([hostname, server]);
   }
+
+  istatic.enable(server, { root: __dirname + '/public' });
 
   return server;
 }

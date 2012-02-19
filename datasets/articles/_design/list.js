@@ -1,4 +1,4 @@
-var pinyin = central.istatic('/utils/pinyin.js');
+var pinyin = central.lib.istatic('/utils/pinyin.js');
 
 module.exports = {
   views: {

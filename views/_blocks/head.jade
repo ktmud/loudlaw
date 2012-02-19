@@ -17,8 +17,9 @@ if DEBUG
   script
     window._DEV_ = true;
 if locals.pipefy
+  - var opt = { compress: false }
   script
-    !{istatic('js/lib/bigpipe.js')}
+    !{istatic('js/lib/bigpipe.js', opt)}
 if locals.js
   - var js_mods = (js instanceof Array) ? js : [js];
   - js_mods = JSON.stringify(js_mods);
