@@ -63,6 +63,7 @@ module.exports = function(central, app, dataset) {
         data.title = viewInfo.name
         res.ll_render('library/list/' + view, {
           carnonical: '/library/list/' + view + '-' + key + '/by-' + sort + '/p' + page,
+          desc: '大声看法法律文库，互联网上最牛逼的法律法规大全。提供最便捷的法条检索工具。此页是#{title}相关的法律法规列表。',
           data: data,
           title: data.title + (page > 1 ? '(第' + page + '页)' : ''),
           viewInfo: viewInfo,

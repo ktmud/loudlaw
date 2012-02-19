@@ -6,9 +6,7 @@ module.exports = {
   // before modules loaded
   before: function(app, parentApp) {
     var reqbase = central.reqbase;
-    // all the pages under '/library'
-    app.all('*', reqbase.ft(),
-    reqbase.cache(), reqbase.open({
+    var render_data = {
       // dont't send header automatically
       need_wait: true,
       css: 'library',
@@ -16,7 +14,10 @@ module.exports = {
       sublogo: '<a href="/">法律文库</a>',
       title: '',
       title_suffix: ' - 法律文库 | ' + central.conf.site_name
-    }));
+    };
+    // all the pages under '/library'
+    app.all('*', reqbase.ft(),
+    reqbase.cache(), reqbase.open(render_data));
   },
   // after modules loaded
   after: function(app, parentApp) {

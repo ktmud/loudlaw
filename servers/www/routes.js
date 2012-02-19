@@ -12,7 +12,7 @@ module.exports = function(central, app, parentApp) {
     res.ll_data = {
       name: '大声看法',
       url: 'www.dakanfa.com',
-      desc: '在线研习法律的最佳场所'
+      desc: '『大声看法』提供法律和互联网的深度整合，为所有法律爱好者免费提供用户体验最好的学习工具。'
     };
 
     res.ll_render('index', {

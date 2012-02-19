@@ -326,6 +326,7 @@ module.exports = function(central, app, dataset) {
 
     var tmpl_data = {
       pipefy: true,
+      desc: '《#{title}》：' + central.helpers.trunc(doc.content, 140, true),
       operation: operation,
       statusCode: res.statusCode,
       carnonical: req.baseUrl,
