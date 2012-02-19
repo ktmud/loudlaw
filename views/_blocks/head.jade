@@ -31,7 +31,7 @@ if locals.GA_ID
 if locals.carnonical
   link(rel='carnonical', href='#{carnonical}')
 if locals.desc || locals.data
-  - desc = desc || locals.data.desc || locals.data.content
+  - desc = locals.desc || locals.data.desc || locals.data.content
   - data_title = data && data.title
   - desc = trunc(desc, 170, true)
   - desc = substitute(desc, { title: locals.title })
