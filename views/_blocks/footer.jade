@@ -27,7 +27,7 @@ helloLinks = [ { 'href': '/about', 'title': '关于我们', 'text': '关于' }, 
       last_index = helloLinks.length - 1
       each link, i in helloLinks
         a(
-        href='#{link.href}',
+        href='#{SITE_ROOT}#{link.href}',
         title='#{link.title}',
         target=link.target
         ) #{link.text}
