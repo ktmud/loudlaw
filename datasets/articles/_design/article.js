@@ -67,7 +67,7 @@ module.exports = {
         if (doc.tags) ret.add(doc.tags, { boost: 3 });
         if (doc.keywords) ret.add(doc.keywords, { boost: 4 });
         if (doc.type == 'itpt' || doc.isExp) ret.add('司法解释', { boost: 5 });
-        ret.add(doc.title, { boost: 3 });
+        ret.add(doc.title, { boost: 4 });
         if (doc.content && doc.content.length > 20) {
           ret.add(doc.content);
         } else {
@@ -115,7 +115,7 @@ module.exports = {
 
         return ret;
       },
-      analyzer: 'mmseg'
+      analyzer: 'ik'
     }
   }
 }
