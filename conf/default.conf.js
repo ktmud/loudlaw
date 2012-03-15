@@ -37,6 +37,7 @@ module.exports = {
 
   sessionStore: {
     memcached: true,
+    dbname: 'sessions',
     // save session storage to file system every 60 minutes
     sync_time: 60
   },

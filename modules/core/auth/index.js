@@ -74,7 +74,6 @@ function local_auth(req, res, next) {
         // to remember this user, set a cookie
         if (req.param('rem')) {
           req.session.cookie.expires = new Date(Date.now() + 2592000000);
-          req.sessionStore.toFile();
         } else {
           req.session.cookie.expires = false;
         }
@@ -165,7 +164,7 @@ function init(central, app, mod) {
     }
 
     // check whether user exists first
-    dataset.db.query('HEAD', uid, function(err, resp, status) {
+    dataset.db.head(uid, function(err, resp, status) {
       if (status != 404) {
         req.ll_exception = 'uid exists';
         return next();
@@ -195,7 +194,6 @@ function init(central, app, mod) {
             return next();
           }
           res.cookie('lg', '1');
-          req.sessionStore.toFile();
           res.redirect(get_redirect_url(req, SITE_ROOT + '/welcome'));
         });
       }, true);
@@ -207,7 +205,6 @@ function init(central, app, mod) {
     req.user && dataset.unstash(['id', req.user.id]);
     res.cookie('lg', '1');
     req.logOut();
-    req.sessionStore.toFile();
     res.redirect(get_redirect_url(req, '/login'));
   });
 

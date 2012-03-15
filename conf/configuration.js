@@ -20,8 +20,6 @@ function readConfig() {
 
   u_s.defaults(conf, defaultConf);
 
-  conf.env = NODE_ENV;
-
   // establish a database connection.
   conf.dbconn = conn.apply(conn, conf.db_args);
 
