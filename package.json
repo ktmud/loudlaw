@@ -1,6 +1,6 @@
 {
   "name": "idufa",
-  "version": "0.2.0-6",
+  "version": "0.2.0-7",
   "homepage": "http:/www.dakanfa.com",
   "description": "The website Chinese people to learn laws.",
   "private": true,
@@ -21,7 +21,7 @@
     "less": ">= 0.0.1",
     "jade": ">= 0.2.0",
     "discount": ">= 0.1.0",
-    "cradle": ">= 0.0.1",
+    "cradle": ">= 0.6.3",
     "memcached": ">= 0.0.1",
     "underscore": ">= 1.2.0",
     "mocha": ">= 0.0.8",
