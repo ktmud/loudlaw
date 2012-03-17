@@ -101,11 +101,7 @@ var more = {
     }
 
     if (keys.length) {
-      self.db.query('POST', '/_all_docs', {
-        include_docs: true
-      }, {
-        keys: keys
-      }, function(err, data) {
+      self.db.get(keys, function(err, data) {
         if (err) return next(err);
         for (var i in data) {
           var item = data[i];
