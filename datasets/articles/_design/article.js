@@ -42,7 +42,7 @@ module.exports = {
         } else {
           emit(doc._id, doc);
         }
-        if (typeof doc.old_sids == 'object') {
+        if (typeof doc.old_sids === 'object') {
           for (key in doc.old_sids) {
             if (key != title && key != slug && key != doc._id)
             emit(key, doc_s);
@@ -66,7 +66,7 @@ module.exports = {
         if (slug) ret.add(slug, { boost: 3 });
         if (doc.tags) ret.add(doc.tags, { boost: 3 });
         if (doc.keywords) ret.add(doc.keywords, { boost: 4 });
-        if (doc.type == 'itpt' || doc.isExp) ret.add('司法解释', { boost: 5 });
+        if (doc.type === 'itpt' || doc.isExp) ret.add('司法解释', { boost: 5 });
         ret.add(doc.title, { boost: 4 });
         if (doc.content && doc.content.length > 20) {
           ret.add(doc.content);
@@ -79,8 +79,8 @@ module.exports = {
           switch (type) {
             case 'date':
               if (val instanceof Date) return val;
-              if (typeof val == 'string') val = Date.parse(val);
-              if (typeof val == 'number') return new Date(val);
+              if (typeof val === 'string') val = Date.parse(val);
+              if (typeof val === 'number') return new Date(val);
               break;
             case 'float':
               return parseFloat(val);
@@ -96,7 +96,7 @@ module.exports = {
         function add_field() {
           var args = Array.prototype.slice.call(arguments);
           var opt, field;
-          if (typeof args[args.length - 1] == 'string') {
+          if (typeof args[args.length - 1] === 'string') {
             opt = {};
           } else {
             opt = args.pop();

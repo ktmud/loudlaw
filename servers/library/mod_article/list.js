@@ -24,7 +24,7 @@ module.exports = function(central, app, dataset) {
     var cacheKey = ['list', view, key, sort, page, perpage];
     var viewInfo;
 
-    if (view == 'tag') {
+    if (view === 'tag') {
       dataset_tags.get(key, function(err, data) {
         if (err) return next(err);
         viewInfo = data;
@@ -46,7 +46,7 @@ module.exports = function(central, app, dataset) {
 
       dataset.fetch(cacheKey, function(err, data) {
         if (err) {
-          if (err == 404 || err == 'not_found') {
+          if (err === 404 || err === 'not_found') {
             res.statusCode = 404;
             res.ll_render('library/list/' + view, {
               data: { r: 0, msg: 'empty collection', title: viewInfo.name, list: [] },

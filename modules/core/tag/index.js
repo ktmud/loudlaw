@@ -30,7 +30,7 @@ var action_manage = {
 
 function handle_update_tag(req, res, next, isNew) {
   if (!req.user || !req.user.isEditor) return next(403);
-  if (req.method == 'POST') return update_tag(req, res, next, isNew);
+  if (req.method === 'POST') return update_tag(req, res, next, isNew);
   if (isNew) return next();
 
   dataset.fetch(['id', req.params.tag], function(err, doc) {
@@ -158,12 +158,12 @@ function add_user_action(req, res, next) {
   }
   if (isEditor) {
     res.userActions = [];
-    if (req.params.act == 'manage') {
+    if (req.params.act === 'manage') {
       res.userActions.push(action_cancel);
     } else {
       res.userActions.push(action_manage);
     }
-    if (req.params.act == 'add') {
+    if (req.params.act === 'add') {
       res.userActions.push(action_cancel);
     } else {
       res.userActions.push(action_add);
@@ -192,7 +192,7 @@ module.exports = {
       }
     }, function(req, res, next) {
       var act = req.params.act;
-      if (act == 'add') {
+      if (act === 'add') {
         res.ll_render('admin/tags/update', {
           subsite: req.params.subsite,
           title: '新加标签'

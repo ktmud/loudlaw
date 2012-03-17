@@ -50,7 +50,7 @@ style
       if locals.msg
         div(class='msg ' + (msg.type || 'error'))
           p #{msg.msg}
-            if ll_exception == 'uid exists'
+            if ll_exception === 'uid exists'
               &nbsp;/&nbsp;请 <a href="/login?uid=#{uid}">尝试登录</a> 或 <a href="/activate?uid=#{uid}">点此激活</a>
       p
         input(tabindex='1', type='checkbox', name='tos', id='tos', checked, disabled) 

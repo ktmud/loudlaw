@@ -121,7 +121,7 @@ function init(central, app, mod) {
   app.post('/login', local_auth, function(req, res, next) {
     var _id = req.user && req.user._id;
 
-    if (req.ll_exception == 'no password' && _id) {
+    if (req.ll_exception === 'no password' && _id) {
       var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
       var key = bcrypt.hashSync((_id + ip), bcrypt.genSaltSync(5));
@@ -209,7 +209,7 @@ function init(central, app, mod) {
   });
 
   app.all(all_urls, reqbase.ft(), reqbase.open({
-    ssl_form: central.conf.env == 'vps',
+    ssl_form: central.conf.env === 'vps',
     css: 'account',
     bodyClass: 'account',
     need_wait: true
@@ -306,7 +306,7 @@ module.exports = {
       }
 
       var redirectTo = '/login';
-      if (typeof opt.redirect == 'string') redirectTo = opt.redirect;
+      if (typeof opt.redirect === 'string') redirectTo = opt.redirect;
       if (redirectTo) {
         return res.redirect(redirectTo);
       } else {

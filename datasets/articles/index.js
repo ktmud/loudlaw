@@ -68,7 +68,7 @@ var gets = {
     fil.skip = perpage * (page - 1);
     if (!fil.skip || fil.skip < 0) delete fil.offset;
 
-    if (sort == 'desc') fil.descending = true;
+    if (sort === 'desc') fil.descending = true;
 
     self.db.get('_all_docs', fil, function(err, data) {
       var ret;

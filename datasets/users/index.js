@@ -10,7 +10,7 @@ var gets = {
     var _id = keyinfo[0];
     self.db.get(_id, function(err, user) {
       if (err) {
-        if (err.error == 'not_found') return next('no user', null);
+        if (err.error === 'not_found') return next('no user', null);
         return next(err.error, null);
       }
       return next(null, user);
@@ -101,7 +101,7 @@ var more = {
     }
   },
   test_email: function(email) {
-    if (email.indexOf('@') == -1 ||
+    if (email.indexOf('@') === -1 ||
     email.split('@')[1].split('.').length < 2) return 'bad email';
   },
   test_password: function(pwd1, pwd2) {

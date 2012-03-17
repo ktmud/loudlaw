@@ -19,7 +19,7 @@
 .header-border.header-border-bottom
 #main-body.fwrap 
     #gallery
-      unless typeof galleryImages == 'undefined'
+      unless typeof galleryImages === 'undefined'
         - galleryImages.forEach(function(src) { 
         img(src='#{ASSETS_ROOT}#{src}')
         - })

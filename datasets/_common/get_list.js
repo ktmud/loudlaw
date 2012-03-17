@@ -68,8 +68,8 @@ module.exports = {
     var view = keyinfo[0];
     var key = keyinfo[1];
     var sort = keyinfo[2];
-    var page = keyinfo[3];
-    var perpage = keyinfo[4];
+    var page = parseInt(keyinfo[3], 10) || 0;
+    var perpage = parseInt(keyinfo[4], 10) || 0;
 
     var tmp = sort.split('_');
     var descending = (tmp.length < 2 || (tmp[1] && tmp[1] != 'asc')) ? true : false;
@@ -169,7 +169,7 @@ module.exports = {
       }
 
       // at the last page
-      if (page == total_page) {
+      if (page === total_page) {
         var last_page_length = total - (page - 1) * perpage;
         rows = rows.splice(0, last_page_length);
       } else if (rows.length > perpage) {

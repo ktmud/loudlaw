@@ -4,7 +4,7 @@ module.exports = function(central, app, dataset) {
 
     // get document by sid.
     dataset.fetch(['sid', sid], function(err, doc) {
-      if (err == 'not_found' || err == 404) {
+      if (err === 'not_found' || err === 404) {
         res.statusCode = 404;
         return next();
       } else if (err) {

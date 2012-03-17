@@ -56,7 +56,7 @@ function handle_edit(req, res, next) {
     next();
     return;
   }
-  if (req.method == 'POST') {
+  if (req.method === 'POST') {
     var info = req.body;
     var doc = res.article_doc;
     var err;
@@ -171,7 +171,7 @@ function handle_edit(req, res, next) {
 
     dataset.save(['sid', new_sid], doc, function(err, doc) {
       if (err) {
-        if (typeof err == 'string') {
+        if (typeof err === 'string') {
           res.ll_exception = err;
           return next();
         } else {
@@ -212,7 +212,7 @@ function handle_flag(req, res, next) {
     return next();
   }
   var last_report = req.session.last_report;
-  if (last_report == detail) {
+  if (last_report === detail) {
     res.ll_exception = 'flag reported';
     return next();
   }
@@ -255,7 +255,7 @@ module.exports = function(central, app, dataset) {
 
     // get document by sid.
     dataset.fetch(['sid', sid], function(err, doc) {
-      if (err == 'not_found' || err == 404) {
+      if (err === 'not_found' || err === 404) {
         res.statusCode = 404;
         return next();
       } else if (err) {
@@ -341,7 +341,7 @@ module.exports = function(central, app, dataset) {
       data: res.action_result || doc
     };
 
-    if (res.ll_txt == 'md') {
+    if (res.ll_txt === 'md') {
       if (doc.is_md) {
         res.ll_txt = doc.content;
       } else {
@@ -399,7 +399,7 @@ module.exports = function(central, app, dataset) {
     var pmp = p_main.pagelet = {
       id: 'article'
     };
-    if (operation == 'edit') {
+    if (operation === 'edit') {
       pmp.js = ['library.edit'];
       pmp.onload = ['mod1();'];
     } else {

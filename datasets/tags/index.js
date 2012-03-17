@@ -8,7 +8,7 @@ var gets = {
     var _id = keyinfo[0]; // _id is the slug
     self.db.get(_id, function(err, user) {
       if (err) {
-        if (err.error == 'not_found') return next(404);
+        if (err.error === 'not_found') return next(404);
         return next(err.error, null);
       }
       return next(null, user);
@@ -49,7 +49,7 @@ var more = {
     var self = this;
     if (opt instanceof Array) {
       ids = opt.slice();
-    } else if (typeof opt == 'string') {
+    } else if (typeof opt === 'string') {
       ids = opt.ssplit();
     }
     if (ids) return self.details(ids, next);

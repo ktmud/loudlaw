@@ -34,7 +34,7 @@ style
     .article-body
       #az.clearfix
         each letter in keys 
-          mixin alpha_tags(letter, data[letter], action == 'manage')
+          mixin alpha_tags(letter, data[letter], action === 'manage')
       mixin pager()
   .aside
     if locals.userActions && userActions.length
@@ -65,7 +65,7 @@ script
         return;
       }
       node_az.css('visibility', 'hidden').children().each(function(i, item) {
-        if (i % n == 0) {
+        if (i % n === 0) {
           $(item).css('clear', 'left');
         } else {
           $(item).css('clear', 'none');

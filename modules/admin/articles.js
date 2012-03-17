@@ -19,7 +19,7 @@ module.exports = function(central, app) {
 
     dataset.fetch(cacheKey, function(err, data) {
       if (err) {
-        if (err == 404 || err == 'not_found') {
+        if (err == 404 || err === 'not_found') {
           res.statusCode = 404;
           res.ll_render('library/list/' + view, {
             data: { r: 0, msg: 'empty collection', title: viewInfo.name, list: [] },

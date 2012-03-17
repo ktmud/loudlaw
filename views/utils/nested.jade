@@ -2,8 +2,8 @@ mixin nested(list)
   items = list.items
   len = items.length
   each item, i in items
-    - cls = (i == 0) ? 'first ' : ''
-    - if (i == len) cls += 'last '
+    - cls = (i === 0) ? 'first ' : ''
+    - if (i === len) cls += 'last '
     - if (list.m_odd && i % 2) cls += 'even'
     li(class=cls)
       if item.href

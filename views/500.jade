@@ -7,7 +7,7 @@ style
   }
 - var msg = msg && msg.msg || '我们的程序好像遇到一点问题'
 - var timestamp = central.utils.timestamp()
-- var dev_mode = (global.central.conf.env == 'development')
+- var dev_mode = (global.central.conf.env === 'development')
 #main-body.fwrap
   div.box-notice
     form(action="/misc/email/500", method='post')

@@ -83,7 +83,7 @@ module.exports = {
         if (doc.deleted) return;
 
         var tags = doc.tags;
-        if (typeof tags == 'string') {
+        if (typeof tags === 'string') {
           tags = tags.split(/\s*,\s*/);
         }
         if (!tags || !tags.length) return;
@@ -105,7 +105,7 @@ module.exports = {
         if (doc.deleted) return;
 
         var tags = doc.tags;
-        if (typeof tags == 'string') {
+        if (typeof tags === 'string') {
           tags = tags.split(/\s*,\s*/);
         }
         if (!tags || !tags.length) return;
@@ -128,7 +128,7 @@ module.exports = {
 
         // !code libpinyin
         var tags = doc.tags;
-        if (typeof tags == 'string') {
+        if (typeof tags === 'string') {
           tags = tags.split(/\s*,\s*/);
         }
         if (!tags || !tags.length) return;

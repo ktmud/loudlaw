@@ -15,7 +15,7 @@ var exports = {
         });
         return;
       }
-      if (err == 404 || err == 'not_found') {
+      if (err == 404 || err === 'not_found') {
         res.ll_render('404', {
           statusCode: 404,
           data: { r: 1, err: err, title: '找不到' }
@@ -28,7 +28,7 @@ var exports = {
         console.log(err);
         console.trace();
       }
-      if (typeof err == 'string') {
+      if (typeof err === 'string') {
         res.ll_exception = err;
       } else {
         res.ll_exception = (err.name || err.reason);
