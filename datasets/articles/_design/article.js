@@ -63,16 +63,14 @@ module.exports = {
         var slug = doc.slug;
         var sid = slug || title || doc._id;
 
-        if (slug) ret.add(slug, { boost: 3 });
-        if (doc.tags) ret.add(doc.tags, { boost: 3 });
-        if (doc.keywords) ret.add(doc.keywords, { boost: 4 });
-        if (doc.type === 'itpt' || doc.isExp) ret.add('司法解释', { boost: 5 });
-        ret.add(doc.title, { boost: 4 });
-        if (doc.content && doc.content.length > 20) {
-          ret.add(doc.content);
-        } else {
-          ret.add(doc.content, { boost: 0.6 });
-        }
+        var f = Math.sqrt(Math.log(doc.content.length)) - 1;
+
+        if (slug) ret.add(slug, { boost: 2 * f });
+        if (doc.tags) ret.add(doc.tags, { boost: 3 * f });
+        if (doc.keywords) ret.add(doc.keywords, { boost: 3 * f });
+        if (doc.type === 'itpt' || doc.isExp) ret.add('司法解释', { boost: 4 * f });
+        ret.add(doc.title, { boost: 8 * f });
+        ret.add(doc.content, { boost: f });
         ret.add(doc.title, { field: 'title', store: 'yes' });
 
         function validated(type, val) {
