@@ -37,6 +37,7 @@ module.exports = {
       num = num || 0;
       if (num) {
         updated[type][id] = num++;
+        console.log(num);
         mc.set(mc_key, num);
       } else {
         mc.get(mc_key, function(err, num) {

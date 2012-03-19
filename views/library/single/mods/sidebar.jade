@@ -30,6 +30,12 @@ if !operation
   if data.tags
     div#tags
   .hr-inset2
+  .mod.meta-info
+    p.article-stats
+      span
+        阅读: #{hits || 0}人次
+      span
+        评论: #{n_comments}条
   p.mod
     if (data.cate)
       a(href='/cate-#{data.cate}') &laquo;&nbsp;同类法律法规 

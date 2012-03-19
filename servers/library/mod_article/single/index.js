@@ -1,3 +1,4 @@
+var mc = central.memcache;
 var u_s;
 var pandoc = require(central.cwd + '/utils/pandoc');
 var sendmail = require(central.cwd + '/utils/sendmail');
@@ -324,10 +325,6 @@ module.exports = function(central, app, dataset) {
     if (operation) {
       req.session.onesalt = Date.now();
     } else if (!req.is_robot) {
-      //try {
-        // any cached view, which returns 304, will not be counted
-        app.modules.support.pvlog.hit('articles', res.article_doc._id);
-      //} catch (e) {}
     }
 
     var tmpl_data = {
@@ -340,6 +337,9 @@ module.exports = function(central, app, dataset) {
       title: doc.title,
       userActions: get_user_actions(req, res),
       doc: doc,
+      hits: doc.hits,
+      comments: [],
+      n_comments: 0,
       add_tag: res.add_tag,
       flag_msg: res.flag_msg,
       flag_detail: req.param('detail'),
@@ -380,15 +380,33 @@ module.exports = function(central, app, dataset) {
     var p_main = u_s.clone(tmpl_data);
     var p_sidebar = u_s.clone(tmpl_data);
 
-    var mod_conf = '';
-    if (operation) mod_conf = JSON.stringify({ operation: operation });
-    p_sidebar.pagelet = {
-      id: 'sidebar',
-      js: 'library',
-      onload: ['mod1(' + mod_conf + ');']
-    };
-    res.ll_write('library/single/mods/sidebar', p_sidebar, countDown);
+    function render_sidebar(mod_conf) {
+      mod_conf = mod_conf && JSON.stringify(mod_conf) || '';
+      p_sidebar.pagelet = {
+        id: 'sidebar',
+        js: 'library',
+        onload: ['mod1(' + mod_conf + ');']
+      };
+      res.ll_write('library/single/mods/sidebar', p_sidebar, countDown);
+    }
 
+    // 1. update page views
+    // 2. render sidebar
+    if (req.is_robot) {
+      render_sidebar();
+    } else if (operation) {
+      render_sidebar({ operation: operation });
+    } else {
+      mc.get('articles::hits::' + doc._id, function(err, num) {
+        // update hits cache
+        p_sidebar.hits = num || doc.hits;
+        render_sidebar();
+      });
+      // any cached view, which returns 304, will not be counted
+      app.modules.support.pvlog.hit('articles', doc._id);
+    }
+
+    // 3. render tags
     if (doc.tags && !operation) {
       central.datasets.tags.details(doc.tags, function(err, tags) {
         if (!tags || (typeof tags[0] != 'object')) return countDown();
@@ -414,6 +432,7 @@ module.exports = function(central, app, dataset) {
       pmp.js = ['library'];
       pmp.onload = ['mod1.toc();'];
     }
+    // 4. render main content
     res.ll_write(res.tmpl, p_main, countDown);
   }, central.reqbase.close());
 };
