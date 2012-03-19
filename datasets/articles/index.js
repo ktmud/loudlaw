@@ -39,7 +39,8 @@ var gets = {
       }
     });
   },
-  sid: function(keyinfo, next) {
+  // we user doc.sid to as the 'id' for cache key
+  id: function(keyinfo, next) {
     var self = this;
     var sid = keyinfo[0];
     self.db.view('article/sid', { key: sid }, function(err, ret) {
@@ -53,7 +54,9 @@ var gets = {
       if (!ret || !ret.length) {
         next(404);
       } else {
-        next(err, ret[0].value);
+        var doc = ret[0].value;
+        //self.stash(['id', doc._id], doc);
+        next(err, doc);
       }
     });
   },
@@ -78,7 +81,7 @@ var gets = {
           var doc = item.doc;
           var sid = doc._sid || doc.slug || (doc.title && doc.title.trim()) || doc._id;
           doc.sid = sid;
-          self.stash(['sid', sid], doc);
+          self.stash(['id', sid], doc);
           list[i] = doc;
         });
         ret = {
@@ -94,7 +97,7 @@ var gets = {
 central.lib._.extend(gets, require(cwd + '/datasets/_common/get_list'));
 
 var puts = {
-  sid: function(key, doc, next) {
+  id: function(key, doc, next) {
     var self = this;
     var sid = key[0];
     var _id = doc._id;
@@ -121,7 +124,7 @@ var puts = {
   }
 };
 
-module.exports = new Dataset({
+var exports = new Dataset({
   cache_options: {
     search_all: {
       memLife: 10 // minutes
@@ -129,7 +132,7 @@ module.exports = new Dataset({
     search_title: {
       memLife: 0 // minutes
     },
-    sid: {
+    id: {
       memLife: 30, // minutes
       fileLife: 5, // days
       model: Article,
@@ -152,3 +155,8 @@ module.exports = new Dataset({
   puts: puts,
   gets: gets
 });
+
+// batch update, and gets
+central.lib._.extend(exports, require(cwd + '/datasets/_common/bulk'));
+
+module.exports = exports;

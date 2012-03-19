@@ -40,87 +40,19 @@ var puts = {
 };
 
 var more = {
-  get: function(id, fn) {
+  getOne: function(id, fn) {
     return this.fetch(['id', id], fn);
-  },
-  // get many tags
-  bulk: function(opt, next) {
-    var ids;
-    var self = this;
-    if (opt instanceof Array) {
-      ids = opt.slice();
-    } else if (typeof opt === 'string') {
-      ids = opt.ssplit();
-    }
-    if (ids) return self.details(ids, next);
-
-    // random pick
-    if (opt.random) return self.random(opt.limit, next, opt.for);
-
-    self.db.query('POST', '/_all_docs', {
-      include_docs: true
-    }, opt, function(err, data) {
-      if (err) return next(err);
-      for (var i in data) {
-        var item = data[i];
-        var doc = item.doc;
-        if (doc) {
-          tags[tags.indexOf(item.id)] = doc;
-          // save to cache
-          self.stash(['id', item.id], doc);
-        }
-      }
-      next(null, tags);
-    });
   },
   random: function(limit, next, tfor) {
     // needs to fetch many many tags first
     this.fetch(['list', 'for', tfor, 'default', 1, 500], function(err, data) {
       if (err) return next(err);
-
       next(null, data.list.shuffle(limit));
     });
-  },
-  // get tag details
-  details: function(tags, next) {
-    var self = this;
-    if (!tags.length) return next(404);
-
-    var ret = [];
-    var keys = [];
-
-    for (var i in tags) {
-      var tag = tags[i];
-      // try to get it from cache
-      var cached = self.get(['id', tag]);
-      if (cached) {
-        tags[i] = cached;
-      } else {
-        keys.push(tag);
-      }
-    }
-
-    if (keys.length) {
-      self.db.get(keys, function(err, data) {
-        if (err) return next(err);
-        for (var i in data) {
-          var item = data[i];
-          var doc = item.doc;
-          if (doc) {
-            tags[tags.indexOf(item.id)] = doc;
-            // save to cache
-            self.stash(['id', item.id], doc);
-          }
-        }
-        next(null, tags);
-      });
-    } else {
-      next(null, tags);
-    }
   }
 };
 
-module.exports = central.lib._.extend(new Dataset({
+var exports = new Dataset({
   cache_options: {
     id: {
       memLife: 30, // minutes
@@ -143,4 +75,8 @@ module.exports = central.lib._.extend(new Dataset({
   puts: puts,
   _design: require('./_design'),
   dbname: 'tags'
-}), more);
+});
+
+central.lib._.extend(exports, more, require(cwd + '/datasets/_common/bulk'));
+
+module.exports = exports;

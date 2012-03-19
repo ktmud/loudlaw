@@ -25,7 +25,8 @@ module.exports = function(central, app, dataset) {
     var viewInfo;
 
     if (view === 'tag') {
-      dataset_tags.get(key, function(err, data) {
+      // fetch tags
+      dataset_tags.getOne(key, function(err, data) {
         if (err) return next(err);
         viewInfo = data;
         go_fetch();

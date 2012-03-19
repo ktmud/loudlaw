@@ -95,11 +95,11 @@ function handle_edit(req, res, next) {
       var cate_url = cate ? '/cate-' + cate : '';
 
       doc.deleted = true;
-      dataset.save(['sid', doc.sid], doc, function(err, doc) {
+      dataset.save(['id', doc.sid], doc, function(err, doc) {
         res.redirect('/library' + cate_url);
         central.emit('article-cate-update', doc.cate);
         central.emit('article-tag-update', doc.tags);
-        dataset.unstash(['sid', doc.sid]);
+        dataset.unstash(['id', doc.sid]);
       });
 
 
@@ -107,7 +107,7 @@ function handle_edit(req, res, next) {
       //dataset.db.remove(doc._id, doc._rev, function() {
         //central.emit('article-cate-update', doc.cate);
         //central.emit('article-tag-update', doc.tags);
-        //dataset.unstash(['sid', doc.sid], true);
+        //dataset.unstash(['id', doc.sid], true);
         //res.redirect('/library' + cate_url);
       //});
       return;
@@ -164,12 +164,12 @@ function handle_edit(req, res, next) {
 
     // delete cache and update list
     if (sid && new_sid !== sid) {
-      dataset.unstash(['sid', sid]);
+      dataset.unstash(['id', sid]);
       doc.cate && central.emit('article-cate-update', doc.cate);
       doc.tags && central.emit('article-tag-update', doc.tags);
     }
 
-    dataset.save(['sid', new_sid], doc, function(err, doc) {
+    dataset.save(['id', new_sid], doc, function(err, doc) {
       if (err) {
         if (typeof err === 'string') {
           res.ll_exception = err;
@@ -254,7 +254,7 @@ module.exports = function(central, app, dataset) {
     var sid = req.params.article_id;
 
     // get document by sid.
-    dataset.fetch(['sid', sid], function(err, doc) {
+    dataset.fetch(['id', sid], function(err, doc) {
       if (err === 'not_found' || err === 404) {
         res.statusCode = 404;
         return next();
@@ -310,9 +310,10 @@ module.exports = function(central, app, dataset) {
 
     var sid = req.params.article_id;
     var real_sid = doc.sid;
+    if (!sid && !real_sid) return next(404);
     if (sid != real_sid) {
-      dataset.unstash(['sid', sid]);
-      if (doc.title) dataset.stash(['sid', real_sid], doc);
+      dataset.unstash(['id', sid]);
+      if (doc.title) dataset.stash(['id', real_sid], doc);
       res.redirect('/article/' + encodeURIComponent(real_sid), 301);
       return;
     }
@@ -322,6 +323,11 @@ module.exports = function(central, app, dataset) {
     var operation = req.param('do');
     if (operation) {
       req.session.onesalt = Date.now();
+    } else if (!req.is_robot) {
+      //try {
+        // any cached view, which returns 304, will not be counted
+        app.modules.support.pvlog.hit('articles', res.article_doc._id);
+      //} catch (e) {}
     }
 
     var tmpl_data = {
@@ -359,15 +365,17 @@ module.exports = function(central, app, dataset) {
   }, function(req, res, next) {
     var tmpl_data = res.tmpl_data;
 
-    var counter = 3;
-    function countDown() {
-      counter--;
-      if (counter <= 0) next();
-    };
-
     var doc = tmpl_data.doc;
     var operation = tmpl_data.operation;
     var keyword = tmpl_data.keyword = req.param('q');
+
+    var counter = 3;
+    function countDown() {
+      counter--;
+      if (counter <= 0) {
+        next();
+      }
+    };
 
     var p_main = u_s.clone(tmpl_data);
     var p_sidebar = u_s.clone(tmpl_data);
@@ -382,7 +390,7 @@ module.exports = function(central, app, dataset) {
     res.ll_write('library/single/mods/sidebar', p_sidebar, countDown);
 
     if (doc.tags && !operation) {
-      central.datasets.tags.bulk(doc.tags, function(err, tags) {
+      central.datasets.tags.details(doc.tags, function(err, tags) {
         if (!tags || (typeof tags[0] != 'object')) return countDown();
 
         tmpl_data.tags = tags;

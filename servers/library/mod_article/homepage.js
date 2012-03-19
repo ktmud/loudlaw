@@ -27,11 +27,7 @@ var keynameMap = {
 };
 
 function random_tags(limit, fn) {
-  central.datasets.tags.bulk({
-    for: 'library',
-    random: true,
-    limit: limit
-  }, fn);
+  central.datasets.tags.random(limit, fn, 'library');
 }
 
 module.exports = function(central, app, dataset) {

@@ -3,7 +3,7 @@ module.exports = function(central, app, dataset) {
     var sid = req.params.article_id;
 
     // get document by sid.
-    dataset.fetch(['sid', sid], function(err, doc) {
+    dataset.fetch(['id', sid], function(err, doc) {
       if (err === 'not_found' || err === 404) {
         res.statusCode = 404;
         return next();
