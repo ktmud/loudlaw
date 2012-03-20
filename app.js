@@ -13,13 +13,15 @@ if (!module.parent) process.on('uncaughtException', function(err, next) {
 
 var fs = require('fs');
 var central = require(__dirname + '/lib/central.js');
+var conf = central.conf;
+
 var express = central.lib.express;
 var istatic = central.lib.istatic;
+var autostatic = central.lib.autostatic;
 
 // boot application
 function bootApp(app, next) {
   var passport = central.lib.passport;
-  var conf = central.conf;
 
   app.set('environment', conf.NODE_ENV);
   app.set('views', __dirname + '/views');
@@ -41,9 +43,9 @@ function bootApp(app, next) {
   app.use(express.csrf());
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
-  app.use(express.static(__dirname + '/public', conf.static_conf));
-  app.use(express.staticCache());
+
+  app.use('/assets', express.compiler({ src: __dirname + '/public', enable: ['less'] }));
+  app.use('/assets', autostatic(__dirname + '/public', conf.static_conf));
 
   // reference to the app running
   central.app = app;

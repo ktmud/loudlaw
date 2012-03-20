@@ -47,7 +47,7 @@ var more = {
     // needs to fetch many many tags first
     this.fetch(['list', 'for', tfor, 'default', 1, 500], function(err, data) {
       if (err) return next(err);
-      next(null, data.list.shuffle(limit));
+      next(null, data.list && data.list.shuffle(limit));
     });
   }
 };
