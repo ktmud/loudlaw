@@ -8,3 +8,4 @@ stable_cache
 conf/*
 public/*.html
 public/*.txt
+*.min.*
