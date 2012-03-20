@@ -1,3 +1,7 @@
+## 0.2.1 
+  * [+] add autostatic, automatically compress static files
+  * [+] add upyun
+
 ## 0.2.0 
   * [+] vhost support for seperated subsite, and cluster support
   * [*] use memcached to store session
