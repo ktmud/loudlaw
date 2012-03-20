@@ -1,24 +1,1479 @@
 /* SeaJS v1.1.0 | seajs.com | MIT Licensed */
-this.seajs={_seajs:this.seajs};seajs.version="1.1.0";seajs._data={config:{debug:"",preload:[]},memoizedMods:{},packageMods:[]};seajs._util={};seajs._fn={};
-(function(a){var c=Object.prototype.toString,b=Array.prototype;a.isString=function(a){return"[object String]"===c.call(a)};a.isObject=function(a){return a===Object(a)};a.isFunction=function(a){return"[object Function]"===c.call(a)};a.isArray=Array.isArray||function(a){return"[object Array]"===c.call(a)};a.indexOf=b.indexOf?function(a,e){return a.indexOf(e)}:function(a,e){for(var f=0,c=a.length;f<c;f++)if(a[f]===e)return f;return-1};var d=a.forEach=b.forEach?function(a,e){a.forEach(e)}:function(a,
-e){for(var c=0,b=a.length;c<b;c++)e(a[c],c,a)};a.map=b.map?function(a,e){return a.map(e)}:function(a,e){var c=[];d(a,function(a,b,g){c.push(e(a,b,g))});return c};a.filter=b.filter?function(a,c){return a.filter(c)}:function(a,c){var b=[];d(a,function(a,i,g){c(a,i,g)&&b.push(a)});return b};a.unique=function(a){var c=[],b={};d(a,function(a){b[a]=1});if(Object.keys)c=Object.keys(b);else for(var h in b)b.hasOwnProperty(h)&&c.push(h);return c};a.now=Date.now||function(){return(new Date).getTime()}})(seajs._util);
-(function(a,c){a.error=function(){throw Array.prototype.join.call(arguments," ");};a.log=function(){c.config.debug&&"undefined"!==typeof console&&console.log(Array.prototype.join.call(arguments," "))}})(seajs._util,seajs._data);
-(function(a,c,b,d){function j(a){a=a.match(/.*(?=\/.*$)/);return(a?a[0]:".")+"/"}function e(l){l=l.replace(/([^:\/])\/+/g,"$1/");if(-1===l.indexOf("."))return l;for(var c=l.split("/"),k=[],b,e=0,g=c.length;e<g;e++)b=c[e],".."===b?(0===k.length&&a.error("Invalid path:",l),k.pop()):"."!==b&&k.push(b);return k.join("/")}function f(a){a=e(a);/#$/.test(a)?a=a.slice(0,-1):-1===a.indexOf("?")&&!/\.(?:css|js)$/.test(a)&&(a+=".js");return a}function h(a){if("#"===a.charAt(0))return a.substring(1);var c;if(g(a)&&
-(c=m.alias)){var k=a.split("/"),b=k[0];c.hasOwnProperty(b)&&(k[0]=c[b],a=k.join("/"))}return a}function i(a){return~a.indexOf("://")||0===a.indexOf("//")}function g(a){var c=a.charAt(0);return-1===a.indexOf("://")&&"."!==c&&"/"!==c}var m=c.config,k={},c=d.location,o=c.protocol+"//"+c.host+function(a){"/"!==a.charAt(0)&&(a="/"+a);return a}(c.pathname);~o.indexOf("\\")&&(o=o.replace(/\\/g,"/"));a.dirname=j;a.realpath=e;a.normalize=f;a.parseAlias=h;a.parseMap=function(c,b){b=b||m.map||[];if(!b.length)return c;
-var e=c;a.forEach(b,function(a){a&&1<a.length&&(e=e.replace(a[0],a[1]))});k[e]=c;return e};a.unParseMap=function(a){return k[a]||a};a.id2Uri=function(a,c){var a=h(a),c=c||o,b;i(a)?b=a:0===a.indexOf("./")||0===a.indexOf("../")?(a=a.replace(/^\.\//,""),b=j(c)+a):b="/"===a.charAt(0)&&"/"!==a.charAt(1)?c.replace(/^(\w+:\/\/[^\/]*)\/?.*$/,"$1")+a:m.base+"/"+a;return f(b)};a.isAbsolute=i;a.isTopLevel=g;a.pageUrl=o})(seajs._util,seajs._data,seajs._fn,this);
-(function(a,c){function b(b,e){function g(){if(!g.isCalled)g.isCalled=!0,clearTimeout(i),e()}"SCRIPT"===b.nodeName?d(b,g):j(b,g);var i=setTimeout(function(){a.log("Time is out:",b.src);g()},c.config.timeout)}function d(a,c){a.onload=a.onerror=a.onreadystatechange=function(){if(/loaded|complete|undefined/.test(a.readyState)){a.onload=a.onerror=a.onreadystatechange=null;if(a.parentNode){try{if(a.clearAttributes)a.clearAttributes();else for(var b in a)delete a[b]}catch(e){}f.removeChild(a)}a=void 0;
-c()}}}function j(a,c){a.attachEvent?a.attachEvent("onload",c):setTimeout(function(){e(a,c)},0)}function e(a,c){if(!c.isCalled){var b;if(i)a.sheet&&(b=!0);else if(a.sheet)try{a.sheet.cssRules&&(b=!0)}catch(g){1E3===g.code&&(b=!0)}setTimeout(function(){b?c():e(a,c)},1)}}var f=document.head||document.getElementsByTagName("head")[0]||document.documentElement,h=navigator.userAgent,i=~h.indexOf("AppleWebKit");a.getAsset=function(a,c,e){var i=/\.css(?:\?|$)/i.test(a),d=document.createElement(i?"link":"script");
-if(e)d.charset=e;b(d,c);i?(d.rel="stylesheet",d.href=a,f.appendChild(d)):(d.async="async",d.src=a,g=d,f.insertBefore(d,f.firstChild),g=null)};var g,m;a.getCurrentScript=function(){if(g)return g;if(m&&"interactive"===m.readyState)return m;for(var a=f.getElementsByTagName("script"),c=0;c<a.length;c++){var b=a[c];if("interactive"===b.readyState)return m=b}};a.getScriptAbsoluteSrc=function(a){return a.hasAttribute?a.src:a.getAttribute("src",4)};a.isOpera=~h.indexOf("Opera")})(seajs._util,seajs._data);
-(function(a){a.Module=function(a,b,d){this.id=a;this.dependencies=b||[];this.factory=d}})(seajs._fn);
-(function(a,c,b){b.define=function(d,j,e){var f=arguments.length;1===f?(e=d,d=void 0):2===f&&(e=j,j=void 0,a.isArray(d)&&(j=d,d=void 0));if(!a.isArray(j)&&a.isFunction(e)){for(var f=e.toString(),h=/(?:^|[^.])\brequire\s*\(\s*(["'])([^"'\s\)]+)\1\s*\)/g,i=[],g,f=f.replace(/(?:^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/g,"\n").replace(/(?:^|\n|\r)\s*\/\/.*(?:\r|\n|$)/g,"\n");g=h.exec(f);)g[2]&&i.push(g[2]);j=a.unique(i)}if(d)var m=a.id2Uri(d);else document.attachEvent&&!a.isOpera&&((f=a.getCurrentScript())&&
-(m=a.unParseMap(a.getScriptAbsoluteSrc(f))),m||a.log("Failed to derive URL from interactive script for:",e.toString()));f=new b.Module(d,j,e);m?(a.memoize(m,f),c.packageMods.push(f)):c.anonymousMod=f}})(seajs._util,seajs._data,seajs._fn);
-(function(a,c,b){function d(b){var g=this.context,d,f;a.isObject(b)?(f=b,d=f.id):a.isString(b)&&(d=h.resolve(b,g),f=c.memoizedMods[d]);if(!f)return null;if(e(g,d))return a.log("Found circular dependencies:",d),f.exports;if(!f.exports)if(b=f,g={uri:d,parent:g},d=b.factory,b.exports={},delete b.factory,delete b.ready,a.isFunction(d)){if(g=d(j(g),b.exports,b),void 0!==g)b.exports=g}else if(void 0!==d)b.exports=d;return f.exports}function j(a){function b(a){return d.call(c,a)}var c={context:a||{}};b.constructor=
-d;for(var e in h)h.hasOwnProperty(e)&&function(a){b[a]=function(){return h[a].apply(c,f.call(arguments))}}(e);return b}function e(a,b){return a.uri===b?!0:a.parent?e(a.parent,b):!1}var f=Array.prototype.slice,h=d.prototype;h.resolve=function(b,c){return a.isString(b)?a.id2Uri(b,(c||this.context||{}).uri):a.map(b,function(a){return h.resolve(a,c)})};h.async=function(a,c){b.load(a,c,this.context)};h.load=function(b,c,e){a.getAsset(b,c,e)};b.Require=d;b.createRequire=j})(seajs._util,seajs._data,seajs._fn);
-(function(a,c,b){function d(a){var b=q.preload,c=b.length;c?(q.preload=b.slice(c),j(b,function(){d(a)})):a()}function j(f,g,h){d(function(){a.isString(f)&&(f=[f]);var d=p.resolve(f,h);e(d,function(){var e=b.createRequire(h),f=a.map(d,function(a){return e(c.memoizedMods[a])});g&&g.apply(null,f)})})}function e(a,b){var c=g(a);if(0===c.length)i(c),b();else for(var h=0,j=c.length,k=j;h<j;h++)(function(a){function g(){d(function(){var d=n[a];if(d){var f=d.dependencies;if(f.length)f=d.dependencies=p.resolve(f,
-{uri:d.id});var g=f.length;if(g)f=m(a,f),g=f.length;g&&(k+=g,e(f,function(){k-=g;0===k&&(i(c),b())}))}0===--k&&(i(c),b())})}n[a]?g():f(a,g)})(c[h])}function f(b,d){o[b]?l[b].push(d):(l[b]=[d],o[b]=!0,p.load(a.parseMap(b),function(){var d=c.anonymousMod;if(d)n[b]||h(b,d),c.anonymousMod=null;(d=c.packageMods[0])&&!n[b]&&(n[b]=d);c.packageMods=[];o[b]&&delete o[b];l[b]&&(a.forEach(l[b],function(a){a()}),delete l[b])},c.config.charset))}function h(a,b){b.id=a;n[a]=b}function i(b){a.forEach(b,function(a){if(n[a])n[a].ready=
-!0})}function g(b){return a.filter(b,function(a){a=n[a];return!a||!a.ready})}function m(b,c){return a.filter(c,function(a){return!k(n[a],b)})}function k(b,c){if(!b||b.ready)return!1;var d=b.dependencies||[];if(d.length){if(~a.indexOf(d,c))return!0;for(var e=0;e<d.length;e++)if(k(n[d[e]],c))return!0}return!1}var o={},l={},n=c.memoizedMods,q=c.config,p=b.Require.prototype;a.memoize=h;b.load=j})(seajs._util,seajs._data,seajs._fn);
-(function(a,c,b,d){function j(a,b){a&&a!==b&&c.error("Alias is conflicted:",b)}var e=b.config,f="seajs-ts="+c.now(),b=document.getElementById("seajsnode");b||(b=document.getElementsByTagName("script"),b=b[b.length-1]);var h=c.getScriptAbsoluteSrc(b)||c.pageUrl,h=c.dirname(h);c.loaderDir=h;var i=h.match(/^(.+\/)seajs\/[\d\.]+\/$/);i&&(h=i[1]);e.base=h;if(b=b.getAttribute("data-main"))c.isTopLevel(b)&&(b="./"+b),e.main=b;e.timeout=2E4;d.config=function(b){for(var h in b){var k=e[h],i=b[h];if(k&&"alias"===
-h)for(var l in i)i.hasOwnProperty(l)&&(j(k[l],i[l]),k[l]=i[l]);else k&&("map"===h||"preload"===h)?(c.isArray(i)||(i=[i]),c.forEach(i,function(a){a&&k.push(a)})):e[h]=i}if((b=e.base)&&!c.isAbsolute(b))e.base=c.id2Uri("./"+b+"#");if(2===e.debug)e.debug=1,d.config({map:[[/.*/,function(a){-1===a.indexOf("seajs-ts=")&&(a+=(-1===a.indexOf("?")?"?":"&")+f);return a}]]});if(e.debug)a.debug=e.debug;return this}})(seajs,seajs._util,seajs._data,seajs._fn);
-(function(a,c,b,d){var a=a.config,j={},e=c.loaderDir;c.forEach("base,map,text,json,coffee,less".split(","),function(a){a="plugin-"+a;j[a]=e+a});b.config({alias:j});if(~d.location.search.indexOf("seajs-debug")||~document.cookie.indexOf("seajs=1"))b.config({debug:2}),a.preload.push("plugin-map")})(seajs._data,seajs._util,seajs._fn,this);
-(function(a,c,b){b.use=function(a,c){b.load(a,c)};(c=c.config.main)&&b.use([c]);(function(c){if(c){for(var j={"0":"config",1:"use",2:"define"},e=0;e<c.length;e+=2)b[j[c[e]]].apply(a,c[e+1]);delete a._seajs}})((a._seajs||0).args)})(seajs,seajs._data,seajs._fn);
-(function(a,c,b,d){if(a._seajs)d.seajs=a._seajs;else{a.config=b.config;a.use=b.use;var j=d.define;d.define=b.define;a.noConflict=function(c){d.seajs=a._seajs;if(c)d.define=j,a.define=b.define;return a};a.pluginSDK={util:a._util,data:a._data};if(c=c.config.debug)a.debug=!!c;delete a._util;delete a._data;delete a._fn;delete a._seajs}})(seajs,seajs._data,seajs._fn,this);
+
+/**
+ * @fileoverview A CommonJS module loader, focused on web.
+ * @author lifesinger@gmail.com (Frank Wang)
+ */
+
+
+/**
+ * Base namespace for the framework.
+ */
+this.seajs = { _seajs: this.seajs };
+
+
+/**
+ * @type {string} The version of the framework. It will be replaced
+ * with "major.minor.patch" when building.
+ */
+seajs.version = '1.1.0';
+
+
+// Module status:
+//  1. downloaded - The script file has been downloaded to the browser.
+//  2. define()d - The define() has been executed.
+//  3. memoize()d - The module info has been added to memoizedMods.
+//  4. require()d -  The module.exports is available.
+
+
+/**
+ * The private data. Internal use only.
+ */
+seajs._data = {
+
+  /**
+   * The configuration data.
+   */
+  config: {
+    /**
+     * Debug mode. It will be turned off automatically when compressing.
+     * @const
+     */
+    debug: '%DEBUG%',
+
+    /**
+     * Modules that are needed to load before all other modules.
+     */
+    preload: []
+  },
+
+  /**
+   * Modules that have been memoize()d.
+   * { uri: { dependencies: [], factory: fn, exports: {} }, ... }
+   */
+  memoizedMods: {},
+
+  /**
+   * Modules in current fetching package.
+   */
+  packageMods: []
+};
+
+
+/**
+ * The private utils. Internal use only.
+ */
+seajs._util = {};
+
+
+/**
+ * The inner namespace for methods. Internal use only.
+ */
+seajs._fn = {};
+
+/**
+ * @fileoverview The minimal language enhancement.
+ */
+
+(function(util) {
+
+  var toString = Object.prototype.toString;
+  var AP = Array.prototype;
+
+
+  util.isString = function(val) {
+    return toString.call(val) === '[object String]';
+  };
+
+
+  util.isObject = function(val) {
+    return val === Object(val);
+  };
+
+
+  util.isFunction = function(val) {
+    return toString.call(val) === '[object Function]';
+  };
+
+
+  util.isArray = Array.isArray || function(val) {
+    return toString.call(val) === '[object Array]';
+  };
+
+
+  util.indexOf = AP.indexOf ?
+      function(arr, item) {
+        return arr.indexOf(item);
+      } :
+      function(arr, item) {
+        for (var i = 0, len = arr.length; i < len; i++) {
+          if (arr[i] === item) {
+            return i;
+          }
+        }
+        return -1;
+      };
+
+
+  var forEach = util.forEach = AP.forEach ?
+      function(arr, fn) {
+        arr.forEach(fn);
+      } :
+      function(arr, fn) {
+        for (var i = 0, len = arr.length; i < len; i++) {
+          fn(arr[i], i, arr);
+        }
+      };
+
+
+  util.map = AP.map ?
+      function(arr, fn) {
+        return arr.map(fn);
+      } :
+      function(arr, fn) {
+        var ret = [];
+        forEach(arr, function(item, i, arr) {
+          ret.push(fn(item, i, arr));
+        });
+        return ret;
+      };
+
+
+  util.filter = AP.filter ?
+      function(arr, fn) {
+        return arr.filter(fn);
+      } :
+      function(arr, fn) {
+        var ret = [];
+        forEach(arr, function(item, i, arr) {
+          if (fn(item, i, arr)) {
+            ret.push(item);
+          }
+        });
+        return ret;
+      };
+
+
+  util.unique = function(arr) {
+    var ret = [];
+    var o = {};
+
+    forEach(arr, function(item) {
+      o[item] = 1;
+    });
+
+    if (Object.keys) {
+      ret = Object.keys(o);
+    }
+    else {
+      for (var p in o) {
+        if (o.hasOwnProperty(p)) {
+          ret.push(p);
+        }
+      }
+    }
+
+    return ret;
+  };
+
+
+  util.now = Date.now || function() {
+    return new Date().getTime();
+  };
+
+})(seajs._util);
+
+/**
+ * @fileoverview The error handler.
+ */
+
+(function(util, data) {
+
+
+  util.error = function() {
+      throw join(arguments);
+  };
+
+
+  util.log = function() {
+    if (data.config.debug && typeof console !== 'undefined') {
+      console.log(join(arguments));
+    }
+  };
+
+
+  function join(args) {
+    return Array.prototype.join.call(args, ' ');
+  }
+
+})(seajs._util, seajs._data);
+
+/**
+ * @fileoverview Core utilities for the framework.
+ */
+
+(function(util, data, fn, global) {
+
+  var config = data.config;
+
+
+  /**
+   * Extracts the directory portion of a path.
+   * dirname('a/b/c.js') ==> 'a/b/'
+   * dirname('d.js') ==> './'
+   * @see http://jsperf.com/regex-vs-split/2
+   */
+  function dirname(path) {
+    var s = path.match(/.*(?=\/.*$)/);
+    return (s ? s[0] : '.') + '/';
+  }
+
+
+  /**
+   * Canonicalizes a path.
+   * realpath('./a//b/../c') ==> 'a/c'
+   */
+  function realpath(path) {
+    // 'file:///a//b/c' ==> 'file:///a/b/c'
+    // 'http://a//b/c' ==> 'http://a/b/c'
+    path = path.replace(/([^:\/])\/+/g, '$1\/');
+
+    // 'a/b/c', just return.
+    if (path.indexOf('.') === -1) {
+      return path;
+    }
+
+    var old = path.split('/');
+    var ret = [], part, i = 0, len = old.length;
+
+    for (; i < len; i++) {
+      part = old[i];
+      if (part === '..') {
+        if (ret.length === 0) {
+          util.error('Invalid path:', path);
+        }
+        ret.pop();
+      }
+      else if (part !== '.') {
+        ret.push(part);
+      }
+    }
+
+    return ret.join('/');
+  }
+
+
+  /**
+   * Normalizes an url.
+   */
+  function normalize(url) {
+    url = realpath(url);
+
+    // Adds the default '.js' extension except that the url ends with #.
+    if (/#$/.test(url)) {
+      url = url.slice(0, -1);
+    }
+    else if (url.indexOf('?') === -1 && !/\.(?:css|js)$/.test(url)) {
+      url += '.js';
+    }
+
+    return url;
+  }
+
+
+  /**
+   * Parses alias in the module id. Only parse the first part.
+   */
+  function parseAlias(id) {
+    // #xxx means xxx is parsed.
+    if (id.charAt(0) === '#') {
+      return id.substring(1);
+    }
+
+    var alias;
+
+    // Only top-level id needs to parse alias.
+    if (isTopLevel(id) && (alias = config.alias)) {
+      var parts = id.split('/');
+      var first = parts[0];
+
+      if (alias.hasOwnProperty(first)) {
+        parts[0] = alias[first];
+        id = parts.join('/');
+      }
+    }
+
+    return id;
+  }
+
+
+  var mapCache = {};
+
+  /**
+   * Maps the module id.
+   * @param {string} url The url string.
+   * @param {Array=} map The optional map array.
+   */
+  function parseMap(url, map) {
+    // config.map: [[match, replace], ...]
+    map = map || config['map'] || [];
+    if (!map.length) return url;
+    var ret = url;
+
+    util.forEach(map, function(rule) {
+      if (rule && rule.length > 1) {
+        ret = ret.replace(rule[0], rule[1]);
+      }
+    });
+
+    mapCache[ret] = url;
+    return ret;
+  }
+
+
+  /**
+   * Gets the original url.
+   * @param {string} url The url string.
+   */
+  function unParseMap(url) {
+    return mapCache[url] || url;
+  }
+
+
+  /**
+   * Gets the host portion from url.
+   */
+  function getHost(url) {
+    return url.replace(/^(\w+:\/\/[^\/]*)\/?.*$/, '$1');
+  }
+
+
+  /**
+   * Normalizes pathname to start with '/'
+   * Ref: https://groups.google.com/forum/#!topic/seajs/9R29Inqk1UU
+   */
+  function normalizePathname(pathname) {
+    if (pathname.charAt(0) !== '/') {
+      pathname = '/' + pathname;
+    }
+    return pathname;
+  }
+
+
+  var loc = global['location'];
+  var pageUrl = loc.protocol + '//' + loc.host +
+      normalizePathname(loc.pathname);
+
+  // local file in IE: C:\path\to\xx.js
+  if (~pageUrl.indexOf('\\')) {
+    pageUrl = pageUrl.replace(/\\/g, '/');
+  }
+
+
+  /**
+   * Converts id to uri.
+   * @param {string} id The module id.
+   * @param {string=} refUrl The referenced uri for relative id.
+   */
+  function id2Uri(id, refUrl) {
+    id = parseAlias(id);
+    refUrl = refUrl || pageUrl;
+
+    var ret;
+
+    // absolute id
+    if (isAbsolute(id)) {
+      ret = id;
+    }
+    // relative id
+    else if (isRelative(id)) {
+      // Converts './a' to 'a', to avoid unnecessary loop in realpath.
+      id = id.replace(/^\.\//, '');
+      ret = dirname(refUrl) + id;
+    }
+    // root id
+    else if (isRoot(id)) {
+      ret = getHost(refUrl) + id;
+    }
+    // top-level id
+    else {
+      ret = config.base + '/' + id;
+    }
+
+    return normalize(ret);
+  }
+
+
+  function isAbsolute(id) {
+    return ~id.indexOf('://') || id.indexOf('//') === 0;
+  }
+
+
+  function isRelative(id) {
+    return id.indexOf('./') === 0 || id.indexOf('../') === 0;
+  }
+
+
+  function isRoot(id) {
+    return id.charAt(0) === '/' && id.charAt(1) !== '/';
+  }
+
+
+  function isTopLevel(id) {
+    var c = id.charAt(0);
+    return id.indexOf('://') === -1 && c !== '.' && c !== '/';
+  }
+
+
+  util.dirname = dirname;
+  util.realpath = realpath;
+  util.normalize = normalize;
+
+  util.parseAlias = parseAlias;
+  util.parseMap = parseMap;
+  util.unParseMap = unParseMap;
+
+  util.id2Uri = id2Uri;
+  util.isAbsolute = isAbsolute;
+  util.isTopLevel = isTopLevel;
+
+  util.pageUrl = pageUrl;
+
+})(seajs._util, seajs._data, seajs._fn, this);
+
+/**
+ * @fileoverview Utilities for fetching js ans css files.
+ */
+
+(function(util, data) {
+
+  var head = document.head ||
+      document.getElementsByTagName('head')[0] ||
+      document.documentElement;
+
+  var UA = navigator.userAgent;
+  var isWebKit = ~UA.indexOf('AppleWebKit');
+
+
+  util.getAsset = function(url, callback, charset) {
+    var isCSS = /\.css(?:\?|$)/i.test(url);
+    var node = document.createElement(isCSS ? 'link' : 'script');
+
+    if (charset) {
+      node.charset = charset;
+    }
+
+    assetOnload(node, callback);
+
+    if (isCSS) {
+      node.rel = 'stylesheet';
+      node.href = url;
+      head.appendChild(node); // Keep style cascading order
+    }
+    else {
+      node.async = 'async';
+      node.src = url;
+
+      //For some cache cases in IE 6-8, the script executes before the end
+      //of the appendChild execution, so to tie an anonymous define
+      //call to the module name (which is stored on the node), hold on
+      //to a reference to this node, but clear after the DOM insertion.
+      currentlyAddingScript = node;
+      head.insertBefore(node, head.firstChild);
+      currentlyAddingScript = null;
+    }
+  };
+
+  function assetOnload(node, callback) {
+    if (node.nodeName === 'SCRIPT') {
+      scriptOnload(node, cb);
+    } else {
+      styleOnload(node, cb);
+    }
+
+    var timer = setTimeout(function() {
+      util.log('Time is out:', node.src);
+      cb();
+    }, data.config.timeout);
+
+    function cb() {
+      if (!cb.isCalled) {
+        cb.isCalled = true;
+        clearTimeout(timer);
+
+        callback();
+      }
+    }
+  }
+
+  function scriptOnload(node, callback) {
+
+    node.onload = node.onerror = node.onreadystatechange =
+        function() {
+
+          if (/loaded|complete|undefined/.test(node.readyState)) {
+
+            // Ensure only run once
+            node.onload = node.onerror = node.onreadystatechange = null;
+
+            // Reduce memory leak
+            if (node.parentNode) {
+              try {
+                if (node.clearAttributes) {
+                  node.clearAttributes();
+                }
+                else {
+                  for (var p in node) delete node[p];
+                }
+              } catch (x) {
+              }
+
+              // Remove the script
+              head.removeChild(node);
+            }
+
+            // Dereference the node
+            node = undefined;
+
+            callback();
+          }
+        };
+
+    // NOTICE:
+    // Nothing will happen in Opera when the file status is 404. In this case,
+    // the callback will be called when time is out.
+  }
+
+  function styleOnload(node, callback) {
+
+    // for IE6-9 and Opera
+    if (node.attachEvent) {
+      node.attachEvent('onload', callback);
+      // NOTICE:
+      // 1. "onload" will be fired in IE6-9 when the file is 404, but in
+      // this situation, Opera does nothing, so fallback to timeout.
+      // 2. "onerror" doesn't fire in any browsers!
+    }
+
+    // Polling for Firefox, Chrome, Safari
+    else {
+      setTimeout(function() {
+        poll(node, callback);
+      }, 0); // Begin after node insertion
+    }
+
+  }
+
+  function poll(node, callback) {
+    if (callback.isCalled) {
+      return;
+    }
+
+    var isLoaded;
+
+    if (isWebKit) {
+      if (node['sheet']) {
+        isLoaded = true;
+      }
+    }
+    // for Firefox
+    else if (node['sheet']) {
+      try {
+        if (node['sheet'].cssRules) {
+          isLoaded = true;
+        }
+      } catch (ex) {
+        // NS_ERROR_DOM_SECURITY_ERR
+        if (ex.code === 1000) {
+          isLoaded = true;
+        }
+      }
+    }
+
+    setTimeout(function() {
+      if (isLoaded) {
+        // Place callback in here due to giving time for style rendering.
+        callback();
+      } else {
+        poll(node, callback);
+      }
+    }, 1);
+  }
+
+
+  var currentlyAddingScript;
+  var interactiveScript;
+
+  util.getCurrentScript = function() {
+    if (currentlyAddingScript) {
+      return currentlyAddingScript;
+    }
+
+    // For IE6-9 browsers, the script onload event may not fire right
+    // after the the script is evaluated. Kris Zyp found that it
+    // could query the script nodes and the one that is in "interactive"
+    // mode indicates the current script.
+    // Ref: http://goo.gl/JHfFW
+    if (interactiveScript &&
+        interactiveScript.readyState === 'interactive') {
+      return interactiveScript;
+    }
+
+    var scripts = head.getElementsByTagName('script');
+
+    for (var i = 0; i < scripts.length; i++) {
+      var script = scripts[i];
+      if (script.readyState === 'interactive') {
+        interactiveScript = script;
+        return script;
+      }
+    }
+  };
+
+
+  util.getScriptAbsoluteSrc = function(node) {
+    return node.hasAttribute ? // non-IE6/7
+        node.src :
+        // see http://msdn.microsoft.com/en-us/library/ms536429(VS.85).aspx
+        node.getAttribute('src', 4);
+  };
+
+
+  util.isOpera = ~UA.indexOf('Opera');
+
+})(seajs._util, seajs._data);
+
+/**
+ * references:
+ *  - http://unixpapa.com/js/dyna.html
+ *  - ../test/research/load-js-css/test.html
+ *  - ../test/issues/load-css/test.html
+ */
+
+/**
+ * @fileoverview Module Constructor.
+ */
+
+(function(fn) {
+
+  /**
+   * Module constructor.
+   * @constructor
+   * @param {string=} id The module id.
+   * @param {Array.<string>|string=} deps The module dependencies.
+   * @param {function()|Object} factory The module factory function.
+   */
+  fn.Module = function(id, deps, factory) {
+
+    this.id = id;
+    this.dependencies = deps || [];
+    this.factory = factory;
+
+  };
+
+})(seajs._fn);
+
+/**
+ * @fileoverview Module authoring format.
+ */
+
+(function(util, data, fn) {
+
+  /**
+   * Defines a module.
+   * @param {string=} id The module id.
+   * @param {Array.<string>|string=} deps The module dependencies.
+   * @param {function()|Object} factory The module factory function.
+   */
+  function define(id, deps, factory) {
+    var argsLen = arguments.length;
+
+    // define(factory)
+    if (argsLen === 1) {
+      factory = id;
+      id = undefined;
+    }
+    // define(id || deps, factory)
+    else if (argsLen === 2) {
+      factory = deps;
+      deps = undefined;
+
+      // define(deps, factory)
+      if (util.isArray(id)) {
+        deps = id;
+        id = undefined;
+      }
+    }
+
+    // Parse dependencies
+    if (!util.isArray(deps) && util.isFunction(factory)) {
+      deps = parseDependencies(factory.toString());
+    }
+
+    // Get url directly for specific modules.
+    if (id) {
+      var url = util.id2Uri(id);
+    }
+    // Try to derive url in IE6-9 for anonymous modules.
+    else if (document.attachEvent && !util.isOpera) {
+
+      // Try to get the current script
+      var script = util.getCurrentScript();
+      if (script) {
+        url = util.unParseMap(util.getScriptAbsoluteSrc(script));
+      }
+
+      if (!url) {
+        util.log('Failed to derive URL from interactive script for:',
+            factory.toString());
+
+        // NOTE: If the id-deriving methods above is failed, then falls back
+        // to use onload event to get the url.
+      }
+    }
+
+    var mod = new fn.Module(id, deps, factory);
+
+    if (url) {
+      util.memoize(url, mod);
+      data.packageMods.push(mod);
+    }
+    else {
+      // Saves information for "memoizing" work in the onload event.
+      data.anonymousMod = mod;
+    }
+
+  }
+
+
+  function parseDependencies(code) {
+    // Parse these `requires`:
+    //   var a = require('a');
+    //   someMethod(require('b'));
+    //   require('c');
+    //   ...
+    // Doesn't parse:
+    //   someInstance.require(...);
+    var pattern = /(?:^|[^.])\brequire\s*\(\s*(["'])([^"'\s\)]+)\1\s*\)/g;
+    var ret = [], match;
+
+    code = removeComments(code);
+    while ((match = pattern.exec(code))) {
+      if (match[2]) {
+        ret.push(match[2]);
+      }
+    }
+
+    return util.unique(ret);
+  }
+
+
+  // http://lifesinger.github.com/lab/2011/remove-comments-safely/
+  function removeComments(code) {
+    return code
+        .replace(/(?:^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/g, '\n')
+        .replace(/(?:^|\n|\r)\s*\/\/.*(?:\r|\n|$)/g, '\n');
+  }
+
+
+  fn.define = define;
+
+})(seajs._util, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview The factory for "require".
+ */
+
+(function(util, data, fn) {
+
+  var slice = Array.prototype.slice;
+  var RP = Require.prototype;
+
+
+  /**
+   * the require constructor function
+   * @param {string} id The module id.
+   */
+  function Require(id) {
+    var context = this.context;
+    var uri, mod;
+
+    // require(mod) ** inner use ONLY.
+    if (util.isObject(id)) {
+      mod = id;
+      uri = mod.id;
+    }
+    // NOTICE: id maybe undefined in 404 etc cases.
+    else if (util.isString(id)) {
+      uri = RP.resolve(id, context);
+      mod = data.memoizedMods[uri];
+    }
+
+    // Just return null when:
+    //  1. the module file is 404.
+    //  2. the module file is not written with valid module format.
+    //  3. other error cases.
+    if (!mod) {
+      return null;
+    }
+
+    // Checks circular dependencies.
+    if (isCircular(context, uri)) {
+      util.log('Found circular dependencies:', uri);
+      return mod.exports;
+    }
+
+    // Initializes module exports.
+    if (!mod.exports) {
+      initExports(mod, {
+        uri: uri,
+        parent: context
+      });
+    }
+
+    return mod.exports;
+  }
+
+
+  /**
+   * Use the internal require() machinery to look up the location of a module,
+   * but rather than loading the module, just return the resolved filepath.
+   *
+   * @param {string|Array.<string>} ids The module ids to be resolved.
+   * @param {Object=} context The context of require function.
+   */
+  RP.resolve = function(ids, context) {
+    if (util.isString(ids)) {
+      return util.id2Uri(ids, (context || this.context || {}).uri);
+    }
+
+    return util.map(ids, function(id) {
+      return RP.resolve(id, context);
+    });
+  };
+
+
+  /**
+   * Loads the specified modules asynchronously and execute the optional
+   * callback when complete.
+   * @param {Array.<string>} ids The specified modules.
+   * @param {function(*)=} callback The optional callback function.
+   */
+  RP.async = function(ids, callback) {
+    fn.load(ids, callback, this.context);
+  };
+
+
+  /**
+   * Plugin can override this method to add custom loading.
+   */
+  RP.load = function(uri, callback, charset) {
+    util.getAsset(uri, callback, charset);
+  };
+
+
+  /**
+   * The factory of "require" function.
+   * @param {Object} context The data related to "require" instance.
+   */
+  function createRequire(context) {
+    // context: {
+    //   uri: '',
+    //   parent: context
+    // }
+    var that = { context: context || {} };
+
+    function require(id) {
+      return Require.call(that, id);
+    }
+
+    require.constructor = Require;
+
+    for (var p in RP) {
+      if (RP.hasOwnProperty(p)) {
+        (function(name) {
+          require[name] = function() {
+            return RP[name].apply(that, slice.call(arguments));
+          };
+        })(p);
+      }
+    }
+
+    return require;
+  }
+
+
+  function initExports(mod, context) {
+    var ret;
+    var factory = mod.factory;
+
+    mod.exports = {};
+    delete mod.factory;
+    delete mod.ready;
+
+    if (util.isFunction(factory)) {
+      ret = factory(createRequire(context), mod.exports, mod);
+      if (ret !== undefined) {
+        mod.exports = ret;
+      }
+    }
+    else if (factory !== undefined) {
+      mod.exports = factory;
+    }
+  }
+
+
+  function isCircular(context, uri) {
+    if (context.uri === uri) {
+      return true;
+    }
+    if (context.parent) {
+      return isCircular(context.parent, uri);
+    }
+    return false;
+  }
+
+
+  fn.Require = Require;
+  fn.createRequire = createRequire;
+
+})(seajs._util, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview Loads a module and gets it ready to be require()d.
+ */
+
+(function(util, data, fn) {
+
+  /**
+   * Modules that are being downloaded.
+   * { uri: scriptNode, ... }
+   */
+  var fetchingMods = {};
+  var callbackList = {};
+
+  var memoizedMods = data.memoizedMods;
+  var config = data.config;
+  var RP = fn.Require.prototype;
+
+
+
+  /**
+   * Loads preload modules before callback.
+   * @param {function()} callback The callback function.
+   */
+  function preload(callback) {
+    var preloadMods = config.preload;
+    var len = preloadMods.length;
+
+    if (len) {
+      config.preload = preloadMods.slice(len);
+      load(preloadMods, function() {
+        preload(callback);
+      });
+    }
+    else {
+      callback();
+    }
+  }
+
+
+  /**
+   * Loads modules to the environment.
+   * @param {Array.<string>} ids An array composed of module id.
+   * @param {function(*)=} callback The callback function.
+   * @param {Object=} context The context of current executing environment.
+   */
+  function load(ids, callback, context) {
+    preload(function() {
+      if (util.isString(ids)) {
+        ids = [ids];
+      }
+      var uris = RP.resolve(ids, context);
+
+      provide(uris, function() {
+        var require = fn.createRequire(context);
+
+        var args = util.map(uris, function(uri) {
+          return require(data.memoizedMods[uri]);
+        });
+
+        if (callback) {
+          callback.apply(null, args);
+        }
+      });
+    });
+  }
+
+
+  /**
+   * Provides modules to the environment.
+   * @param {Array.<string>} uris An array composed of module uri.
+   * @param {function()=} callback The callback function.
+   */
+  function provide(uris, callback) {
+    var unReadyUris = getUnReadyUris(uris);
+
+    if (unReadyUris.length === 0) {
+      return onProvide();
+    }
+
+    for (var i = 0, n = unReadyUris.length, remain = n; i < n; i++) {
+      (function(uri) {
+
+        if (memoizedMods[uri]) {
+          onLoad();
+        } else {
+          fetch(uri, onLoad);
+        }
+
+        function onLoad() {
+          // Preload here to make sure that:
+          // 1. RP.resolve etc. modified by some preload plugins can be used
+          //    immediately in the id resolving logic.
+          //    Ref: issues/plugin-coffee
+          // 2. The functions provided by the preload modules can be used
+          //    immediately in factories of the following modules.
+          preload(function() {
+            var mod = memoizedMods[uri];
+
+            if (mod) {
+              var deps = mod.dependencies;
+
+              if (deps.length) {
+                // Converts deps to absolute id.
+                deps = mod.dependencies = RP.resolve(deps, {
+                  uri: mod.id
+                });
+              }
+
+              var m = deps.length;
+
+              if (m) {
+                // if a -> [b -> [c -> [a, e], d]]
+                // when use(['a', 'b'])
+                // should remove a from c.deps
+                deps = removeCyclicWaitingUris(uri, deps);
+                m = deps.length;
+              }
+
+              if (m) {
+                remain += m;
+                provide(deps, function() {
+                  remain -= m;
+                  if (remain === 0) onProvide();
+                });
+              }
+            }
+
+            if (--remain === 0) onProvide();
+          });
+        }
+
+      })(unReadyUris[i]);
+    }
+
+    function onProvide() {
+      setReadyState(unReadyUris);
+      callback();
+    }
+  }
+
+
+  /**
+   * Fetches a module file.
+   * @param {string} uri The module uri.
+   * @param {function()} callback The callback function.
+   */
+  function fetch(uri, callback) {
+
+    if (fetchingMods[uri]) {
+      callbackList[uri].push(callback);
+      return;
+    }
+
+    callbackList[uri] = [callback];
+    fetchingMods[uri] = true;
+
+    RP.load(
+        util.parseMap(uri),
+
+        function() {
+
+          // Memoize anonymous module
+          var mod = data.anonymousMod;
+          if (mod) {
+            // Don't override existed module
+            if (!memoizedMods[uri]) {
+              memoize(uri, mod);
+            }
+            data.anonymousMod = null;
+          }
+
+          // Assign the first module in package to memoizeMos[uri]
+          // See: test/issues/un-correspondence
+          mod = data.packageMods[0];
+          if (mod && !memoizedMods[uri]) {
+            memoizedMods[uri] = mod;
+          }
+          data.packageMods = [];
+
+          // Clear
+          if (fetchingMods[uri]) {
+            delete fetchingMods[uri];
+          }
+
+          // Call callbackList
+          if (callbackList[uri]) {
+            util.forEach(callbackList[uri], function(fn) {
+              fn();
+            });
+            delete callbackList[uri];
+          }
+
+        },
+
+        data.config.charset
+    );
+  }
+
+
+  // Helpers
+
+  /**
+   * Caches mod info to memoizedMods.
+   */
+  function memoize(uri, mod) {
+    mod.id = uri; // change id to the absolute path.
+    memoizedMods[uri] = mod;
+  }
+
+  /**
+   * Set mod.ready to true when all the requires of the module is loaded.
+   */
+  function setReadyState(uris) {
+    util.forEach(uris, function(uri) {
+      if (memoizedMods[uri]) {
+        memoizedMods[uri].ready = true;
+      }
+    });
+  }
+
+  /**
+   * Removes the "ready = true" uris from input.
+   */
+  function getUnReadyUris(uris) {
+    return util.filter(uris, function(uri) {
+      var mod = memoizedMods[uri];
+      return !mod || !mod.ready;
+    });
+  }
+
+  /**
+   * if a -> [b -> [c -> [a, e], d]]
+   * call removeMemoizedCyclicUris(c, [a, e])
+   * return [e]
+   */
+  function removeCyclicWaitingUris(uri, deps) {
+    return util.filter(deps, function(dep) {
+      return !isCyclicWaiting(memoizedMods[dep], uri);
+    });
+  }
+
+  function isCyclicWaiting(mod, uri) {
+    if (!mod || mod.ready) {
+      return false;
+    }
+
+    var deps = mod.dependencies || [];
+    if (deps.length) {
+      if (~util.indexOf(deps, uri)) {
+        return true;
+      } else {
+        for (var i = 0; i < deps.length; i++) {
+          if (isCyclicWaiting(memoizedMods[deps[i]], uri)) {
+            return true;
+          }
+        }
+        return false;
+      }
+    }
+    return false;
+  }
+
+
+  // Public API
+
+  util.memoize = memoize;
+  fn.load = load;
+
+})(seajs._util, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview The configuration.
+ */
+
+(function(host, util, data, fn) {
+
+  var config = data.config;
+
+  var noCachePrefix = 'seajs-ts=';
+  var noCacheTimeStamp = noCachePrefix + util.now();
+
+
+  // Async inserted script.
+  var loaderScript = document.getElementById('seajsnode');
+
+  // Static script.
+  if (!loaderScript) {
+    var scripts = document.getElementsByTagName('script');
+    loaderScript = scripts[scripts.length - 1];
+  }
+
+  var loaderSrc = util.getScriptAbsoluteSrc(loaderScript) ||
+      util.pageUrl; // When sea.js is inline, set base to pageUrl.
+
+  var base = util.dirname(loaderSrc);
+  util.loaderDir = base;
+
+  // When src is "http://test.com/libs/seajs/1.0.0/sea.js", redirect base
+  // to "http://test.com/libs/"
+  var match = base.match(/^(.+\/)seajs\/[\d\.]+\/$/);
+  if (match) {
+    base = match[1];
+  }
+
+  config.base = base;
+
+
+  var mainAttr = loaderScript.getAttribute('data-main');
+  if (mainAttr) {
+    // data-main="abc" is equivalent to data-main="./abc"
+    if (util.isTopLevel(mainAttr)) {
+      mainAttr = './' + mainAttr;
+    }
+    config.main = mainAttr;
+  }
+
+
+  // The max time to load a script file.
+  config.timeout = 20000;
+
+
+  /**
+   * The function to configure the framework.
+   * config({
+   *   'base': 'path/to/base',
+   *   'alias': {
+   *     'app': 'biz/xx',
+   *     'jquery': 'jquery-1.5.2',
+   *     'cart': 'cart?t=20110419'
+   *   },
+   *   'map': [
+   *     ['test.cdn.cn', 'localhost']
+   *   ],
+   *   preload: [],
+   *   charset: 'utf-8',
+   *   timeout: 20000, // 20s
+   *   debug: false
+   * });
+   *
+   * @param {Object} o The config object.
+   */
+  fn.config = function(o) {
+    for (var k in o) {
+      var previous = config[k];
+      var current = o[k];
+
+      if (previous && k === 'alias') {
+        for (var p in current) {
+          if (current.hasOwnProperty(p)) {
+            checkAliasConflict(previous[p], current[p]);
+            previous[p] = current[p];
+          }
+        }
+      }
+      else if (previous && (k === 'map' || k === 'preload')) {
+        // for config({ preload: 'some-module' })
+        if (!util.isArray(current)) {
+          current = [current];
+        }
+        util.forEach(current, function(item) {
+          if (item) { // Ignore empty string.
+            previous.push(item);
+          }
+        });
+        // NOTICE: no need to check conflict for map and preload.
+      }
+      else {
+        config[k] = current;
+      }
+    }
+
+    // Make sure config.base is absolute path.
+    var base = config.base;
+    if (base && !util.isAbsolute(base)) {
+      config.base = util.id2Uri('./' + base + '#');
+    }
+
+    // Use map to implement nocache
+    if (config.debug === 2) {
+      config.debug = 1;
+      fn.config({
+        map: [
+          [/.*/, function(url) {
+            if (url.indexOf(noCachePrefix) === -1) {
+              url += (url.indexOf('?') === -1 ? '?' : '&') + noCacheTimeStamp;
+            }
+            return url;
+          }]
+        ]
+      });
+    }
+
+    // Sync
+    if (config.debug) {
+      host.debug = config.debug;
+    }
+
+    return this;
+  };
+
+
+  function checkAliasConflict(previous, current) {
+    if (previous && previous !== current) {
+      util.error('Alias is conflicted:', current);
+    }
+  }
+
+})(seajs, seajs._util, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview Prepare for plugins environment.
+ */
+
+(function(data, util, fn, global) {
+
+  var config = data.config;
+
+
+  // register plugin names
+  var alias = {};
+  var loaderDir = util.loaderDir;
+
+  util.forEach(
+      ['base', 'map', 'text', 'json', 'coffee', 'less'],
+      function(name) {
+        name = 'plugin-' + name;
+        alias[name] = loaderDir + name;
+      });
+
+  fn.config({
+    alias: alias
+  });
+
+
+  // handle seajs-debug
+  if (~global.location.search.indexOf('seajs-debug') ||
+      ~document.cookie.indexOf('seajs=1')) {
+    fn.config({ debug: 2 });
+    config.preload.push('plugin-map');
+  }
+
+
+})(seajs._data, seajs._util, seajs._fn, this);
+
+/**
+ * @fileoverview The bootstrap and entrances.
+ */
+
+(function(host, data, fn) {
+
+  /**
+   * Loads modules to the environment.
+   * @param {Array.<string>} ids An array composed of module id.
+   * @param {function(*)=} callback The callback function.
+   */
+  fn.use = function(ids, callback) {
+    fn.load(ids, callback);
+  };
+
+
+  // data-main
+  var mainModuleId = data.config.main;
+  if (mainModuleId) {
+    fn.use([mainModuleId]);
+  }
+
+
+  // Parses the pre-call of seajs.config/seajs.use/define.
+  // Ref: test/bootstrap/async-3.html
+  (function(args) {
+    if (args) {
+      var hash = {
+        0: 'config',
+        1: 'use',
+        2: 'define'
+      };
+      for (var i = 0; i < args.length; i += 2) {
+        fn[hash[args[i]]].apply(host, args[i + 1]);
+      }
+      delete host._seajs;
+    }
+  })((host._seajs || 0)['args']);
+
+})(seajs, seajs._data, seajs._fn);
+
+/**
+ * @fileoverview The public api of seajs.
+ */
+
+(function(host, data, fn, global) {
+
+  // Avoids conflicting when sea.js is loaded multi times.
+  if (host._seajs) {
+    global.seajs = host._seajs;
+    return;
+  }
+
+  // SeaJS Loader API:
+  host.config = fn.config;
+  host.use = fn.use;
+
+  // Module Authoring API:
+  var previousDefine = global.define;
+  global.define = fn.define;
+
+
+  // For custom loader name.
+  host.noConflict = function(all) {
+    global.seajs = host._seajs;
+    if (all) {
+      global.define = previousDefine;
+      host.define = fn.define;
+    }
+    return host;
+  };
+
+
+  // Keep for plugin developers.
+  host.pluginSDK = {
+    util: host._util,
+    data: host._data
+  };
+
+
+  // For debug mode.
+  var debug = data.config.debug;
+  if (debug) {
+    host.debug = !!debug;
+  }
+
+
+  // Keeps clean!
+  delete host._util;
+  delete host._data;
+  delete host._fn;
+  delete host._seajs;
+
+})(seajs, seajs._data, seajs._fn, this);

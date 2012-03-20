@@ -1,6 +1,4 @@
 define(function(require, exports, module) {
-  require('lib/jquery');
-
   var $ = window.jQuery;
 
   //var _ = require('lib/underscore');

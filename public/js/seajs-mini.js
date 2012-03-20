@@ -5,7 +5,7 @@
   m.define = f(2);
   u = o.createElement('script');
   u.id = d + 'node';
-  u.src = '#{static("/js/sea.js")}';
+  u.src = '#{static("/js/sea-jquery.js")}';
   l = o.getElementsByTagName('head')[0];
   l.insertBefore(u, l.firstChild);
 })(window, document, 'seajs');

@@ -103,7 +103,7 @@
       a(href='/library/tags') &laquo;&nbsp;返回标签索引页
 if isNew
   script
-    seajs.use(['lib/jquery', 'lib/pinyin'], function($, toPinyin) {
+    seajs.use(['lib/pinyin'], function(toPinyin) {
       var inp_id = $('#inp-id');
       var reg_badchar = /[^\\w]+/g;
       $('#inp-name').blur(function(e) {

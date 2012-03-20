@@ -186,10 +186,7 @@
 
   window.__spipe = new SPipe();
 
-  seajs.use('lib/jquery', function($) {
-    //在DOM Ready时执行渲染
-    $(function() {
-      window.__spipe.run();
-    });
-  });
+  window.onload = function() {
+    window.__spipe.run();
+  };
 })(window, document, seajs);
