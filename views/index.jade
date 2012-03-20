@@ -21,14 +21,14 @@
     #gallery
       unless typeof galleryImages === 'undefined'
         - galleryImages.forEach(function(src) { 
-        img(src='#{ASSETS_ROOT}#{src}')
+        img(src=static(src))
         - })
     .article
       h2#hooray.h-realbold
-        img(src='#{ASSETS_ROOT}/img/heading-hooray.png', alt='『大声看法』 iPhone 应用即将上线！')
+        img(src=static('/img/heading-hooray.png'), alt='『大声看法』 iPhone 应用即将上线！')
       p#download
         a
-          img(src='#{ASSETS_ROOT}/img/sprite-main.png', alt='即将开放下载，敬请期待')
+          img(src=static('/img/sprite-main.png'), alt='即将开放下载，敬请期待')
       #ohyeah
         h2#for-normans.h-leading
           span 面向普通人
