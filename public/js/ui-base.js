@@ -1,5 +1,8 @@
 define(function(require, exports, module) {
-  var $ = require('lib/jquery');
+  require('lib/jquery');
+
+  var $ = window.jQuery;
+
   //var _ = require('lib/underscore');
 
   $.substitute = function(str, sub, cl) {

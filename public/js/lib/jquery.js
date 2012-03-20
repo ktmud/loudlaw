@@ -9264,7 +9264,3 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 
 })( window );
-
-define(function(require, exports, module) {
-  return jQuery;
-});
