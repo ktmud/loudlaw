@@ -221,7 +221,7 @@ function handle_flag(req, res, next) {
   info.userId = req.user && req.user.id;
   info.timestamp = central.utils.timestamp();
   info.article_title = res.article_doc.title;
-  info.pre = central.conf.site_root + req.originalUrl.replace('/flag', '');
+  info.pre = req.app.uri_root + req.originalUrl.replace('/flag', '');
   info.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   sendmail.send_article_error(info, function(err, success) {
     if (err) {

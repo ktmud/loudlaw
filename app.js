@@ -137,9 +137,11 @@ exports.boot = function() {
         port = arg[1];
         isProxied = arg[2];
       }
-      bootServer(hostname, port, app);
+      var server = bootServer(hostname, port, app);
       var port_suffix = conf.isProxied ? '' : (':' + (port || conf.port));
-      hosts[hostname.toUpperCase() + '_ROOT'] = 'http://' + hostname + '.' + rootDomain + port_suffix;
+      var root = 'http://' + hostname + '.' + rootDomain + port_suffix;
+      server.uri_root = root; // set the servers' uri root
+      hosts[hostname.toUpperCase() + '_ROOT'] = root;
     });
   }
 
