@@ -44,8 +44,8 @@ function bootApp(app, next) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use('/assets', express.compiler({ src: __dirname + '/public', enable: ['less'] }));
-  app.use('/assets', autostatic(__dirname + '/public', conf.static_conf));
+  app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
+  app.use(express.static(__dirname + '/public', conf.static_conf));
 
   // reference to the app running
   central.app = app;
