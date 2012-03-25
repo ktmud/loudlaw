@@ -17,7 +17,7 @@ var conf = central.conf;
 
 var express = central.lib.express;
 var istatic = central.lib.istatic;
-var autostatic = central.lib.autostatic;
+var autostatic = central.autostatic;
 
 // boot application
 function bootApp(app, next) {
@@ -33,19 +33,22 @@ function bootApp(app, next) {
   app.mount = central.modules.__proto__.mount;
 
   app.use(express.methodOverride());
-  app.use(express.cookieParser());
   app.use(express.bodyParser());
+  app.use(express.cookieParser());
+
+  app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
+  app.use(autostatic.middleware());
+  app.use(express.static(__dirname + '/public', conf.static_conf));
+
   app.use(express.session({
     secret: central.conf.salt,
     cookie: { domain: '.' + central.rootDomain },
     store: central.sessionStore
   }));
+
   app.use(express.csrf());
   app.use(passport.initialize());
   app.use(passport.session());
-
-  app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
-  app.use(express.static(__dirname + '/public', conf.static_conf));
 
   // reference to the app running
   central.app = app;

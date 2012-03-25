@@ -1,4 +1,5 @@
 define(function(require, exports, module) {
+
   var ui_base = require('ui-base');
   var $ = ui_base.jquery;
   var _ = ui_base.underscore;

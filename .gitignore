@@ -8,4 +8,5 @@ stable_cache
 conf/*
 public/*.html
 public/*.txt
+public/.file_etags
 *.min.*
