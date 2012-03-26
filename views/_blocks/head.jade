@@ -13,6 +13,9 @@ if locals.css
   - })
 script
   !{istatic('js/seajs-mini.js')}
+  seajs.config({
+    alias: !{seajs_alias()}
+  });
 if DEBUG
   script
     window._DEV_ = true;
