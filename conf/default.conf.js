@@ -66,7 +66,7 @@ module.exports = {
   initSets: function(app, express) {
     app.enable('view cache');
     //app.use(express.logger('tiny'));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    //app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
   },
 
   // do something after configurtion read,

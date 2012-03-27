@@ -45,7 +45,7 @@ module.exports = function(central, app, parentApp) {
     });
   });
 
-  // 404 page
+  // redirect library
   app.all('/library*', function(req, res, next) {
     var host = req.header('host');
     var tmp = host.split(':');
@@ -54,15 +54,5 @@ module.exports = function(central, app, parentApp) {
     host = tmp.join(':');
     host = host.replace(/^(www\.)?/, libraryServer.hostname + '.');
     res.redirect('http://' + host + req.url.replace('/library', ''), 301);
-  });
-
-  // 404 page
-  app.all('/*', function(req, res, next) {
-    res.ll_render('not-ready', {
-      data: { r: 404, msg: 'not_found' },
-      title: '抱歉! 我们还没准备好呢... ',
-      bodyClass: 'page-notready',
-      statusCode: 404
-    });
   });
 };

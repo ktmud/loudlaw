@@ -36,10 +36,6 @@ function bootApp(app, next) {
   app.use(express.bodyParser());
   app.use(express.cookieParser());
 
-  app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
-  app.use(autostatic.middleware());
-  app.use(express.static(__dirname + '/public', conf.static_conf));
-
   app.use(express.session({
     secret: central.conf.salt,
     cookie: { domain: '.' + central.rootDomain },
@@ -49,6 +45,17 @@ function bootApp(app, next) {
   app.use(express.csrf());
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.use(app.router);
+
+  if (app.hostname === 'www') {
+    app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
+    app.use(autostatic.middleware());
+    app.use(express.static(__dirname + '/public', conf.static_conf));
+  }
+
+  app.use(central.reqbase.errorHandler({ dump: conf.debug }));
+  app.use(central.reqbase.errorHandler.notFound);
 
   // reference to the app running
   central.app = app;

@@ -18,7 +18,9 @@ function readConfig() {
   var defaultConf = require('./default.conf.js');
   var conf = require('./' + NODE_ENV + '.conf.js');
 
-  u_s.defaults(conf, defaultConf);
+  conf.__proto__ = defaultConf;
+
+  //u_s.defaults(conf, defaultConf);
 
   // establish a database connection.
   conf.dbconn = conn.apply(conn, conf.db_args);
