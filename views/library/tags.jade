@@ -42,7 +42,7 @@ style
         each action in userActions
           a(class='btn-act ' + (action.class ? 'btn-act-' + action.class : ''),
             id='wk-act-#{action.name}',
-            href=(action.url === '' ? baseUrl : (baseUrl + '/' + action.name)),
+            href=(action.url === '' ? baseUrl : (baseUrl + '/' + action.url)),
             title=action.desc,
             data-param=action.params
           )

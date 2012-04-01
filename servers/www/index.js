@@ -1,6 +1,6 @@
 module.exports = {
   vhost: 'www',
-  modules: ['core', 'admin'],
+  modules: ['core', 'admin', 'misc'],
   // before parent boot
   before: function(app, parentApp) {
   },

@@ -5,12 +5,11 @@ style
     background: #000; color: green; padding: 15px 20px 12px; font-family: 'courier new', consolas, simsun;
     border-radius: 4px;
   }
-- var msg = msg && msg.msg || '我们的程序好像遇到一点问题'
-- var timestamp = central.utils.timestamp()
-- var dev_mode = (global.central.conf.env === 'development')
+- msg = msg && msg.msg || '我们的程序好像遇到一点问题'
+- timestamp = central.utils.timestamp()
 #main-body.fwrap
   div.box-notice
-    form(action="/misc/email/500", method='post')
+    form(action="#{SITE_ROOT}/misc/email/500", method='post')
       h2 500 服务器错误 
       p
         很抱歉，#{msg}
@@ -25,5 +24,5 @@ style
         input(type="hidden", name="timestamp", value=timestamp)
         button#btn-go.btn-submit(type="submit", tabindex="2")
           span.i 点此通知管理员
-      if dev_mode || (locals.user && locals.user.isAdmin)
-        pre.stack #{err}
+      if locals.stack
+        pre.stack #{stack}

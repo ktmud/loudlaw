@@ -124,7 +124,7 @@ function bootServer(hostname, port, app, cb) {
     vhosts.push([hostname, server]);
   }
 
-  istatic.enable(server, { root: __dirname + '/public' });
+  istatic.enable(server); 
 
   return server;
 }

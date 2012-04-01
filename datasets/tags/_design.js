@@ -7,13 +7,10 @@ module.exports = {
 
           if (!doc['for']) return;
           var target = doc['for'];
-          if (target.indexOf(',') > 0) {
-            var targets = target.split(',');
-            for (var i in targets) {
-              emit([targets[i]], doc);
-            }
-          } else {
-            emit([target], doc);
+          if (typeof target == 'string') targets = target.split(',');
+
+          for (var i in targets) {
+            emit([targets[i]], doc);
           }
         },
         reduce: '_count'

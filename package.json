@@ -13,10 +13,10 @@
     "express": ">= 2.5.1",
     "uglify-js": ">= 1.0",
     "uglifycss": ">= 0.0.5",
-    "istatic": ">= 0.0.2",
+    "istatic": ">= 0.0.4",
     "autostatic": ">= 0.0.7",
     "compress-buffer": ">= 0.1.0",
-    "passport": ">= 0.1.3",
+    "passport": ">= 0.1.8",
     "passport-twitter": ">= 0.1.0",
     "bcrypt": ">= 0.4.0",
     "less": ">= 0.0.1",
@@ -25,16 +25,20 @@
     "cradle": ">= 0.6.3",
     "memcached": ">= 0.0.1",
     "underscore": ">= 1.2.0",
-    "mocha": ">= 0.0.8",
     "backbone": ">= 0.5.3",
     "nodemailer": ">= 0.0.1",
     "colors": ">= 0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "*"
   },
   "engines": {
     "node" : ">=0.6.0"
   },
   "subdomain": "fa",
   "scripts": {
+    "prepublish" : "npm prune",
+    "test": "make test",
     "start": "node cluster.js"
   }
 }
