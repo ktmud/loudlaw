@@ -1,0 +1,2 @@
+#!/bin/bash
+supervisor -w 'lib,servers,modules,datasets,models,app.js,cluster.js,node_modules,conf,test' -- --debug cluster.js
