@@ -295,19 +295,23 @@ module.exports = {
   restrict: function(opt) {
     opt = opt || {};
     return function(req, res, next) {
+
+      var role = opt.role || 'editor';
+
       if (req.user) {
-        if (opt.editor) {
-          if (req.user.isEditor) return next();
-        } else if (opt.admin) {
-          if (req.user.isAdmin) return next();
-        } else {
-          return next();
+        // no need check for role,
+        // or role matches
+        if (!role || role && req.user.is(role)) {
+            return next();
         }
       }
 
-      var redirectTo = '/login';
-      if (typeof opt.redirect === 'string') redirectTo = opt.redirect;
+      var redirectTo;
+      if ('redirect' in opt) redirectTo = opt.redirect;
       if (redirectTo) {
+        if (typeof redirectTo != 'string') {
+          redirectTo = '/login';
+        }
         return res.redirect(redirectTo);
       } else {
         res.statusCode = 403;

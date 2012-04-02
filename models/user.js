@@ -9,17 +9,25 @@ var User = function(uinfo) {
 
 var proto = User.prototype;
 
+Object.defineProperty(proto, 'is', {
+  get: function() {
+    return function(role) {
+      var roles = this.roles || [];
+      // admin is everything...
+      return ~roles.indexOf(role) || ~roles.indexOf('admin');
+    };
+  },
+  enumerable: true
+});
 Object.defineProperty(proto, 'isEditor', {
   get: function() {
-    var roles = this.roles || [];
-    return (roles && (roles.indexOf('editor') != -1)) || this.isAdmin;
+    return this.is('editor');
   },
   enumerable: false
 });
 Object.defineProperty(proto, 'isAdmin', {
   get: function() {
-    var roles = this.roles || [];
-    return roles && roles.indexOf('admin') != -1;
+    return this.is('admin');
   },
   enumerable: false
 });

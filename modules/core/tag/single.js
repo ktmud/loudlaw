@@ -1,21 +1,10 @@
 var dataset = central.datasets.tags;
 
-function handle_update_tag(req, res, next, isNew) {
-  if (!req.user || !req.user.isEditor) return next(403);
-  if (req.method === 'POST') return update_tag(req, res, next, isNew);
-  if (isNew) return next();
-
-  dataset.fetch(['id', req.params.tag], function(err, doc) {
-    if (err) next(err);
-    render_tag(res, doc, req.params.subsite);
-  });
-}
-
-function update_tag(req, res, next, isNew) {
+function update_tag(req, res, next) {
+  var isNew = req.isNew;
   var info = req.body;
-  var for_target = info.for || req.params.subsite;
+  var for_target = info.for || req.app.hostname;
   for_target = for_target.ssplit();
-  var subsite = for_target[0];
 
   if (info.restore) {
     return restore_tag(info._id, req, res, next);
@@ -62,7 +51,8 @@ function update_tag(req, res, next, isNew) {
     } else if (doc.deleted) {
       return res.redirect('/tags');
     } else {
-      render_tag(res, ret, subsite);
+      res.doc = doc;
+      next();
     }
   });
 }
@@ -74,30 +64,42 @@ function restore_tag(tag_id, req, res, next) {
     dataset.save(['id', tag_id], doc, function(err, doc) {
       if (err) return next(err);
       central.emit('tag-update', tag_id);
-      render_tag(res, doc, req.params.subsite);
+      res.doc = doc;
+      next();
     });
   });
 }
 
-function render_tag(res, doc, subsite) {
-  res.ll_render('admin/tags/update', {
-    subsite: subsite,
-    title: '编辑标签: ' + doc.name,
-    data: doc
-  });
-}
-
-function new_tag(req, res, next) {
-}
-
 exports.add = function(req, res, next) {
-  res.ll_render('admin/tags/update', {
-    subsite: req.params.subsite,
-    title: '新加标签'
-  });
-  handle_update_tag(req, res, next, true);
+  req.isNew = true;
+  next();
 };
 exports.edit = function(req, res, next) {
-  handle_update_tag(req, res, next);
+  dataset.fetch(['id', req.params.tag], function(err, doc) {
+    if (err) next(err);
+    res.doc = doc;
+    next();
+  });
 };
+exports.update = update_tag;
+exports.show = function(req, res, next) {
+  var data;
+  var doc = res.doc;
+  var subsite = res.app.hostname || '';
+
+  if (doc) {
+    data = {
+      subsite: subsite,
+      title: '编辑标签: ' + doc.name,
+      data: doc
+    };
+  } else {
+    data = {
+      subsite: subsite,
+      title: '新加标签'
+    };
+  }
+  res.ll_render('admin/tags/update', data);
+}
+
 exports.restore = restore_tag;

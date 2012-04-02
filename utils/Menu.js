@@ -59,18 +59,26 @@ Menu.prototype.export = function(current, order) {
 
   order = self.order = order || self.order;
 
-  if (!current) return order.map(function(item) {
-    var ret = self.items[item] || default_items[item];
-    ret && (ret.name = 'name' in ret ? ret.name : item);
-    return ret;
-  });
+  var arr = [];
 
-  return order.map(function(item, i) {
-    if (item == current) return order[i] = this.act_cancel;
-    var ret = self.items[item] || default_items[item];
-    ret && (ret.name = 'name' in ret ? ret.name : item);
-    return ret;
-  });
+  if (current) {
+    order.forEach(function(item) {
+      if (item == current)  {
+        arr.push(default_items.cancel);
+        return;
+      }
+      var ret = self.items[item] || default_items[item];
+      ret && (ret.name = 'name' in ret ? ret.name : item);
+      ret && arr.push(ret);
+    });
+  } else {
+    order.forEach(function(item) {
+      var ret = self.items[item] || default_items[item];
+      ret && (ret.name = 'name' in ret ? ret.name : item);
+      ret && arr.push(ret);
+    });
+  }
+  return arr;
 };
 
 module.exports = Menu;

@@ -28,8 +28,10 @@ module.exports = {
   init: function(central, app) {
     var reg_tags_uri = /^\/tags(?:(?:\/(add|manage))|(?:\/by-([^\/]+))?(?:\/p([0-9]+))?)(?:\.(json|xml|rss))?$/;
 
+    var mod_auth = app.modules.core.auth;
+
     // list all the tags
-    app.all(reg_tags_uri, add_user_action, function(req, res, next) {
+    app.get(reg_tags_uri, add_user_action, function(req, res, next) {
       switch (req.params.act) {
       case 'add':
         return single.add(req, res, next);
@@ -37,22 +39,26 @@ module.exports = {
         // show all tags
         return all.tags(req, res, next);
       }
-    });
+    }, single.show);
 
-    // single tag edit page
-    app.all('/tag-:tag/:act', function(req, res, next) {
+    app.get('/tag-:tag/:act', mod_auth.restrict(), function(req, res, next) {
       var act = req.params.act;
       switch (act) {
       case 'edit':
         single.edit(req, res, next);
         break;
       case '':
-        next();
+        // go to the list page
+        next('route');
         break;
       default:
         next(404);
       }
-    });
+    }, single.show);
+
+    app.post('/tags/add', mod_auth.restrict(), single.add, single.update, single.show);
+    // single tag edit page (should we fetch the doc first? I don't thins so..)
+    app.post('/tag-:tag/:act', mod_auth.restrict(), single.update, single.show);
 
     // delete cache when the tag is updated
     central.on('tag-update', function(tag) {
