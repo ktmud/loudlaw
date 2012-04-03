@@ -369,12 +369,9 @@ module.exports = function(central, app, dataset) {
     var operation = tmpl_data.operation;
     var keyword = tmpl_data.keyword = req.param('q');
 
-    var counter = 3;
+    var pending = 3;
     function countDown() {
-      counter--;
-      if (counter <= 0) {
-        next();
-      }
+      --pending || next();
     };
 
     var p_main = u_s.clone(tmpl_data);

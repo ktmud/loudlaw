@@ -28,7 +28,31 @@ function readConfig() {
   // cryptokey for session
   conf.secret = createRandomString();
 
+  parseDomain(conf);
+
   return conf;
+}
+
+function parseDomain(conf) {
+  var rootDomain = conf.site_root.split('://').slice(-1).join('').split(':')[0] || 'localhost';
+  conf.rootDomain = rootDomain = rootDomain.split('.').slice(1).join('.') || rootDomain;
+
+  // analyse how many serves do we get
+  if (conf.servers && conf.servers.length) {
+    conf.servers.forEach(function(arg, i) {
+      var obj = {}; // config object
+      if (arg instanceof Array) {
+        obj.hostname = arg[0];
+        obj.port = arg[1];
+        obj.isProxied = arg[2] || false;
+      } else {
+        obj.hostname = arg;
+      }
+      var port_suffix = conf.isProxied ? '' : (':' + (obj.port || conf.port));
+      obj.root = 'http://' + obj.hostname + '.' + rootDomain + port_suffix;
+      conf.servers[i] = obj;
+    });
+  }
 }
 
 /**

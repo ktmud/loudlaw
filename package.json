@@ -13,7 +13,7 @@
     "express": ">= 2.5.1",
     "uglify-js": ">= 1.0",
     "uglifycss": ">= 0.0.5",
-    "istatic": ">= 0.0.4",
+    "istatic": ">= 0.0.5",
     "autostatic": ">= 0.0.7",
     "compress-buffer": ">= 0.1.0",
     "passport": ">= 0.1.8",
@@ -30,7 +30,9 @@
     "colors": ">= 0.0.1"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "should": "*",
+    "zombie": "*"
   },
   "engines": {
     "node" : ">=0.6.0"

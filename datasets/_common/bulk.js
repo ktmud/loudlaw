@@ -94,7 +94,7 @@ module.exports = {
           i = idx[id];
           // try get the revision
           rev = item && item._rev;
-          rev && i && data[i] && data[i]._rev = rev;
+          rev && i && data[i] && (data[i]._rev = rev);
         }
       }
       doSave();

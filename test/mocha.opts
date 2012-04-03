@@ -1,0 +1,4 @@
+--require should
+--ui bdd
+--growl
+--slow 20
