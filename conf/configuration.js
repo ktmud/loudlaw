@@ -34,7 +34,7 @@ function readConfig() {
 }
 
 function parseDomain(conf) {
-  var rootDomain = conf.site_root.split('://').slice(-1).join('').split(':')[0] || 'localhost';
+  var rootDomain = conf.site_root.replace(/https?:\/\//i, '').split(':')[0] || 'localhost';
   conf.rootDomain = rootDomain = rootDomain.split('.').slice(1).join('.') || rootDomain;
 
   // analyse how many serves do we get

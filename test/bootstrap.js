@@ -1,3 +1,7 @@
+process.env.NODE_ENV = process.env.MOCHA_ENV || 'test';
+
+var util = require('util');
+var chai_jquery = require('chai-jquery');
 var zombie = require('zombie');
 
 var app = require('../app');
@@ -5,4 +9,8 @@ var app = require('../app');
 app.boot();
 
 exports.servers = {};
+exports.Brower = zombie;
 exports.browser = new zombie();
+exports.log = function() {
+  util.debug(util.inspect.apply(util, arguments));
+};

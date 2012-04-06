@@ -1,8 +1,8 @@
-- act = locals.data ?  '修改' : '新加'
-- isNew = locals.data ? false : true
-- name_focus = true
-- id_focus = ll_exception.indexOf('tag id') > -1
-- data = locals.data || {}
+act = locals.data ?  '修改' : '新加'
+isNew = locals.data ? false : true
+name_focus = true
+id_focus = ll_exception.indexOf('tag id') > -1
+data = locals.data || {}
 #main-body.fwrap
   .article
     h1 #{act}标签#{isNew ? '' : ': ' + data.name}

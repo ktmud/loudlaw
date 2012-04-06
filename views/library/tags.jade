@@ -1,16 +1,17 @@
 include ../utils/pager.jade
-- title = '标签索引 - 法律文库'
-- keys = Object.keys(data).sort();
-- len = keys.length - 1
+
+title = '标签索引 - 法律文库'
+keys = Object.keys(data).sort();
+len = keys.length - 1
 
 mixin alpha_tags(az, entries, showEdit)
   .az-block(id='tag_' + az)
     h3 #{az}
     ol
       each item in entries
-        - item_name = item.name
-        - item_id = item._id
-        - url = '/tag-' + encodeURIComponent(item._id)
+        item_name = item.name
+        item_id = item._id
+        url = '/tag-' + encodeURIComponent(item._id)
         li
           if showEdit
             a.btn-act.btn-act-gray(href=url + '/edit')

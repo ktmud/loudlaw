@@ -21,11 +21,13 @@ module.exports = {
   assets_root: 'http://a.idufa.com',
   admin_email: '"大声看法官方" <man@dakanfa.com>',
   sender_email: '"大声看法" <support@dakanfa.com>',
+
+  servers: ['library'],
+  // or:
+  // servers: [['library', 2000]],
+
   site_root: 'http://www.dakanfa.com',
   good_domains: 'dakanfa.com 127.0.0.1 localhost loudlaw.org idufa-test.com',
-
-  // can appoint a dedicated port for a subdomain
-  servers: ['library'],
 
   // whether to send gzipped content
   gzip: true,
@@ -71,7 +73,7 @@ module.exports = {
 
   // do something after configurtion read,
   // and before app boot.
-  afterBoot: function(app, express) {
+  after_boot: function(app, express) {
     //app.error(function(err, req, res, next) {
       //if (err instanceof Error) {
         //res.render('500');

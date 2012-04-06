@@ -5,6 +5,7 @@ stable_cache
 *.css
 *.bak
 .DS_Store
+var/*.log
 conf/*
 public/*.html
 public/*.txt

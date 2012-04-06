@@ -1,6 +1,6 @@
-- data = typeof data === 'undefined' ? undefined : data
+data = (typeof data === 'undefined') ? undefined : data
 meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
-title= title ? (title + (locals.title_suffix ? title_suffix : '')) : SITE_NAME
+title= locals.title ? (title + (locals.title_suffix ? title_suffix : '')) : SITE_NAME
 meta(id="meta-viewport", name="viewport", content="width=device-width, initial-scale=1")
 script
   !{istatic('js/lib/iOS-Orientationchange-fix.js')}
@@ -16,15 +16,15 @@ script
   seajs.config({
     alias: !{seajs_alias()}
   });
-if DEBUG
+if locals.DEBUG
   script
     window._DEV_ = true;
 if locals.pipefy
   script
     !{istatic('js/lib/bigpipe.js')}
 if locals.js
-  - var js_mods = (js instanceof Array) ? js : [js];
-  - js_mods = JSON.stringify(js_mods);
+  js_mods = (js instanceof Array) ? js : [js];
+  js_mods = JSON.stringify(js_mods);
   script
     seajs.use(!{js_mods}, window.seajs_onload);
 if locals.GA_ID
@@ -34,8 +34,8 @@ if locals.GA_ID
 if locals.carnonical
   link(rel='carnonical', href='#{carnonical}')
 if locals.desc || locals.data
-  - desc = locals.desc || locals.data.desc || locals.data.content
-  - data_title = data && data.title
-  - desc = trunc(desc, 170, true)
-  - desc = substitute(desc, { title: locals.title })
+  desc = locals.desc || locals.data.desc || locals.data.content
+  data_title = data && data.title
+  desc = trunc(desc, 170, true)
+  desc = substitute(desc, { title: locals.title })
   meta(name="description", content=desc)

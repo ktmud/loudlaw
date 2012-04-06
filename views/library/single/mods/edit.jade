@@ -1,4 +1,4 @@
-- disabled = (statusCode === 403)
+disabled = (statusCode === 403)
 if disabled
   .box-notice.box-floating
       h2 403 没有权限 
@@ -63,7 +63,7 @@ form#wk-edit-form(method='post')
         value=data.cate
       )
     p.meta
-      - tags_str = data.tags || []
+      - var tags_str = data.tags || []
       - if (typeof tags_str === 'string') tags_str = tags_str.ssplit()
       - if (add_tag) tags_str.push(add_tag)
       - tags_str = tags_str.join(', ')

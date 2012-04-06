@@ -1,6 +1,4 @@
 var util = require('util');
-var debug = util.debug;
-var log = util.log;
 var format = util.format;
 var cwd = process.cwd();
 
@@ -77,7 +75,7 @@ function local_auth(req, res, next) {
         } else {
           req.session.cookie.expires = false;
         }
-        log('[user ' + user._id + '] logined.');
+        res.app.log('[user ' + user._id + '] logined.');
         res.cookie('lg', '1');
         res.redirect(get_redirect_url(req, SITE_ROOT + CP_HOME));
       });
@@ -185,7 +183,7 @@ function init(central, app, mod) {
           return next();
         }
 
-        log(format('[user %s] joined at %s', uid.green, (new Date(user.ctime)).toLocaleString()));
+        req.app.log(format('[user %s] joined at %s', uid.green, (new Date(user.ctime)).toLocaleString()));
 
         // register ok
         req.login(user, function(err) {

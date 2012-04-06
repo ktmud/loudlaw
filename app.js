@@ -130,21 +130,21 @@ function bootApp(app, next) {
 
 // initial bootstraping
 exports.boot = function() {
-  var app = central.servers['www'] = express.createServer();
+  var app = central.servers['www'] = bootServer('www', conf.port);
 
   var root_urls = {};
   conf.servers.forEach(function(item) {
     var hostname = item.hostname;
     central.servers[hostname] = server = bootServer(hostname, item.port, app);
     server.uri_root = item.root; // set the servers' uri root
-    root_urls[hostname.toUpperCase() + '_ROOT'] = root;
+    root_urls[hostname.toUpperCase() + '_ROOT'] = item.root;
   });
 
   vhosts.forEach(function(host) {
     var hostname = host[0];
     var server = host[1];
     server.log('info', 'vhosting..');
-    app.use(express.vhost(hostname + '.' + rootDomain, server));
+    app.use(express.vhost(hostname + '.' + central.rootDomain, server));
   });
 
   // server boot callbacks
@@ -157,7 +157,6 @@ exports.boot = function() {
     delete server.ending;
   }
 
-  bootServer('www', conf.port);
 };
 
 exports.central = central;
