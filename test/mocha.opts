@@ -1,5 +1,5 @@
 --require should
 --ui bdd
 --growl
---slow 20
---timeout 20000
+--slow 500
+--timeout 10000

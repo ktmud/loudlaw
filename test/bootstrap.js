@@ -14,3 +14,9 @@ exports.browser = new zombie();
 exports.log = function() {
   util.debug(util.inspect.apply(util, arguments));
 };
+
+var b = exports.browser;
+b.loadCSS = false;
+b.waitFar = 100;
+b.site = central.conf.site_root;
+

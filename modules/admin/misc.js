@@ -1,6 +1,5 @@
 var fs = require('fs');
 
-var log = central.utils.log;
 var Cache = require(central.cwd + '/lib/Cache');
 var wrench = require('wrench');
 

@@ -6,8 +6,15 @@ var cwd = process.cwd();
 var log = fs.createWriteStream(cwd + '/var/stdout.log');
 //var err = fs.createWriteStream(cwd + '/var/stderr.log');
 
-console.log = console.info = function() {
-  var out = Array.prototype.join.call(arguments, ' ');
+util.log = console.log = console.info = function(t) {
+  var out;
+  if (t && ~t.indexOf('%')) {
+    out = util.format.apply(util, arguments);
+    process.stdout.write(out + '\n');
+    return;
+  } else {
+    out = Array.prototype.join.call(arguments, ' ');
+  }
   out && log.write(out + '\n');
 };
 

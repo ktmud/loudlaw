@@ -1,7 +1,6 @@
 var cwd = process.cwd();
 var Dataset = require(cwd + '/lib/Dataset.js');
 var User = require(cwd + '/models/user.js');
-var util = require('util');
 
 var gets = {
   // get user info by id
@@ -116,10 +115,6 @@ var more = {
         // save it to cache
         self.stash(['id', user._id], user);
         return next(err, new User(user));
-      }
-      if (err) {
-        util.debug(err);
-        err = 'save fail';
       }
       return next(err);
     });
