@@ -1,4 +1,7 @@
 ## 0.2.1 
+  * [+] add test cases, using mocha
+
+## 0.2.1 
   * [+] add autostatic, automatically compress static files
   * [+] add upyun
 
