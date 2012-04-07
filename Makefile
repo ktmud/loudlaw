@@ -1,4 +1,9 @@
 REPORTER = spec
+LOG_FILE = ./var/stdout.log
+
+ifeq ($(NODE_ENV), vps)
+	LOG_FILE = /srv/log/nodejs/loudlaw.log
+endif
 
 test:
 	clear
@@ -6,7 +11,7 @@ test:
 	@echo "\n"
 
 tail:
-	@tail -f ./var/stdout.log
+	@tail -f $(LOG_FILE)
 
 vps product:
 	@MOCHA_ENV=$@ $(MAKE) test
