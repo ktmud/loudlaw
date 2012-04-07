@@ -14,7 +14,7 @@
     "uglify-js": ">= 1.0",
     "uglifycss": ">= 0.0.5",
     "istatic": ">= 0.0.5",
-    "autostatic": ">= 0.0.9",
+    "autostatic": ">= 0.0.9-1",
     "compress-buffer": ">= 0.1.0",
     "passport": ">= 0.1.8",
     "passport-twitter": ">= 0.1.0",
