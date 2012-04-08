@@ -3,7 +3,7 @@
 * @author: ktmud <jyyjcc@gmail.com>
 */
 define(function(require, exports, module) {
-  var $ = require('lib/jquery');
+  var $ = window.jQuery;
 
   // leads need to be copied to new line, when press Enter
   // > for blockquote
