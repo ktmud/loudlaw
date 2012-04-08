@@ -1,4 +1,6 @@
-var exports = {
+var static_send = require('express').static.send;
+
+module.exports = {
   init: function(central, app, mod) {
     var pandoc = require(central.cwd + '/utils/pandoc');
     var sendmail = require(central.cwd + '/utils/sendmail');
@@ -61,7 +63,16 @@ var exports = {
         layout: false
       });
     });
+
+    var fav_opt = {
+      root: central.cwd + '/public',
+      getOnly: true,
+      path: '/favicon.ico'
+    };
+    app.all('/favicon.ico', function(req, res, next) {
+      req.cache_key = null;
+      res._headers['content-type'] = 'image/x-icon';
+      static_send(req, res, next, fav_opt);
+    });
   }
 };
-
-module.exports = exports;

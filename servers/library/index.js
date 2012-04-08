@@ -2,7 +2,7 @@
 //var util = require('util');
 
 module.exports = {
-  modules: ['core', 'admin', 'support'],
+  modules: ['core', 'admin', 'support', 'misc'],
   // before modules loaded
   before: function(app, parentApp) {
     var reqbase = central.reqbase;
