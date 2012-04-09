@@ -7,10 +7,9 @@ script
 link(rel='stylesheet', href=static('/css/base.css'))
 link(rel='stylesheet', href=static('/css/print.css'), media='print')
 if locals.css 
-  - css = (css instanceof Array) ? css : [css];
-  - css.forEach(function(item){
+  css = (css instanceof Array) ? css : [css];
+  for item in css
     link(rel='stylesheet', href=static('/css/' + item + '.css'))
-  - })
 script
   !{istatic('js/seajs-mini.js')}
   seajs.config({

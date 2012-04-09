@@ -1,12 +1,6 @@
-var default_orders = ['manage', 'add'];
+var default_order = ['manage', 'add'];
 
 var default_items = {
-  cancel: {
-    class: 'gray btn-act-x',
-    text: '×',
-    url: '',
-    desc: '取消操作'
-  },
   add: {
     class: 'light rc-1',
     text: '+新加',
@@ -30,54 +24,44 @@ var default_items = {
   }
 };
 
-function Menu(items, order) {
-  items = items || default_items;
-  this.items = items;
+var item_cancel = {
+  name: 'cancel',
+  class: 'gray btn-act-x',
+  text: '×',
+  url: '',
+  desc: '取消操作'
+};
 
-  if (order) {
-    this.order = order;
-  } else {
-    order = [];
-    default_orders.forEach(function(item, i) {
-      if (item in items) {
-        order.push(item);
-      }
-    });
-    this.order = order;
-  }
+function Menu(items, order) {
+  if (items) this.items = items;
+  if (order) this.order = order;
 
   return this;
 }
 
-Menu.prototype.export = function(current, order) {
+Menu.prototype.order = default_order;
+Menu.prototype.items = default_items;
+
+Menu.prototype.export = function(current, req) {
   var self = this;
-
-  if (current instanceof Array) {
-    order = current;
-    current = null;
-  }
-
-  order = self.order = order || self.order;
 
   var arr = [];
 
-  if (current) {
-    order.forEach(function(item) {
-      if (item == current)  {
-        arr.push(default_items.cancel);
-        return;
+  self.order.forEach(function(item) {
+    if (item == current) {
+      arr.push(item_cancel);
+      return;
+    }
+    var ret = self.items[item] || default_items[item];
+    if (ret) {
+      if ('priv' in ret) {
+        if (!req.user || !req.user.is(ret.priv)) return;
       }
-      var ret = self.items[item] || default_items[item];
-      ret && (ret.name = 'name' in ret ? ret.name : item);
-      ret && arr.push(ret);
-    });
-  } else {
-    order.forEach(function(item) {
-      var ret = self.items[item] || default_items[item];
-      ret && (ret.name = 'name' in ret ? ret.name : item);
-      ret && arr.push(ret);
-    });
-  }
+      ret.name = 'name' in ret ? ret.name : item;
+      arr.push(ret);
+    }
+  });
+
   return arr;
 };
 

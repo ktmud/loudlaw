@@ -33,18 +33,18 @@ function random_tags(limit, fn) {
 module.exports = function(central, app, dataset) {
   this.keynameMap = keynameMap;
 
-  app.get('/', function(req, res, next) {
-    res.ll_write('library/index', {
-      title: '法律文库 - 法律法规大全，在线法律图书馆 | ' + central.conf.site_name,
-      desc: '大声看法法律文库，互联网上最牛逼的法律法规大全。提供最便捷的法条检索工具。此页是首页。',
-      title_suffix: '',
-      pipefy: true,
-      statusCode: 200,
-      types: keynameMap['type'],
-      cates: keynameMap['cate']
-    });
-    next();
-  }, function(req, res, next) {
+  var reqbase = central.reqbase;
+
+  app.get('/', reqbase.cache(), reqbase.open({
+    head_tmpl: 'library/homepage/head',
+    sublogo: '<a href="/">法律文库</a>',
+    title: '法律文库 - 法律法规大全，在线法律图书馆 | ' + central.conf.site_name,
+    desc: '大声看法法律文库，最好用的在线法律法规大全。提供便捷免费的法条检索工具。此页是首页。',
+    title_suffix: '',
+    pipefy: true,
+    types: keynameMap['type'],
+    cates: keynameMap['cate']
+  }), function(req, res, next) {
     var counter = 5;
     function countDown() {
       counter--;
@@ -52,7 +52,7 @@ module.exports = function(central, app, dataset) {
     };
 
     random_tags(20, function(err, tags) {
-      res.ll_write('library/index/mods/tags', {
+      res.ll_write('library/homepage/mods/tags', {
         pagelet: {
           id: 'mod-tags'
         },
@@ -61,7 +61,7 @@ module.exports = function(central, app, dataset) {
       countDown();
     });
     dataset.fetch(['list', 'type', 'law', 'hits', 1, 5], function(err, docs) {
-      res.ll_write('library/index/mods/docs', {
+      res.ll_write('library/homepage/mods/docs', {
         pagelet: {
           id: 'mod-hot-law'
         },
@@ -71,7 +71,7 @@ module.exports = function(central, app, dataset) {
       countDown();
     });
     dataset.fetch(['list', 'type', 'law', 'default', 1, 5], function(err, docs) {
-      res.ll_write('library/index/mods/docs', {
+      res.ll_write('library/homepage/mods/docs', {
         pagelet: {
           id: 'mod-latest-law'
         },
@@ -81,7 +81,7 @@ module.exports = function(central, app, dataset) {
       countDown();
     });
     dataset.fetch(['list', 'type', 'itpt', 'hits', 1, 5], function(err, docs) {
-      res.ll_write('library/index/mods/docs', {
+      res.ll_write('library/homepage/mods/docs', {
         pagelet: {
           id: 'mod-hot-itpt'
         },
@@ -91,7 +91,7 @@ module.exports = function(central, app, dataset) {
       countDown();
     });
     dataset.fetch(['list', 'type', 'itpt', 'default', 1, 5], function(err, docs) {
-      res.ll_write('library/index/mods/docs', {
+      res.ll_write('library/homepage/mods/docs', {
         pagelet: {
           id: 'mod-latest-itpt'
         },
