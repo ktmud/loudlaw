@@ -1,7 +1,8 @@
 module.exports = function(central, app, dataset) {
   var Pager = central.lib.Pager;
 
-  app.all('/search/:keyword?', function(req, res, next) {
+  app.all('/search/:keyword?', app.rq_cache, app.rq_open,
+  function(req, res, next) {
     var keyword = req.params.keyword || req.param('q');
     req.params.keyword = keyword;
     res.ll_write('library/search', {
