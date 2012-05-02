@@ -16,7 +16,6 @@ var central = require(__dirname + '/lib/central.js');
 var conf = central.conf;
 
 var express = central.lib.express;
-var istatic = central.lib.istatic;
 var autostatic = central.autostatic;
 
 var vhosts = [];
@@ -76,8 +75,6 @@ function bootServer(hostname, port, app, cb) {
     hostname = (typeof vhost == 'string' && vhost) ? vhost : hostname;
     vhosts.push([hostname, server]);
   }
-
-  istatic.enable(server);
 
   return server;
 }

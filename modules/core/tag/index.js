@@ -30,6 +30,8 @@ module.exports = {
 
     var mod_auth = app.modules.core.auth;
 
+    var auth_restrict = mod_auth.restrict();
+
     // list all the tags
     app.get(reg_tags_uri, add_user_action, function(req, res, next) {
       switch (req.params.act) {
@@ -41,7 +43,7 @@ module.exports = {
       }
     }, single.show);
 
-    app.get('/tag-:tag/:act', mod_auth.restrict(), function(req, res, next) {
+    app.get('/tag-:tag/:act', auth_restrict, function(req, res, next) {
       var act = req.params.act;
       switch (act) {
       case 'edit':
@@ -56,9 +58,9 @@ module.exports = {
       }
     }, single.show);
 
-    app.post('/tags/add', mod_auth.restrict(), single.add, single.update, single.show);
+    app.post('/tags/add', auth_restrict, single.add, single.update, single.show);
     // single tag edit page (should we fetch the doc first? I don't thins so..)
-    app.post('/tag-:tag/:act', mod_auth.restrict(), single.update, single.show);
+    app.post('/tag-:tag/:act', auth_restrict, single.update, single.show);
 
     // delete cache when the tag is updated
     central.on('tag-update', function(tag) {

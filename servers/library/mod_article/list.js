@@ -13,7 +13,7 @@ module.exports = function(central, app, dataset) {
   //var urlReg = /^\/library\/by-(?:([a-zA-Z0-9]+))(?:\/([a-zA-Z0-9]+))(?:\/page-([\d]+))?(?:\.([\w]+))?/;
   var urlReg = /^\/([a-zA-Z0-9]+)-([^\/]+)(?:\/by-([a-zA-Z0-9\_\-]+))?(?:\/p([\d]+))?(?:\.([\w]+))?$/;
 
-  app.get(urlReg, function(req, res, next) {
+  app.get(urlReg, app.rq_ft, app.rq_cache, app.rq_open, function(req, res, next) {
     var params = req.params;
     var view = params[0];
     var key = params[1];
@@ -73,6 +73,6 @@ module.exports = function(central, app, dataset) {
         });
       });
     }
-  });
+  }, app.rq_close);
 };
 

@@ -1,4 +1,4 @@
-REPORTER = spec
+REPORTER = landing
 LOG_FILE = ./var/stdout.log
 
 ifeq ($(NODE_ENV), vps)
