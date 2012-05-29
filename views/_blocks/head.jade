@@ -18,7 +18,8 @@ script
 if locals.DEBUG
   script
     window._DEV_ = true;
-if locals.pipefy
+pipefy = pipefy || locals.pipefy
+if pipefy
   script
     !{istatic('js/lib/bigpipe.js')}
 if locals.js

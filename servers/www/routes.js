@@ -15,8 +15,8 @@ module.exports = function(central, app, parentApp) {
       desc: '『大声看法』提供法律和互联网的深度整合，为所有法律爱好者免费提供用户体验最好的学习工具。'
     };
 
+    debugger
     res.ll_render('index', {
-      layout: '_layouts/nohead',
       css: 'index',
       bodyClass: 'page-index',
       title: '大声看法 - 让法律因互联网而有趣',

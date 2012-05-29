@@ -10,7 +10,6 @@ if (!module.parent) process.on('uncaughtException', function(err, next) {
   next();
 });
 
-
 var fs = require('fs');
 var central = require(__dirname + '/lib/central.js');
 var conf = central.conf;
@@ -94,10 +93,9 @@ function bootApp(app, next) {
 
   app.use(express.methodOverride());
   app.use(express.bodyParser());
-  app.use(express.cookieParser());
+  app.use(express.cookieParser(central.conf.salt));
 
-  app.use(express.session({
-    secret: central.conf.salt,
+  app.use(express.cookieSession({
     cookie: { domain: '.' + central.rootDomain },
     store: central.sessionStore
   }));
@@ -114,19 +112,20 @@ function bootApp(app, next) {
         if (err) return fn(err);
 
         new(less.Parser)({
-            paths: [require('path').dirname(path)],
-            optimization: 0
+          paths: [require('path').dirname(path)],
+          optimization: 0
         }).parse(str, function(err, tree) {
-            if (err) return fn(err);
-            try {
-              css = tree.toCSS();
-              fn(null, css);
-            } catch (e) {
-              fn(e);
-            }
+          if (err) return fn(err);
+          try {
+            css = tree.toCSS();
+            fn(null, css);
+          } catch (e) {
+            fn(e);
+          }
         });
       });
     });
+    app.use('/css/', central.reqbase.css(__dirname + '/static'));
     app.use(autostatic.middleware());
     app.use(express.static(__dirname + '/static', conf.static_conf));
   }
@@ -165,7 +164,7 @@ exports.boot = function() {
   for (var hostname in central.servers) {
     var server = central.servers[hostname];
     // add helpers for server hosts
-    server.helpers(root_urls);
+    server.locals(root_urls);
     server.ending && server.ending(server, app);
     // for garbage collection..
     delete server.ending;

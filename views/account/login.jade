@@ -1,48 +1,52 @@
-heading = locals.uname ? '欢迎回来，' + uname :  '登录' + SITE_NAME 
-pwd_autofocus = (['wrong password', 'password required'].indexOf(ll_exception) != -1)
-uname_autofocus = !pwd_autofocus
-if ll_exception && !msg
-  msg = { type: 'error', msg: '登录失败，请重试' }
-.main-content.fwrap
-  .article.clearfix
-    form#login(
-      method='post'
-    )
-      h1
-        span.heading-lead
-        #{heading}
-      if ll_exception === 'no user' || ll_exception === 'wrong password'
-        div(class='msg ' + (msg.type || 'error'))
-          p #{msg.msg}
-            if ll_exception === 'no user'
-              &nbsp;
-              a(href=('/register' + (uid ? '?uid=' + uid : '')),
-              title='点此马上免费注册') 现在注册吗?
-      p
-        label.placeholder(for='uid', style=(uid && 'display:none')) 登录名或注册邮箱
-        input.text(tabindex='1', name='uid', id='uid', value=locals.uid, autofocus=uname_autofocus) 
-        if ll_exception.indexOf('uid') > -1
-          <span class="msg msg-#{msg.type}">#{msg.msg}</span>
-      p
-        label.placeholder(for='password') 密码
-        input.text(tabindex='1', type='password', name='password', autofocus=pwd_autofocus, id='password') 
-        if ll_exception === 'wrong password'
-          a.btn-act.btn-act-orange(href='/forget-password', tabindex='1')
-            span.i 忘记密码了吗?
-        else if ll_exception.indexOf('password') > -1
-          <span class="msg msg-#{msg.type}">#{msg.msg}</span>
-      p
-        if locals.pre
-          input(type='hidden', name='pre', value=pre);
-        input(type='hidden', name='_csrf', value=ck);
-        button.btn-submit(tabindex='2', type='submit')
-          span.i 登录
-        input.checkbox(tabindex='1', type='checkbox', checked=1, name='rem', id='rem', value='1')
-        label(for='rem') 自动登录 
-      p
-        a(href=('/register' + (uid && (ll_exception === 'no user') ? '?uid=' + uid : ''))) 现在注册
-    script
-      seajs.use('account', function(mod) {
-        mod.init('login');
-      });
-  .supple
+extends ../base 
+
+block body
+  heading = locals.uname ? '欢迎回来，' + uname :  '登录' + SITE_NAME 
+  pwd_autofocus = (['wrong password', 'password required'].indexOf(ll_exception) != -1)
+  uname_autofocus = !pwd_autofocus
+  if ll_exception && !msg
+    msg = { type: 'error', msg: '登录失败，请重试' }
+
+  .main-content.fwrap
+    .article.clearfix
+      form#login(
+        method='post'
+      )
+        h1
+          span.heading-lead
+          #{heading}
+        if ll_exception === 'no user' || ll_exception === 'wrong password'
+          div(class='msg ' + (msg.type || 'error'))
+            p #{msg.msg}
+              if ll_exception === 'no user'
+                &nbsp;
+                a(href=('/register' + (uid ? '?uid=' + uid : '')),
+                title='点此马上免费注册') 现在注册吗?
+        p
+          label.placeholder(for='uid', style=(uid && 'display:none')) 登录名或注册邮箱
+          input.text(tabindex='1', name='uid', id='uid', value=locals.uid, autofocus=uname_autofocus) 
+          if ll_exception.indexOf('uid') > -1
+            <span class="msg msg-#{msg.type}">#{msg.msg}</span>
+        p
+          label.placeholder(for='password') 密码
+          input.text(tabindex='1', type='password', name='password', autofocus=pwd_autofocus, id='password') 
+          if ll_exception === 'wrong password'
+            a.btn-act.btn-act-orange(href='/forget-password', tabindex='1')
+              span.i 忘记密码了吗?
+          else if ll_exception.indexOf('password') > -1
+            <span class="msg msg-#{msg.type}">#{msg.msg}</span>
+        p
+          if locals.pre
+            input(type='hidden', name='pre', value=pre);
+          input(type='hidden', name='_csrf', value=ck);
+          button.btn-submit(tabindex='2', type='submit')
+            span.i 登录
+          input.checkbox(tabindex='1', type='checkbox', checked=1, name='rem', id='rem', value='1')
+          label(for='rem') 自动登录 
+        p
+          a(href=('/register' + (uid && (ll_exception === 'no user') ? '?uid=' + uid : ''))) 现在注册
+      script
+        seajs.use('account', function(mod) {
+          mod.init('login');
+        });
+    .supple

@@ -74,10 +74,5 @@ module.exports = {
   // do something after configurtion read,
   // and before app boot.
   after_boot: function(app, express) {
-    //app.error(function(err, req, res, next) {
-      //if (err instanceof Error) {
-        //res.render('500');
-      //}
-    //});
   }
 };
