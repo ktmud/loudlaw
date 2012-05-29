@@ -1,3 +1,5 @@
+extends base
+
 include ../utils/pager.jade
 
 title = '标签索引 - 法律文库'
@@ -21,58 +23,60 @@ mixin alpha_tags(az, entries, showEdit)
           title='#{item_name} (#{item_id})'
           ) #{trunc(item_name, 14)} (#{trunc(item_id, 22)})
 
-style
-  .user-actions { text-align: right; }
-#main-body.fwrap
+block toc
   #page-toc.toc
       #toc-toggler.toggler(title='展开/收起目录')
       .contents
         p.oneline
           each letter, i in keys 
             a(href='#tag_' + letter) #{letter}
-  .article
-    h1 标签索引 - 法律文库
-    .article-body
-      #az.clearfix
-        each letter in keys 
-          mixin alpha_tags(letter, data[letter], action === 'manage')
-      mixin pager()
-  .aside
-    if locals.userActions && userActions.length
-      .toolkit-box.user-actions.mod
-        each action in userActions
-          a(class='btn-act ' + (action.class ? 'btn-act-' + action.class : ''),
-            id='wk-act-#{action.name}',
-            href=(action.url === '' ? baseUrl : (baseUrl + '/' + action.url)),
-            title=action.desc,
-            data-param=action.params
-          )
-            span.i
-              #{action.text}
-          span.pipe
-script
-  seajs.use('library', function(mod) {
-    mod({ toc: true });
-    var node_main = $('#main-body');
-    var node_az = $('#az');
 
-    function az_fit() {
-      var boxsize = node_main.width();
-      var n = 3;
-      if (boxsize > 1152) {
-      } else if (boxsize > 540) {
-        n = 2;
-      } else {
-        return;
-      }
-      node_az.css('visibility', 'hidden').children().each(function(i, item) {
-        if (i % n === 0) {
-          $(item).css('clear', 'left');
+block article
+  style
+    .user-actions { text-align: right; }
+  h1 标签索引 - 法律文库
+  .article-body
+    #az.clearfix
+      each letter in keys 
+        mixin alpha_tags(letter, data[letter], action === 'manage')
+    mixin pager()
+
+block aside
+  if locals.userActions && userActions.length
+    .toolkit-box.user-actions.mod
+      each action in userActions
+        a(class='btn-act ' + (action.class ? 'btn-act-' + action.class : ''),
+          id='wk-act-#{action.name}',
+          href=(action.url === '' ? baseUrl : (baseUrl + '/' + action.url)),
+          title=action.desc,
+          data-param=action.params
+        )
+          span.i
+            #{action.text}
+        span.pipe
+  script
+    seajs.use('library', function(mod) {
+      mod({ toc: true });
+      var node_main = $('#main-body');
+      var node_az = $('#az');
+
+      function az_fit() {
+        var boxsize = node_main.width();
+        var n = 3;
+        if (boxsize > 1152) {
+        } else if (boxsize > 540) {
+          n = 2;
         } else {
-          $(item).css('clear', 'none');
+          return;
         }
-      }).end().css('visibility', 'visible');
-    }
-    $(window).on('resize', az_fit);
-    az_fit();
-  });
+        node_az.css('visibility', 'hidden').children().each(function(i, item) {
+          if (i % n === 0) {
+            $(item).css('clear', 'left');
+          } else {
+            $(item).css('clear', 'none');
+          }
+        }).end().css('visibility', 'visible');
+      }
+      $(window).on('resize', az_fit);
+      az_fit();
+    });

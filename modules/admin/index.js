@@ -91,12 +91,13 @@ function init(central, app) {
     next();
   });
 
-  app.dynamicHelpers({
-    headerMenu: function(req, res) {
-      var u = req.user;
-      if (!u) return;
-      if (u.isAdmin) return adminMenus;
-      if (u.isEditor) return editorMenus;
+  app.locals.use(function(req, res) {
+    var u = req.user;
+    if (!u) return;
+    if (u.isAdmin) {
+      res.locals.headerMenu = adminMenus;
+    } else if (u.isEditor) {
+      res.locals.headerMenu = editorMenus;
     }
   });
 

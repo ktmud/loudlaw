@@ -1,0 +1,25 @@
+!!!
+//if IE 8
+  <html class="ie ie8">
+//if IE 7
+  <html class="ie ieold ie7">
+//if lt IE 7
+  <html class="ie ieold ie6">
+<head>
+block head
+  include _blocks/head 
+</head>
+body(class=locals.bodyClass, id=locals.bodyId)
+  block header
+    include _blocks/header 
+  block body
+    #main-body.fwrap
+      block main
+        block toc
+        #article.article
+          block article
+        #sidebar.aside.aside-left
+          block aside
+  block footer
+    include _blocks/footer 
+</html>
