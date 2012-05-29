@@ -24,7 +24,7 @@ function bootServer(hostname, port, app, cb) {
   var conf = central.conf;
   var _dir = __dirname + '/servers/' + hostname;
   var serverConf = require(_dir);
-  var server = express.createServer();
+  var server = express();
   var cb;
   var routes;
   try {
@@ -109,9 +109,26 @@ function bootApp(app, next) {
   app.use(app.router);
 
   if (app.hostname === 'www') {
-    app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
+    app.engine('less', function(path, options, fn) {
+      fs.readFile(path, 'utf8', function(err, str) {
+        if (err) return fn(err);
+
+        new(less.Parser)({
+            paths: [require('path').dirname(path)],
+            optimization: 0
+        }).parse(str, function(err, tree) {
+            if (err) return fn(err);
+            try {
+              css = tree.toCSS();
+              fn(null, css);
+            } catch (e) {
+              fn(e);
+            }
+        });
+      });
+    });
     app.use(autostatic.middleware());
-    app.use(express.static(__dirname + '/public', conf.static_conf));
+    app.use(express.static(__dirname + '/static', conf.static_conf));
   }
 
   app.use(central.reqbase.errorHandler({ dump: conf.debug }));
