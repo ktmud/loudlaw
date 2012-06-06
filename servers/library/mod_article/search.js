@@ -1,3 +1,5 @@
+var markdown = require(central.cwd + '/utils/markdown');
+
 module.exports = function(central, app, dataset) {
   var Pager = central.lib.Pager;
 
@@ -20,11 +22,27 @@ module.exports = function(central, app, dataset) {
     dataset.fetch(['search', 'all_fields', keyword, sort, page, perpage], function(err, results) {
       res.ll_exception = (err && err.reason) || (!results && 'unknown');
       results = results || {};
+
+      var list = results.list;
+      if (list) {
+        var item;
+        var strip_html = central.helpers.strip;
+        //try {
+          for (var i in list) {
+            item = list[i];
+            if (!item.fields) continue;
+            item.fields.content = strip_html(item.fields.content, true);
+          }
+        //} catch (e) {}
+      }
       res.ll_write('library/search/results', {
         pagelet: {
           id: 'results'
         },
         pager: new Pager(req.originalUrl, page, perpage, results.total, false),
+        q: keyword,
+        sort: sort,
+        perpage: perpage,
         data: results
       });
       next();

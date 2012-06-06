@@ -1,14 +1,32 @@
+mixin summarize(content, q)
+  if !content || !q
+    return content || ''
+  content = highlight(content, q)
+  idx = content.indexOf('<span class="h">')
+  start = Math.max(idx - 10, 0)
+  end = start + 200
+  - if (start < 5) start = 0
+  - var len = content.length;
+  content = (start ? '...' : '') + content.slice(start, end)
+  - if (len > end) content += '...'
+  !{content}
+
 if data && data.total
   ol.search-results
     each item in data.list
-      - fields = item.fields
-      - cur_score = Math.round(item.score * 4)
+      fields = item.fields
+      cur_score = Math.round(item.score * 4)
       - if (cur_score > 10) cur_score = 10
       li(class='score-' + cur_score)
-        a(href='/article/' + encodeURIComponent(fields.sid) + '?q=' + (data.keyword || keyword)) #{fields.title}
+        h4.title
+          a(href='/article/' + encodeURIComponent(fields.sid) + '?q=' + (data.keyword || keyword))
+            !{highlight(fields.title, q)}
+        p.summary
+          mixin summarize(fields.content, q)
   include ../../utils/pager.jade
   if locals.pager
     .hr-inset2
     mixin pager()
 else
   p.noresult 找不到相关结果。
+
