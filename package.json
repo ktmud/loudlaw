@@ -37,7 +37,7 @@
   "engines": {
     "node" : ">=0.6.0"
   },
-  "subdomain": "fa",
+  "subdomain": "kanfa",
   "scripts": {
     "prepublish" : "npm prune",
     "test": "make test",
