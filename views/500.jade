@@ -1,13 +1,17 @@
-style
-  pre {
-  }
-  pre.stack {
-    background: #000; color: green; padding: 15px 20px 12px; font-family: 'courier new', consolas, simsun;
-    border-radius: 4px;
-  }
+extends base
+
 msg = msg && msg.msg || '我们的程序好像遇到一点问题'
 timestamp = central.utils.timestamp()
-#main-body.fwrap
+
+block main
+  style
+    pre {
+    }
+    pre.stack {
+      background: #000; color: green; padding: 15px 20px 12px; font-family: 'courier new', consolas, simsun;
+      border-radius: 4px;
+    }
+
   div.box-notice
     form(action="#{SITE_ROOT}/misc/email/500", method='post')
       h2 500 服务器错误 
