@@ -11,7 +11,7 @@ test:
 	@echo "\n"
 
 tail:
-	@tail -f $(LOG_FILE)
+	@tail -n 100 -f $(LOG_FILE)
 
 vps product:
 	@MOCHA_ENV=$@ $(MAKE) test

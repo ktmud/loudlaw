@@ -1,9 +1,9 @@
 extends base
 
-msg = msg && msg.msg || '我们的程序好像遇到一点问题'
-timestamp = central.utils.timestamp()
-
 block main
+  msg = msg && msg.msg || '我们的程序好像遇到一点问题'
+  timestamp = central.utils.timestamp()
+
   style
     pre {
     }
