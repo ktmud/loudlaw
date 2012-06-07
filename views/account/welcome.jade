@@ -1,8 +1,13 @@
-title = '欢迎加入' + SITE_NAME
-div.abscenter.box-notice
-  h2 亲爱的 #{uname}, #{title} 
-  p 您已经注册成功了的说
-  p 不过现在本站还什么功能都没有，您只是抢了个用户名而已
-  p 欢迎过段时间再回来看看。
-  p.boxft
-    a(href='/') &laquo; go home
+extends ../base
+
+block title
+  欢迎加入#{SITE_NAME}
+
+block body
+  div.abscenter.box-notice
+    h2 亲爱的 #{uname}, #{title} 
+    p 您已经注册成功了的说
+    p 不过现在本站还什么功能都没有，您只是抢了个用户名而已
+    p 欢迎过段时间再回来看看。
+    p.boxft
+      a(href='/') &laquo; go home
