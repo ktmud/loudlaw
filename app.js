@@ -92,15 +92,14 @@ function bootApp(app, next) {
   app.mount = central.modules.__proto__.mount;
 
   app.use(express.methodOverride());
-  app.use(express.bodyParser());
   app.use(express.cookieParser(central.conf.salt));
-
   app.use(express.cookieSession({
     cookie: { domain: '.' + central.rootDomain },
     store: central.sessionStore
   }));
-
+  app.use(express.bodyParser());
   app.use(express.csrf());
+
   app.use(passport.initialize());
   app.use(passport.session());
 
