@@ -1,3 +1,6 @@
+## 0.2.3
+  * [+] upgrade to Express 3.0
+
 ## 0.2.1 
   * [+] add test cases, using mocha
 
