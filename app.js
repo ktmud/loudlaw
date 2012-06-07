@@ -92,8 +92,9 @@ function bootApp(app, next) {
   app.mount = central.modules.__proto__.mount;
 
   app.use(express.methodOverride());
-  app.use(express.cookieParser(central.conf.salt));
+  app.use(express.cookieParser());
   app.use(express.cookieSession({
+    secret: central.conf.salt,
     cookie: { domain: '.' + central.rootDomain },
     store: central.sessionStore
   }));
