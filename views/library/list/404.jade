@@ -1,8 +1,12 @@
+extend ../../base
+
 title = '内容不存在 | ' + SITE_NAME
-.abscenter.box-notice.content
-  h1 404 找不到
-  p 暂时无法提供你想要的内容
-  p 可能是：
-  ul
-   li 您输入的筛选参数已不再适用
-   li 此页面被移动到了其他地址
+
+block body
+  .abscenter.box-notice.content
+    h1 404 找不到
+    p 暂时无法提供你想要的内容
+    p 可能是：
+    ul
+    li 您输入的筛选参数已不再适用
+    li 此页面被移动到了其他地址

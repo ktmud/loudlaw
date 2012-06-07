@@ -1,5 +1,9 @@
-title = '标签: ' + title + ' - 法律文库 | ' + SITE_NAME
-#main-body.fwrap
+extend ../../base
+
+block title
+  标签: #{title} #{title_suffix}
+
+block main
   .article
     h1 标签: #{data.title}
     .article-body
