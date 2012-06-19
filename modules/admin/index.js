@@ -101,6 +101,7 @@ function init(central, app) {
     }
   });
 
+  debugger
   ['articles', 'tags', 'misc'].forEach(function(mod) {
     require('./' + mod).call(this, central, app);
   });

@@ -1,26 +1,29 @@
-title = '关于 | ' + SITE_NAME
-timestamp = central.utils.timestamp()
-style
-  .tip { font-size: 0.85em; }
-div.abscenter.box-notice
-  h1 如何联系？
-  form(method='post', action="/misc/email/contact")
-    p 
-    | 您可以直接在此留言或直接发送邮件至<a href="mailto:man@dakanfa.com">man#dakanfa.com</a>：
-    p
-    | 可接受的话题包括但不限于合作、捐赠、贡献内容、网站使用帮助等。
-    p
-      textarea.text(name="comments", autofocus, tabindex="1", cols="40", rows="5")
-    p
-      input(type="hidden", name="_csrf", value=ck)
-      input(type="hidden", name="timestamp", value=timestamp)
-      button#btn-go.btn-submit(type="submit", tabindex="1")
-        span.i 提交
-      &nbsp;
-      span.tip 请不要忘了在留言中提及您的联系方式
-    p
-    | 您也可以通过页脚的社交网站链接找到我们。
-    p
-    | 此外，我们还有一个 QQ 群：5940933 。
-    p.boxft
-      a(href='javascript:history.go(-1);') &laquo; Go back
+extend ../base
+
+block main
+  title = '关于 | ' + SITE_NAME
+  timestamp = central.utils.timestamp()
+  style
+    .tip { font-size: 0.85em; }
+  div.abscenter.box-notice
+    h1 如何联系？
+    form(method='post', action="/misc/email/contact")
+      p 
+      | 您可以直接在此留言或直接发送邮件至<a href="mailto:man@dakanfa.com">man#dakanfa.com</a>：
+      p
+      | 可接受的话题包括但不限于合作、捐赠、贡献内容、网站使用帮助等。
+      p
+        textarea.text(name="comments", autofocus, tabindex="1", cols="40", rows="5")
+      p
+        input(type="hidden", name="_csrf", value=ck)
+        input(type="hidden", name="timestamp", value=timestamp)
+        button#btn-go.btn-submit(type="submit", tabindex="1")
+          span.i 提交
+        &nbsp;
+        span.tip 请不要忘了在留言中提及您的联系方式
+      p
+      | 您也可以通过页脚的社交网站链接找到我们。
+      p
+      | 此外，我们还有一个 QQ 群：5940933 。
+      p.boxft
+        a(href='javascript:history.go(-1);') &laquo; Go back
