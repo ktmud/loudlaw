@@ -1,6 +1,6 @@
 {
   "name": "idufa",
-  "version": "0.2.3-3",
+  "version": "0.2.4",
   "homepage": "http:/www.kanfa.org",
   "description": "The website for Chinese people to learn laws.",
   "private": true,
@@ -21,7 +21,7 @@
     "passport-twitter": ">= 0.1.0",
     "bcrypt": ">= 0.4.0",
     "less": ">= 0.0.1",
-    "jade": ">= 0.2.0",
+    "jade": ">= 0.27.7",
     "discount": ">= 0.2.3",
     "cradle": ">= 0.6.3",
     "memcached": ">= 0.0.1",
@@ -36,7 +36,7 @@
     "zombie": "*"
   },
   "engines": {
-    "node" : ">=0.6.0"
+    "node" : ">=0.8.14"
   },
   "subdomain": "kanfa",
   "scripts": {
