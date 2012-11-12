@@ -1,10 +1,8 @@
-extends base
+extends ../base
 
 include ../utils/pager.jade
 
 title = '标签索引 - 法律文库'
-keys = Object.keys(data).sort();
-len = keys.length - 1
 
 mixin alpha_tags(az, entries, showEdit)
   .az-block(id='tag_' + az)
@@ -28,6 +26,8 @@ block toc
       #toc-toggler.toggler(title='展开/收起目录')
       .contents
         p.oneline
+          keys = Object.keys(data).sort();
+          len = keys.length - 1
           each letter, i in keys 
             a(href='#tag_' + letter) #{letter}
 

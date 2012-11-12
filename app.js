@@ -1,14 +1,14 @@
-if (!module.parent) process.on('uncaughtException', function(err, next) {
-  var msg;
-  if (err instanceof Error) {
-    msg = '[err]: ' + err + '\n' + err.stack;
-  } else {
-    msg = (err.name || err.reason || err.message);
-    console.error(err);
-  }
-  console.error(msg);
-  next();
-});
+//if (!module.parent) process.on('uncaughtException', function(err, next) {
+  //var msg;
+  //if (err instanceof Error) {
+    //msg = '[err]: ' + err + '\n' + err.stack;
+  //} else {
+    //msg = (err.name || err.reason || err.message);
+    //console.error(err);
+  //}
+  //console.error(msg);
+  //next && next();
+//});
 
 var fs = require('fs');
 var central = require(__dirname + '/lib/central.js');
@@ -105,6 +105,8 @@ function bootApp(app, next) {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  central.reqbase.addHelpers(app);
+
   app.use(app.router);
 
   if (app.hostname === 'www') {
@@ -136,8 +138,6 @@ function bootApp(app, next) {
 
   // reference to the app running
   central.app = app;
-
-  central.reqbase.addHelpers(app);
 
   next && next(app);
 }

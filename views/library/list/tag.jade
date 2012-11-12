@@ -24,8 +24,7 @@ block main
   .aside
     if locals.viewInfo && locals.viewInfo.desc
       div#tag-info.box-info
-        p
-          #{viewInfo.desc}
+        p #{viewInfo.desc}
         if viewInfo.ref
           p.boxft
             a(href=viewInfo.ref, target='_blank') 更多

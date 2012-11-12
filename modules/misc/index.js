@@ -1,4 +1,4 @@
-var static_send = require('express').static.send;
+//var static_send = require('express').static.send;
 
 module.exports = {
   init: function(central, app, mod) {
@@ -69,10 +69,10 @@ module.exports = {
       getOnly: true,
       path: '/favicon.ico'
     };
-    app.all('/favicon.ico', function(req, res, next) {
-      req.cache_key = null;
-      res._headers['content-type'] = 'image/x-icon';
-      static_send(req, res, next, fav_opt);
-    });
+    //app.all('/favicon.ico', function(req, res, next) {
+      //req.cache_key = null;
+      //res._headers['content-type'] = 'image/x-icon';
+      //static_send(req, res, next, fav_opt);
+    //});
   }
 };
