@@ -1,14 +1,14 @@
-if (!module.parent) process.on('uncaughtException', function(err, next) {
-  var msg;
-  if (err instanceof Error) {
-    msg = '[err]: ' + err + '\n' + err.stack;
-  } else {
-    msg = (err.name || err.reason || err.message);
-    console.error(err);
-  }
-  console.error(msg);
-  next();
-});
+//if (!module.parent) process.on('uncaughtException', function(err, next) {
+  //var msg;
+  //if (err instanceof Error) {
+    //msg = '[err]: ' + err + '\n' + err.stack;
+  //} else {
+    //msg = (err.name || err.reason || err.message);
+    //console.error(err);
+  //}
+  //console.error(msg);
+  //next && next();
+//});
 
 var cluster = require('cluster');
 var util = require('util');

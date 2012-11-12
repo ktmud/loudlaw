@@ -85,6 +85,7 @@ function bootApp(app, next) {
   app.set('environment', conf.NODE_ENV);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.enable('trust proxy')
   app.log = central.utils.applog;
   app.addModule = central.addModule;
   app.extendModule = central.extendModule;

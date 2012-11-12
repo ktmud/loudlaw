@@ -91,7 +91,7 @@ function init(central, app) {
     next();
   });
 
-  app.locals.use(function(req, res) {
+  app.locals(function(req, res) {
     var u = req.user;
     if (!u) return;
     if (u.isAdmin) {

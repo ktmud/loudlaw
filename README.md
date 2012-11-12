@@ -1,4 +1,4 @@
-# [大声看法](http://www.dakanfa.com) 网站源码
+# [大声看法](http://www.kanfa.org) 网站源码
 
 『大声看法』希望能成为与互联网关系最亲切的法律类网站。
 
@@ -24,4 +24,4 @@ node.js + express + couchdb + couchdb-lucene + nginx proxy + seajs + less + resp
 
 ## 联系····
 
-想要参与本项目的同学请联系 [man#dakanfa.com](mailto:man@dakanfa.com) 。当然，你悄悄 fork 也没人拦着你。
+想要参与本项目的同学请联系 [man#kanfa.org](mailto:man@kanfa.org) 。当然，你悄悄 fork 也没人拦着你。

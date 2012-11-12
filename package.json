@@ -22,7 +22,7 @@
     "bcrypt": ">= 0.4.0",
     "less": ">= 0.0.1",
     "jade": ">= 0.2.0",
-    "discount": ">= 0.1.0",
+    "discount": ">= 0.2.3",
     "cradle": ">= 0.6.3",
     "memcached": ">= 0.0.1",
     "underscore": ">= 1.2.0",
