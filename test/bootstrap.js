@@ -1,7 +1,6 @@
 process.env.NODE_ENV = process.env.MOCHA_ENV || 'test';
 
 var util = require('util');
-var chai_jquery = require('chai-jquery');
 var zombie = require('zombie');
 
 var app = require('../app');
@@ -19,4 +18,3 @@ var b = exports.browser;
 b.loadCSS = false;
 b.waitFar = 100;
 b.site = central.conf.site_root;
-
