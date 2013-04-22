@@ -1,6 +1,12 @@
-var dataset = central.datasets.article;
+var dataset = central.datasets.articles;
 var toPinyin = central.lib.pinyin.toPinyin;
 var pandoc = central.lib.pandoc;
+
+var reg_badchar = /[^\w]+/g;
+// user actions
+function slugfy(str) {
+  return toPinyin(str, '').replace(reg_badchar, '-').toLowerCase();
+}
 
 module.exports = function handle_edit(req, res, next) {
   res.tmpl = 'library/single/mods/edit';
@@ -50,7 +56,7 @@ module.exports = function handle_edit(req, res, next) {
 
       doc.deleted = true;
       dataset.save(['id', doc.sid], doc, function(err, doc) {
-        res.redirect('/library' + cate_url);
+        res.redirect('/' + cate_url);
         central.emit('article-cate-update', doc.cate);
         central.emit('article-tag-update', doc.tags);
         dataset.unstash(['id', doc.sid]);
@@ -134,7 +140,7 @@ module.exports = function handle_edit(req, res, next) {
         }
       }
       central.emit('article-update', sid);
-      res.redirect('/library/article/' + encodeURIComponent(doc.sid));
+      res.redirect('/article/' + encodeURIComponent(doc.sid));
       //res.article_doc = doc;
       //return next();
     });

@@ -1,2 +1,2 @@
 #!/bin/bash
-forever --watch app.js --debug 
+supervisor -w 'lib,servers,modules,datasets,models,utils,app.js,cluster.js,node_modules,conf,test' -- --debug server.js 

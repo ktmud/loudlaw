@@ -34,6 +34,7 @@ var fun_decree_date = function(str, date, whole) {
   return '<li class="decree-date">' + date_str + '</li>';
 };
 var reg_empty_dt = /<dt>\s*<\/dt>/g;
+var reg_cls = /<p>\%(.*?)\%<\/p>\s*<blockquote>([\s\S]*?)<\/blockquote>/g;
 
 marked.setOptions({
   gfm: true,
@@ -42,6 +43,7 @@ marked.setOptions({
 module.exports = function(text) {
   text = marked.parse(text);
   text = text.replace('<p>No. ', '<p class="decree-number">');
+  text = text.replace(reg_cls, '<div class="$1">$2</div>');
   text = text.replace('<p>@', '<p class="decree-receiver">');
   text = text.replace('<ul>\n<li>from: ', '<ul class="decree-meta"><li class="decree-commander">');
   text = text.replace(reg_decree_date, fun_decree_date);

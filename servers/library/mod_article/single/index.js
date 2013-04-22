@@ -1,6 +1,5 @@
 var mc = central.memcache;
 var pandoc = central.lib.pandoc;
-var reg_badchar = /[^\w]+/g;
 var Menu = central.lib.Menu;
 
 var _menu = new Menu({
@@ -26,11 +25,6 @@ var actions = {
   'comment': require('./comment')
 };
 
-
-// user actions
-function slugfy(str) {
-  return toPinyin(str, '').replace(reg_badchar, '-').toLowerCase();
-}
 
 module.exports = function(central, app, dataset) {
 

@@ -6,7 +6,7 @@ ifeq ($(NODE_ENV), vps)
 endif
 
 start:
-	@./letsgo
+	@DEBUG="* -connect:* -send -express:*" && ./letsgo
 
 test:
 	clear
