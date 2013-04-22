@@ -5,9 +5,12 @@ ifeq ($(NODE_ENV), vps)
 	LOG_FILE = /srv/log/nodejs/loudlaw.log
 endif
 
+start:
+	@./letsgo
+
 test:
 	clear
-	./node_modules/mocha/bin/mocha --reporter $(REPORTER)
+	@./node_modules/mocha/bin/mocha --reporter $(REPORTER)
 	@echo "\n"
 
 tail:

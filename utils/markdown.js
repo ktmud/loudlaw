@@ -1,7 +1,7 @@
 /**
 * a custom markdown parser for output contents
 */
-var md = require('discount');
+var marked = require('marked');
 var chinese_numbers = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 var reg_decree_date = /<li>date: (.+)<\/li>/;
 var fun_decree_date = function(str, date, whole) {
@@ -35,8 +35,12 @@ var fun_decree_date = function(str, date, whole) {
 };
 var reg_empty_dt = /<dt>\s*<\/dt>/g;
 
+marked.setOptions({
+  gfm: true,
+});
+
 module.exports = function(text) {
-  text = md.parse(text);
+  text = marked.parse(text);
   text = text.replace('<p>No. ', '<p class="decree-number">');
   text = text.replace('<p>@', '<p class="decree-receiver">');
   text = text.replace('<ul>\n<li>from: ', '<ul class="decree-meta"><li class="decree-commander">');

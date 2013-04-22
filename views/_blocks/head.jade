@@ -4,8 +4,7 @@ title
   block title
     !{locals.title ? (locals.title + (locals.title_suffix ? locals.title_suffix : '')) : SITE_NAME}
 meta(id="meta-viewport", name="viewport", content="width=device-width, initial-scale=1")
-script
-  !{istatic('js/lib/iOS-Orientationchange-fix.js')}
+script(src=static('js/lib/iOS-Orientationchange-fix.js', 'js/seajs-mini.js'))
 link(rel='stylesheet', href=static('/css/base.css'))
 link(rel='stylesheet', href=static('/css/print.css'), media='print')
 if locals.css 
@@ -13,7 +12,6 @@ if locals.css
   for item in css
     link(rel='stylesheet', href=static('/css/' + item + '.css'))
 script
-  !{istatic('js/seajs-mini.js')}
   seajs.config({
     alias: !{seajs_alias()}
   });
