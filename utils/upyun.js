@@ -92,12 +92,7 @@ UPYun.prototype.getWritedFileInfo = function(key){
  * @param callback 回调函数
  */
 UPYun.prototype.getBucketUsage = function(callback){
-    this.getFolderUsage('/', function(err, res){
-        if (!err)
-            callback(err, res.body);
-        else
-            callback(err);
-    });
+    this.getFolderUsage('/', callback);
 }
 
 /**
@@ -117,24 +112,26 @@ UPYun.prototype.getFolderUsage = function (path, callback){
 /**
  * 上传文件
  * @param file 文件路径（包含文件名）
- * @param data 文件内容 或 文件IO数据流
+ * @param data 文件内容
  * @param autoMkdir 是否自动创建父级目录
  * @param 回调函数
+ * @param opts 可选参数, opts.header可用于指定额外的http header
  */
-UPYun.prototype.writeFile = function (file, data, autoMkdir, callback){
+UPYun.prototype.writeFile = function (file, data, autoMkdir, callback, opts){
     _autoMkdir = autoMkdir;
+
     httpAction('PUT', file, data, null, function(err, res){
         if (!err)
             callback(err, res.body);
         else
             callback(err);
-    });
+    }, opts);
 }
 
 /**
 * 读取文件
 * @param file 文件路径（包含文件名）
-* @param output_file 可传递文件IO数据流（默认为 null，结果返回文件内容，如设置文件数据流，将返回 true or false）
+* @param output_file 输出文件的路径（默认为 null，结果返回文件内容，如设置output_file，将返回 true or false）
 * return 文件内容 或 null
 */
 UPYun.prototype.readFile = function (file, output_file, callback) {
@@ -167,12 +164,12 @@ UPYun.prototype.deleteFile = function (file, callback){
 */
 UPYun.prototype.mkDir = function (path, autoMkdir, callback) {
     _autoMkdir = autoMkdir;
-    httpAction('PUT', path, 'folder:true', null, function(err, res){
+    httpAction('PUT', path, null, null, function(err, res){
         if (!err)
             callback(err, res.body);
         else
             callback(err);
-    });
+    }, { header: { folder: true } });
 }
 
 /**
@@ -242,7 +239,7 @@ function sign(method, uri, date, length) {
     return 'UpYun ' + _username + ':' + md5(sign);
 }
 
-function httpAction(method, uri, data, outputFile, callback) {
+function httpAction(method, uri, data, outputFile, callback, opts) {
     callback = typeof callback == 'function' ? callback : function() {};
 
     _tmpInfo = {};
@@ -253,7 +250,7 @@ function httpAction(method, uri, data, outputFile, callback) {
         path: uri
     };
 
-    var length = data ? data.length : 0;
+    var length = data ? (Buffer.isBuffer(data) ? data.length : Buffer.byteLength(data)) : 0;
     var headers = {};
 
     headers['Expect'] = '';
@@ -269,6 +266,12 @@ function httpAction(method, uri, data, outputFile, callback) {
     _fileSecret = null;
 
     headers['Content-Length'] = length;
+
+    if (opts && opts.header) {
+        for (key in opts.header) {
+            headers[key] = opts.header[key];
+        }
+    }
 
     if ((method == 'PUT' || method == 'POST') && _autoMkdir == true) {
         headers.mkdir = 'true';
@@ -310,10 +313,18 @@ function httpAction(method, uri, data, outputFile, callback) {
                 })
             }
             else {
-                callback(null, {
-                    headers: res.headers,
-                    body: resData
-                });
+                if (res.statusCode >= 400 && res.statusCode < 600) {
+                    callback({
+                        statusCode: res.statusCode,
+                        message: resData
+                    });
+                }
+                else {
+                    callback(null, {
+                        headers: res.headers,
+                        body: resData
+                    });
+                }
             }
         });
     });
