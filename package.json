@@ -13,7 +13,7 @@
     "wrench": ">= 0.0.1",
     "express": ">= 3.0.0beta2",
     "istatic": ">= 0.0.8-1",
-    "autostatic": "~0.1.0",
+    "autostatic": "~0.1.1",
     "compress-buffer": ">= 0.1.0",
     "passport": ">= 0.1.10",
     "passport-twitter": ">= 0.1.0",
