@@ -13,7 +13,7 @@
     "wrench": ">= 0.0.1",
     "express": "~3.2.0",
     "express-istatic": "~0.0.9",
-    "autostatic": "~0.1.1",
+    "autostatic": "~0.1.1-2",
     "compress-buffer": "~1.2.0",
     "passport": "~0.1.10",
     "bcrypt": ">= 0.4.0",

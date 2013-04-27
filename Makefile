@@ -8,6 +8,9 @@ endif
 start:
 	@DEBUG="* -connect:* -send -express:*" && ./letsgo
 
+vps:
+	@export NODE_ENV=vps && DEBUG="* -connect:* -send -express:*" && ./letsgo
+
 test:
 	clear
 	@./node_modules/mocha/bin/mocha --reporter $(REPORTER)
@@ -15,9 +18,6 @@ test:
 
 tail:
 	@tail -n 100 -f $(LOG_FILE)
-
-vps product:
-	@MOCHA_ENV=$@ $(MAKE) test
 
 cov: lib-cov
 	@EXPRESS_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html

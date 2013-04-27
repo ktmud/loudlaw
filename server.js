@@ -44,7 +44,7 @@ function bootServer(hostname, port, app, cb) {
   if (port && !cb) {
     cb = function(server) {
       server.listen(port, '127.0.0.1');
-      server.log('info', 'listen'.yellow + ':' + ('' + port).yellow);
+      server.log('info', 'listen '.yellow + 'http://127.0.0.1:' + ('' + port).yellow);
     };
   }
 
