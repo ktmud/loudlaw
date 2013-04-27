@@ -28,5 +28,10 @@ block main
         input(type="hidden", name="timestamp", value=timestamp)
         button#btn-go.btn-submit(type="submit", tabindex="2")
           span.i 点此通知管理员
-      if locals.stack
+      if locals.err && err.extract
+        pre.stack
+          | File: #{err.filename}, line #{err.line}, column #{err.column}
+          | =========================
+          | #{err.extract.join('\n')}
+      else if locals.stack
         pre.stack #{stack}

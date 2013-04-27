@@ -1,2 +1,2 @@
 #!/bin/bash
-supervisor -w 'lib,servers,modules,datasets,models,utils,app.js,cluster.js,node_modules,conf,test' -- --debug server.js 
+supervisor -w 'lib,servers,modules,datasets,models,utils,app.js,server,node_modules,conf,test' -- --debug server.js 

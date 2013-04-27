@@ -111,6 +111,7 @@ function bootApp(app, next) {
 
   if (app.hostname === 'www') {
     app.engine('less', function(path, options, fn) {
+      console.log(arguments);
       fs.readFile(path, 'utf8', function(err, str) {
         if (err) return fn(err);
 
