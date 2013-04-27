@@ -11,7 +11,7 @@ module.exports = {
     app.ll_all = {
       // dont't send header automatically
       need_wait: true,
-      css: 'library',
+      css: ['library'],
       bodyClass: 'page-library',
       sublogo: '<a href="/">法律文库</a>',
       title: '',
